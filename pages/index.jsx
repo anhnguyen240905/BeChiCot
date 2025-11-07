@@ -136,7 +136,7 @@ export default function BeChiCotMicrosite() {
         <img
           src="/sinhvien.png"
           alt="Sinh viên"
-          className="w-100 h-auto hover:scale-105 transition-transform duration-200"
+          className="w-[120%] h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
 
@@ -150,7 +150,7 @@ export default function BeChiCotMicrosite() {
         <img
           src="/nguoidilam.png"
           alt="Người đi làm"
-          className="w-100 h-auto hover:scale-105 transition-transform duration-200"
+          className="w-[120%] h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
     </div>
