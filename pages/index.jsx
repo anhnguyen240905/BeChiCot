@@ -125,13 +125,13 @@ export default function BeChiCotMicrosite() {
     />
 
     {/* Hai nút ảnh đều to và thẳng hàng */}
-    <div className="flex flex-col gap-2 md:gap-2 items-center justify-center mt-2">
+    <div className="flex flex-col gap-1 md:gap-2 items-center justify-center mt-2">
       <button
         onClick={() => {
           setRole("worker");
           setStep("pickTimetable");
         }}
-        className="w-full"
+        className="w-[45%] max-w-[250px]"
       >
         <img
           src="/sinhvien.png"
@@ -145,7 +145,7 @@ export default function BeChiCotMicrosite() {
           setRole("student");
           setStep("pickTimetable");
         }}
-        className="w-full"
+        className="w-[45%] max-w-[250px]"
       >
         <img
           src="/nguoidilam.png"
