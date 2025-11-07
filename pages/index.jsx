@@ -214,25 +214,23 @@ return (
         Be Chí Cốt — Microsite trải nghiệm
       </h1>
 
-        {step === 'chooseRole' && (
-          <div>
-            <p className="mb-4">Bạn là:</p>
-            <div className="flex gap-4">
-              <button
-                className="px-4 py-2 rounded bg-indigo-500 text-white"
-                onClick={() => chooseRole('pupil')}
-              >
-                Học sinh
-              </button>
-              <button
-                className="px-4 py-2 rounded bg-emerald-500 text-white"
-                onClick={() => chooseRole('student')}
-              >
-                Sinh viên
-              </button>
-            </div>
-          </div>
-        )}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+  <button onClick={() => chooseRole('pupil')} className="focus:outline-none hover:scale-105 transition-transform">
+    <img
+      src="/nguoidilam.png"
+      alt="Người đi làm"
+      className="w-56 h-auto rounded-xl shadow-lg hover:shadow-2xl"
+    />
+  </button>
+
+  <button onClick={() => chooseRole('student')} className="focus:outline-none hover:scale-105 transition-transform">
+    <img
+      src="/sinhvien.png"
+      alt="Sinh viên"
+      className="w-56 h-auto rounded-xl shadow-lg hover:shadow-2xl"
+    />
+  </button>
+</div>
 
         {step === 'pickTimetable' && (
           <div>
