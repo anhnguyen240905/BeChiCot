@@ -114,7 +114,10 @@ export default function BeChiCotMicrosite() {
       className="min-h-screen bg-cover bg-center relative text-gray-800"
       style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
     >
-
+<div className="absolute inset-0 bg-black/40" />
+      <div className="relative z-10 p-6 min-h-screen flex items-center justify-center">
+        <div className="max-w-4xl w-full bg-white/85 backdrop-blur-md rounded-2xl shadow-lg p-6">
+          
           {/* STEP 1: CHỌN VAI TRÒ */}
           {step === "chooseRole" && (
             <div className="flex flex-col items-center">
