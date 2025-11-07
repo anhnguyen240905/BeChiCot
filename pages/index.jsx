@@ -125,7 +125,7 @@ export default function BeChiCotMicrosite() {
     />
 
     {/* Hai nút ảnh đều to và thẳng hàng */}
-    <div className="flex flex-col gap-4 md:gap-8 items-center justify-center mt-2">
+    <div className="flex flex-col gap-4 md:gap-2 items-center justify-center mt-2">
       <button
         onClick={() => {
           setRole("worker");
@@ -136,7 +136,7 @@ export default function BeChiCotMicrosite() {
         <img
           src="/sinhvien.png"
           alt="Sinh viên"
-          className="w-full max-w-lg h-auto hover:scale-105 transition-transform duration-200"
+          className="w-full max-w-xl h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
 
@@ -150,7 +150,7 @@ export default function BeChiCotMicrosite() {
         <img
           src="/nguoidilam.png"
           alt="Người đi làm"
-          className="w-full max-w-lg h-auto hover:scale-105 transition-transform duration-200"
+          className="w-full max-w-xl h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
     </div>
