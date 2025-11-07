@@ -202,17 +202,37 @@ export default function BeChiCotMicrosite() {
     if (step === 'certificate') generateCertificate()
   }, [step])
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow p-6">
-        <h1 className="text-2xl font-bold mb-4">Be Chí Cốt — Microsite trải nghiệm</h1>
+return (
+  <div
+    className="min-h-screen bg-cover bg-center relative"
+    style={{ backgroundImage: "url('/bg.png')" }} // tên ảnh bạn upload trong /public
+  >
+    {/* Lớp overlay mờ giúp chữ dễ đọc */}
+    <div className="absolute inset-0 bg-black/40" />
+
+    {/* Nội dung microsite */}
+    <div className="relative z-10 p-6 min-h-screen flex items-center justify-center">
+      <div className="max-w-4xl mx-auto bg-white/85 backdrop-blur-md rounded-2xl shadow-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-center text-yellow-700 drop-shadow">
+          Be Chí Cốt — Microsite trải nghiệm
+        </h1>
 
         {step === 'chooseRole' && (
           <div>
             <p className="mb-4">Bạn là:</p>
             <div className="flex gap-4">
-              <button className="px-4 py-2 rounded bg-indigo-500 text-white" onClick={() => chooseRole('pupil')}>Học sinh</button>
-              <button className="px-4 py-2 rounded bg-emerald-500 text-white" onClick={() => chooseRole('student')}>Sinh viên</button>
+              <button
+                className="px-4 py-2 rounded bg-indigo-500 text-white"
+                onClick={() => chooseRole('pupil')}
+              >
+                Học sinh
+              </button>
+              <button
+                className="px-4 py-2 rounded bg-emerald-500 text-white"
+                onClick={() => chooseRole('student')}
+              >
+                Sinh viên
+              </button>
             </div>
           </div>
         )}
