@@ -121,11 +121,11 @@ export default function BeChiCotMicrosite() {
     <img
       src="/banla.png"
       alt="Bạn là"
-      className="w-[22rem] md:w-[26rem] mb-8"
+      className="w-[22rem] md:w-[26rem] mb-4"
     />
 
     {/* Hai nút ảnh đều to và thẳng hàng */}
-    <div className="flex flex-col gap-3 w-full max-w-md items-center">
+    <div className="flex flex-col gap-4 md:gap-8 items-center justify-center mt-2">
       <button
         onClick={() => {
           setRole("worker");
@@ -136,7 +136,7 @@ export default function BeChiCotMicrosite() {
         <img
           src="/sinhvien.png"
           alt="Sinh viên"
-          className="w-[120%] h-auto hover:scale-105 transition-transform duration-200"
+          className="w-[150%] h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
 
@@ -150,7 +150,7 @@ export default function BeChiCotMicrosite() {
         <img
           src="/nguoidilam.png"
           alt="Người đi làm"
-          className="w-[120%] h-auto hover:scale-105 transition-transform duration-200"
+          className="w-[150%] h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
     </div>
