@@ -341,8 +341,8 @@ return (
             </div>
           </div>
        )}
-      </div> {/* kết thúc nội dung chính */}
-    </div>   {/* kết thúc wrapper flex align */}
-  </div>     {/* kết thúc background tổng */}
+      </div> 
+    </div>   
+  </div>     
 )
 }
