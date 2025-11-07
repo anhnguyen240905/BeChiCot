@@ -125,7 +125,7 @@ export default function BeChiCotMicrosite() {
     />
 
     {/* Hai nút ảnh đều to và thẳng hàng */}
-    <div className="flex flex-col gap-6 w-full max-w-md items-center">
+    <div className="flex flex-col gap-3 w-full max-w-md items-center">
       <button
         onClick={() => {
           setRole("worker");
