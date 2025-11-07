@@ -160,7 +160,7 @@ export default function BeChiCotMicrosite() {
           {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
           {step === "pickTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-80 mb-4" /> {/* ô “Chọn lịch trình...” */}
+              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-150 mb-4" /> {/* ô “Chọn lịch trình...” */}
 
               <div className="flex flex-col md:flex-row gap-6">
                 {role === "student" && (
@@ -191,7 +191,7 @@ export default function BeChiCotMicrosite() {
           {/* STEP 3: GỢI Ý BE CHÍ CỐT */}
           {step === "suggestTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/goiy1.png" alt="Be gợi ý" className="w-80 mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
+              <img src="/goiy1.png" alt="Be gợi ý" className="w-150 mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
               <img src="/svtkbgoiy.jpg" alt="TKB gợi ý" className="w-[28rem] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
 
               <div className="flex gap-4">
