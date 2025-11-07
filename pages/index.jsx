@@ -134,9 +134,9 @@ export default function BeChiCotMicrosite() {
         className="w-full"
       >
         <img
-          src="/nguoidilam.png"
-          alt="Người đi làm"
-          className="w-full h-auto hover:scale-105 transition-transform duration-200"
+          src="/sinhvien.png"
+          alt="Sinh viên"
+          className="w-100 h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
 
@@ -148,9 +148,9 @@ export default function BeChiCotMicrosite() {
         className="w-full"
       >
         <img
-          src="/sinhvien.png"
-          alt="Sinh viên"
-          className="w-full h-auto hover:scale-105 transition-transform duration-200"
+          src="/nguoidilam.png"
+          alt="Người đi làm"
+          className="w-100 h-auto hover:scale-105 transition-transform duration-200"
         />
       </button>
     </div>
