@@ -166,10 +166,10 @@ export default function BeChiCotMicrosite() {
                 {role === "student" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-40 rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
+                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-42 rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
                     </button>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-40 rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
+                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-42 rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
                     </button>
                   </>
                 )}
@@ -177,10 +177,10 @@ export default function BeChiCotMicrosite() {
                 {role === "worker" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-40 rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
+                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-42 rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
                     </button>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-40 rounded-lg hover:scale-105 transition" />
+                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-42 rounded-lg hover:scale-105 transition" />
                     </button>
                   </>
                 )}
