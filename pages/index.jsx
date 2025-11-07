@@ -115,29 +115,47 @@ export default function BeChiCotMicrosite() {
   style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
 >
           
-          {/* STEP 1: CHỌN VAI TRÒ */}
-          {step === "chooseRole" && (
-            <div className="flex flex-col items-center">
-              <img src="/banla.png" alt="Bạn là" className="w-80 mb-4" /> {/* ảnh tiêu đề “Bạn là” */}
+{step === "chooseRole" && (
+  <div className="flex flex-col items-center justify-center min-h-screen text-center">
+    {/* Ảnh tiêu đề “Bạn là” */}
+    <img
+      src="/banla.png"
+      alt="Bạn là"
+      className="w-[22rem] md:w-[26rem] mb-8"
+    />
 
-              <div className="flex flex-col md:flex-row gap-6 items-center">
-                <button onClick={() => { setRole("worker"); setStep("pickTimetable"); }}>
-                  <img
-                    src="/nguoidilam.png"
-                    alt="Người đi làm"
-                    className="w-80 hover:scale-110 transition-transform"
-                  /> {/* nút ảnh “Người đi làm” */}
-                </button>
-                <button onClick={() => { setRole("student"); setStep("pickTimetable"); }}>
-                  <img
-                    src="/sinhvien.png"
-                    alt="Sinh viên"
-                    className="w-80 hover:scale-110 transition-transform"
-                  /> {/* nút ảnh “Sinh viên” */}
-                </button>
-              </div>
-            </div>
-          )}
+    {/* Hai nút ảnh đều to và thẳng hàng */}
+    <div className="flex flex-col gap-6 w-full max-w-md items-center">
+      <button
+        onClick={() => {
+          setRole("worker");
+          setStep("pickTimetable");
+        }}
+        className="w-full"
+      >
+        <img
+          src="/nguoidilam.png"
+          alt="Người đi làm"
+          className="w-full h-auto rounded-xl hover:scale-105 transition-transform duration-200 shadow-lg"
+        />
+      </button>
+
+      <button
+        onClick={() => {
+          setRole("student");
+          setStep("pickTimetable");
+        }}
+        className="w-full"
+      >
+        <img
+          src="/sinhvien.png"
+          alt="Sinh viên"
+          className="w-full h-auto rounded-xl hover:scale-105 transition-transform duration-200 shadow-lg"
+        />
+      </button>
+    </div>
+  </div>
+)}
 
           {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
           {step === "pickTimetable" && (
