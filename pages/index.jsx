@@ -131,7 +131,7 @@ export default function BeChiCotMicrosite() {
           setRole("worker");
           setStep("pickTimetable");
         }}
-        className="w-[115%] max-w-[250px]"
+        className="w-[150%] max-w-[250px]"
       >
         <img
           src="/sinhvien.png"
@@ -145,7 +145,7 @@ export default function BeChiCotMicrosite() {
           setRole("student");
           setStep("pickTimetable");
         }}
-        className="w-[115%] max-w-[250px]"
+        className="w-[150%] max-w-[250px]"
       >
         <img
           src="/nguoidilam.png"
