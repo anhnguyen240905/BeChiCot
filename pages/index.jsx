@@ -160,9 +160,9 @@ export default function BeChiCotMicrosite() {
           {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
           {step === "pickTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-120 mb-4" /> {/* ô “Chọn lịch trình...” */}
+              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-110 mb-4" /> {/* ô “Chọn lịch trình...” */}
 
-              <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2">
                 {role === "student" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
@@ -191,8 +191,8 @@ export default function BeChiCotMicrosite() {
           {/* STEP 3: GỢI Ý BE CHÍ CỐT */}
           {step === "suggestTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/goiy1.png" alt="Be gợi ý" className="w-120 mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
-              <img src="/svtkbgoiy.jpg" alt="TKB gợi ý" className="w-[28rem] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
+              <img src="/goiy1.png" alt="Be gợi ý" className="w-110 mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
+              <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[28rem] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
 
               <div className="flex gap-4">
                 <button
