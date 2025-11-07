@@ -322,7 +322,5 @@ export default function BeChiCotMicrosite() {
             </div>
           )}
         </div>
-      </div>
-    </div>
   );
 }
