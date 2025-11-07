@@ -160,7 +160,7 @@ export default function BeChiCotMicrosite() {
           {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
           {step === "pickTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-[400px] mb-4" /> {/* ô “Chọn lịch trình...” */}
+              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-[600px] mb-4" /> {/* ô “Chọn lịch trình...” */}
 
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2">
                 {role === "student" && (
