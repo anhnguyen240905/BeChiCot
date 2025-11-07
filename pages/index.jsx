@@ -160,16 +160,16 @@ export default function BeChiCotMicrosite() {
           {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
           {step === "pickTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-90 mb-4" /> {/* ô “Chọn lịch trình...” */}
+              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-[100px] mb-4" /> {/* ô “Chọn lịch trình...” */}
 
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2">
                 {role === "student" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-41 rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
+                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-[190px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
                     </button>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-41 rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
+                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-[190px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
                     </button>
                   </>
                 )}
@@ -177,10 +177,10 @@ export default function BeChiCotMicrosite() {
                 {role === "worker" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-42 rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
+                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-[190px] rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
                     </button>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-42 rounded-lg hover:scale-105 transition" />
+                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-[190px] rounded-lg hover:scale-105 transition" />
                     </button>
                   </>
                 )}
