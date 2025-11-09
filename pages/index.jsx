@@ -22,6 +22,52 @@ Cấu trúc:
 */
 
 import React, { useState, useRef, useEffect } from "react";
+// Component hiển thị từng ô (task)
+function EditableTask({ task, onSelect }) {
+  return (
+    <button
+      onClick={() => onSelect(task)}
+      className="w-full text-left px-4 py-3 bg-gray-100 hover:bg-yellow-100 rounded-lg shadow-sm border border-gray-200 transition"
+    >
+      <p className="text-sm text-gray-600">{task.time}</p>
+      <p className="font-medium text-gray-800">{task.title}</p>
+    </button>
+  );
+}
+
+// Component popup chọn gợi ý thay thế
+function SuggestModal({ task, onChoose, onClose }) {
+  if (!task) return null;
+
+  const alternatives = {
+    "Anh Kiên Be ship bánh mì Hội An": ["Bún chả bà Dung", "Cơm tấm sườn bì", "Bánh cuốn nóng"],
+    "Anh Đức Be giao hợp đồng": ["Anh Đức Be gửi quà cho đối tác", "Anh Đức Be họp với sếp", "Anh Đức Be ship trà sữa"],
+    "Anh Sơn Be chở đi học": ["Anh Sơn Be chở đi làm", "Anh Sơn Be chở đi gym", "Anh Sơn Be chở đi cafe"],
+    "Chạy deadline": ["Đi xem phim", "Đi chơi với bạn", "Ngủ sớm nạp năng lượng"]
+  };
+
+  const options = alternatives[task.title] || [];
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl p-6 w-80 shadow-lg text-center">
+        <h3 className="font-semibold mb-4">Chọn gợi ý thay thế</h3>
+        <div className="flex flex-col gap-2">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => onChoose(task, opt)}
+              className="px-4 py-2 bg-yellow-100 hover:bg-yellow-200 rounded"
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+        <button onClick={onClose} className="mt-4 text-sm text-gray-500">Đóng</button>
+      </div>
+    </div>
+  );
+}
 
 export default function BeChiCotMicrosite() {
   function EditableSlot({ slot }) {
@@ -64,6 +110,15 @@ export default function BeChiCotMicrosite() {
   const [step, setStep] = useState("chooseRole");
   const canvasRef = useRef(null);
 
+    const [editableTasks, setEditableTasks] = useState([
+    { id: 1, title: "Anh Sơn Be chở đi học", time: "07:00" },
+    { id: 2, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:30" },
+    { id: 3, title: "Đi học ở trường", time: "08:00" },
+    { id: 4, title: "Anh Đức Be giao hợp đồng", time: "15:00" },
+    { id: 5, title: "Chạy deadline", time: "21:00" },
+  ]);
+  const [selectedTask, setSelectedTask] = useState(null);
+
   const feelingsOptions = [
     "Dễ thương phết chứ không đùa",
     "Có tâm hơn cả ny cũ luôn á",
@@ -89,6 +144,18 @@ export default function BeChiCotMicrosite() {
     "Công phá 7749 trò chơi",
     "Đi dạo đêm quanh thành phố",
   ];
+  const handleSelectTask = (task) => setSelectedTask(task);
+
+  const handleChooseAlternative = (task, newTitle) => {
+    setEditableTasks((prev) =>
+      prev.map((t) => (t.id === task.id ? { ...t, title: newTitle } : t))
+    );
+    setSelectedTask(null);
+  };
+
+  const handleFinishEditing = () => {
+    setStep("finalTimetable");
+  };
 
   const [ugc, setUgc] = useState({ feelings: [], story: "", promises: [] });
 
@@ -228,7 +295,7 @@ export default function BeChiCotMicrosite() {
           {step === "suggestTimetable" && (
             <div className="flex flex-col items-center">
               <img src="/goiy1.png" alt="Be gợi ý" className="w-110 mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
-              <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[28rem] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
+              <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[210px] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
 
               <div className="flex gap-4">
                 <button
@@ -253,19 +320,14 @@ export default function BeChiCotMicrosite() {
     <h2 className="text-xl font-semibold mb-4">Tùy chỉnh lịch trình của bạn</h2>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
-      {[
-        { id: 1, title: "Anh Sơn Be chở đi học", time: "07:00", img: "/svtkb1goiy.jpg" },
-        { id: 2, title: "Đi học ở trường", time: "08:00", img: "/svtkb2goiy.jpg" },
-        { id: 3, title: "Anh Đức Be giao hợp đồng", time: "15:00", img: "/svtkb3goiy.jpg" },
-        { id: 4, title: "Chạy deadline", time: "21:00", img: "/svtkb4goiy.jpg" },
-      ].map((e) => (
-        <EditableSlot key={e.id} slot={e} />
+      {editableTasks.map((t) => (
+        <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
       ))}
     </div>
 
     <div className="mt-6 flex gap-4">
       <button
-        onClick={() => setStep("ugc")}
+        onClick={handleFinishEditing}
         className="px-4 py-2 bg-yellow-500 text-white rounded"
       >
         Hoàn tất & Tiếp tục
@@ -277,6 +339,29 @@ export default function BeChiCotMicrosite() {
         Quay lại
       </button>
     </div>
+
+    <SuggestModal task={selectedTask} onChoose={handleChooseAlternative} onClose={() => setSelectedTask(null)} />
+  </div>
+)}
+{/* STEP 3.6: LỊCH TRÌNH HOÀN CHỈNH */}
+{step === "finalTimetable" && (
+  <div className="flex flex-col items-center text-center">
+    <h2 className="text-xl font-semibold mb-4">Lịch trình hoàn chỉnh của bạn</h2>
+    <div className="bg-white shadow-md rounded-lg p-4 w-full max-w-md">
+      {editableTasks.map((t) => (
+        <div key={t.id} className="border-b py-2 text-left">
+          <p className="text-sm text-gray-500">{t.time}</p>
+          <p className="font-medium">{t.title}</p>
+        </div>
+      ))}
+    </div>
+
+    <button
+      onClick={() => setStep("ugc")}
+      className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded"
+    >
+      Xác nhận & Tiếp tục
+    </button>
   </div>
 )}
 
