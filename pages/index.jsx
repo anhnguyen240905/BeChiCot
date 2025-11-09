@@ -189,47 +189,50 @@ export default function BeChiCotMicrosite() {
     setUgc({ feelings: [], story: "", promises: [] });
   }
 
-  // --- THAY THẾ TOÀN BỘ generateCertificate + useEffect ---
-const generateCertificate = () => {
-  const c = canvasRef.current;
-  if (!c) return;
-  const ctx = c.getContext("2d");
+function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
+    let fontSize = maxFontSize;
+    ctx.font = `${fontSize}px Arial`;
 
-  // Load ảnh chứng nhận
-  const img = new Image();
-  img.src = "/cert.png"; // ảnh bạn đã upload trong /public
-  img.onload = () => {
-    // Vẽ ảnh nền
-    ctx.drawImage(img, 0, 0, c.width, c.height);
+    while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
+      fontSize -= 1;
+      ctx.font = `${fontSize}px Arial`;
+    }
 
-    // Kiểu chữ
-    ctx.fillStyle = "#222";
-    ctx.font = "18px Arial";
-    ctx.textBaseline = "top";
+    ctx.fillText(text, x, y);
+  }
 
-    // Lấy thông tin từ UGC form
-    const feelingsText =
-      ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
-    const storyText = ugc.story || "(Chưa nhập)";
-    const promisesText =
-      ugc.promises.length > 0 ? ugc.promises.join(", ") : "(Chưa nhập)";
+  const generateCertificate = () => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const ctx = c.getContext("2d");
 
-    // ⚙️ Vị trí text trong ảnh chứng nhận (tùy chỉnh theo bố cục ảnh cert.png)
-    ctx.fillText(feelingsText, 140, 340, 600); // dòng cảm nghĩ
-    ctx.fillText(storyText, 140, 420, 600);   // dòng kỷ niệm
-    ctx.fillText(promisesText, 140, 500, 600); // dòng hứa hẹn
+    const img = new Image();
+    img.src = "/cert.png";
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, c.width, c.height);
 
-    ctx.font = "bold 20px Arial";
-    ctx.fillStyle = "#0056D2";
-    ctx.fillText("Be Chí Cốt", 360, 630);
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "#222";
+
+      const feelingsText = ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
+      const storyText = ugc.story || "(Chưa nhập)";
+      const promisesText = ugc.promises.length > 0 ? ugc.promises.join(", ") : "(Chưa nhập)";
+
+      drawSingleLineText(ctx, feelingsText, 140, 340, 600, 18, 10);
+      drawSingleLineText(ctx, storyText, 140, 420, 600, 18, 10);
+      drawSingleLineText(ctx, promisesText, 140, 500, 600, 18, 10);
+
+      ctx.font = "bold 20px Arial";
+      ctx.fillStyle = "#000000";
+      ctx.fillText("Be Chí Cốt", 360, 630);
+    };
   };
-};
 
-// Khi step chuyển sang "certificate", tự động vẽ ảnh chứng nhận
-useEffect(() => {
-  if (step === "certificate") generateCertificate();
-}, [step]);
-
+  // useEffect tự vẽ khi bước certificate
+  useEffect(() => {
+    if (step === "certificate") generateCertificate();
+  }, [step]);
+  
   return (
     <div
   className="min-h-screen bg-cover bg-center relative text-gray-800"
@@ -502,7 +505,6 @@ useEffect(() => {
         Chứng nhận tình bạn
       </h2>
 
-      {/* Canvas hiển thị chứng nhận */}
       <canvas
         ref={canvasRef}
         width={868}
@@ -511,6 +513,7 @@ useEffect(() => {
       />
 
       <div className="flex gap-4">
+        {/* Tải về */}
         <button
           onClick={() => {
             const c = canvasRef.current;
@@ -523,11 +526,43 @@ useEffect(() => {
         >
           Tải chứng nhận
         </button>
+
+        {/* Làm lại */}
         <button
           onClick={resetAll}
           className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
         >
           Làm lại
+        </button>
+
+        {/* Chia sẻ Facebook */}
+        <button
+          onClick={async () => {
+            const c = canvasRef.current;
+            // Lấy base64
+            const dataUrl = c.toDataURL("image/png");
+
+            try {
+              // Upload lên serverless function để có URL public
+              const resp = await fetch("/api/upload", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ data: dataUrl }),
+              });
+              const result = await resp.json();
+
+              if (result.url) {
+                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(result.url)}`;
+                window.open(fbShareUrl, "_blank");
+              }
+            } catch (err) {
+              console.error("Upload chứng nhận thất bại:", err);
+              alert("Chia sẻ Facebook thất bại. Vui lòng thử lại.");
+            }
+          }}
+          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+        >
+          Chia sẻ Facebook
         </button>
       </div>
     </div>
