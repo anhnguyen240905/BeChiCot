@@ -524,7 +524,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           }}
           className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
         >
-          Tải chứng nhận
+          Lưu lại
         </button>
 
         {/* Làm lại */}
@@ -535,39 +535,30 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           Làm lại
         </button>
 
-        {/* Chia sẻ Facebook */}
         <button
-          onClick={async () => {
-            const c = canvasRef.current;
-            // Lấy base64
-            const dataUrl = c.toDataURL("image/png");
-
-            try {
-              // Upload lên serverless function để có URL public
-              const resp = await fetch("/api/upload", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ data: dataUrl }),
-              });
-              const result = await resp.json();
-
-              if (result.url) {
-                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(result.url)}`;
-                window.open(fbShareUrl, "_blank");
-              }
-            } catch (err) {
-              console.error("Upload chứng nhận thất bại:", err);
-              alert("Chia sẻ Facebook thất bại. Vui lòng thử lại.");
-            }
-          }}
-          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-        >
-          Chia sẻ Facebook
-        </button>
+                  onClick={() => {
+                    const quote = encodeURIComponent(
+                      "Trải nghiệm Be Chí Cốt thật tuyệt!"
+                    );
+                    const shareUrl = encodeURIComponent(window.location.href);
+                    const fb = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${quote}`;
+                    window.open(fb, "_blank");
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded"
+                >
+                  Chia sẻ
+                </button>
+                <button
+                  onClick={resetAll}
+                  className="px-4 py-2 bg-gray-300 rounded"
+                >
+                  Làm lại
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-)}
-</div>
   );
 }
