@@ -192,7 +192,8 @@ export default function BeChiCotMicrosite() {
 function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
     let fontSize = maxFontSize;
     ctx.font = `${fontSize}px Arial`;
-
+    ctx.textAlign = "center";   // căn giữa text
+  
     while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
       fontSize -= 1;
       ctx.font = `${fontSize}px Arial`;
@@ -212,7 +213,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       ctx.drawImage(img, 0, 0, c.width, c.height);
 
       ctx.textBaseline = "top";
-      ctx.fillStyle = "#222";
+      ctx.fillStyle = "#00f";
 
       const feelingsText = ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
       const storyText = ugc.story || "(Chưa nhập)";
@@ -222,9 +223,6 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       drawSingleLineText(ctx, storyText, 140, 420, 600, 18, 10);
       drawSingleLineText(ctx, promisesText, 140, 500, 600, 18, 10);
 
-      ctx.font = "bold 20px Arial";
-      ctx.fillStyle = "#000000";
-      ctx.fillText("Be Chí Cốt", 360, 630);
     };
   };
 
