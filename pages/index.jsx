@@ -554,9 +554,11 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
                 >
                   Làm lại
                 </button>
-              </div>
+            </div>
             </div>
           )}
+        </div>
+      )}
     </div>
   );
 }
