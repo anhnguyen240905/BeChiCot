@@ -494,7 +494,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   </div>
 )}
 
-        {/* STEP 5: CERTIFICATE */}
+{/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
   <div
     className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6"
@@ -527,38 +527,30 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           Lưu lại
         </button>
 
+        {/* Chia sẻ Facebook */}
+        <button
+          onClick={() => {
+            const quote = encodeURIComponent("Trải nghiệm Be Chí Cốt thật tuyệt!");
+            const shareUrl = encodeURIComponent(window.location.href);
+            const fb = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${quote}`;
+            window.open(fb, "_blank");
+          }}
+          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+        >
+          Chia sẻ
+        </button>
+
         {/* Làm lại */}
         <button
           onClick={resetAll}
-          className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
+          className="px-5 py-2 bg-gray-300 rounded shadow hover:scale-105 transition"
         >
           Làm lại
         </button>
-
-        <button
-                  onClick={() => {
-                    const quote = encodeURIComponent(
-                      "Trải nghiệm Be Chí Cốt thật tuyệt!"
-                    );
-                    const shareUrl = encodeURIComponent(window.location.href);
-                    const fb = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${quote}`;
-                    window.open(fb, "_blank");
-                  }}
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
-                >
-                  Chia sẻ
-                </button>
-                <button
-                  onClick={resetAll}
-                  className="px-4 py-2 bg-gray-300 rounded"
-                >
-                  Làm lại
-                </button>
-            </div>
-            </div>
-          )}
-        </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
