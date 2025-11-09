@@ -225,9 +225,9 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       ctx.textAlign = "center"; // căn giữa
       ctx.textBaseline = "top"; // y là top
 
-      drawSingleLineText(ctx, feelingsText, centerX, 340, textWidth);
-      drawSingleLineText(ctx, storyText, centerX, 420, textWidth);
-      drawSingleLineText(ctx, promisesText, centerX, 500, textWidth);
+      drawSingleLineText(ctx, feelingsText, centerX, 370, textWidth);
+      drawSingleLineText(ctx, storyText, centerX, 430, textWidth);
+      drawSingleLineText(ctx, promisesText, centerX, 490, textWidth);
 
     };
   };
