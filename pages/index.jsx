@@ -189,28 +189,46 @@ export default function BeChiCotMicrosite() {
     setUgc({ feelings: [], story: "", promises: [] });
   }
 
-  const generateCertificate = () => {
-    const c = canvasRef.current;
-    if (!c) return;
-    const ctx = c.getContext("2d");
-    c.width = 1200;
-    c.height = 675;
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, 1200, 675);
-    ctx.fillStyle = "#111";
-    ctx.font = "32px serif";
-    ctx.fillText("Chứng nhận Be Chí Cốt", 50, 100);
-    ctx.font = "20px serif";
-    ctx.fillText(`Vai trò: ${role === "student" ? "Sinh viên" : "Người đi làm"}`, 50, 160);
-    ctx.fillText(`Cảm nghĩ: ${ugc.feelings.join(", ")}`, 50, 200);
-    ctx.fillText(`Kỷ niệm: ${ugc.story}`, 50, 240);
-    ctx.fillText(`Hứa hẹn: ${ugc.promises.join(", ")}`, 50, 280);
-    ctx.fillText("— Be Chí Cốt", 50, 360);
-  };
+  // --- THAY THẾ TOÀN BỘ generateCertificate + useEffect ---
+const generateCertificate = () => {
+  const c = canvasRef.current;
+  if (!c) return;
+  const ctx = c.getContext("2d");
 
-  useEffect(() => {
-    if (step === "certificate") generateCertificate();
-  }, [step]);
+  // Load ảnh chứng nhận
+  const img = new Image();
+  img.src = "/cert.png"; // ảnh bạn đã upload trong /public
+  img.onload = () => {
+    // Vẽ ảnh nền
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+
+    // Kiểu chữ
+    ctx.fillStyle = "#222";
+    ctx.font = "18px Arial";
+    ctx.textBaseline = "top";
+
+    // Lấy thông tin từ UGC form
+    const feelingsText =
+      ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
+    const storyText = ugc.story || "(Chưa nhập)";
+    const promisesText =
+      ugc.promises.length > 0 ? ugc.promises.join(", ") : "(Chưa nhập)";
+
+    // ⚙️ Vị trí text trong ảnh chứng nhận (tùy chỉnh theo bố cục ảnh cert.png)
+    ctx.fillText(feelingsText, 140, 340, 600); // dòng cảm nghĩ
+    ctx.fillText(storyText, 140, 420, 600);   // dòng kỷ niệm
+    ctx.fillText(promisesText, 140, 500, 600); // dòng hứa hẹn
+
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "#0056D2";
+    ctx.fillText("Be Chí Cốt", 360, 630);
+  };
+};
+
+// Khi step chuyển sang "certificate", tự động vẽ ảnh chứng nhận
+useEffect(() => {
+  if (step === "certificate") generateCertificate();
+}, [step]);
 
   return (
     <div
@@ -316,8 +334,13 @@ export default function BeChiCotMicrosite() {
       
 {/* STEP 3.5: LỊCH TRÌNH TƯƠNG TÁC (editable timetable) */}
 {step === "editTimetable" && (
-  <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
-    <h2 className="text-xl font-semibold mb-4">Tùy chỉnh lịch trình của bạn</h2>
+  <div
+    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-start p-6 text-center"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    <h2 className="text-2xl font-semibold mb-4 text-yellow-800 drop-shadow">
+      Tùy chỉnh lịch trình của bạn
+    </h2>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
       {editableTasks.map((t) => (
@@ -328,171 +351,185 @@ export default function BeChiCotMicrosite() {
     <div className="mt-6 flex gap-4">
       <button
         onClick={handleFinishEditing}
-        className="px-4 py-2 bg-yellow-500 text-white rounded"
+        className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
       >
         Hoàn tất & Tiếp tục
       </button>
       <button
         onClick={() => setStep("suggestTimetable")}
-        className="px-4 py-2 bg-gray-300 rounded"
+        className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
       >
         Quay lại
       </button>
     </div>
 
-    <SuggestModal task={selectedTask} onChoose={handleChooseAlternative} onClose={() => setSelectedTask(null)} />
+    <SuggestModal
+      task={selectedTask}
+      onChoose={handleChooseAlternative}
+      onClose={() => setSelectedTask(null)}
+    />
   </div>
 )}
+
 {/* STEP 3.6: LỊCH TRÌNH HOÀN CHỈNH */}
 {step === "finalTimetable" && (
-  <div className="flex flex-col items-center text-center">
-    <h2 className="text-xl font-semibold mb-4">Lịch trình hoàn chỉnh của bạn</h2>
-    <div className="bg-white shadow-md rounded-lg p-4 w-full max-w-md">
-      {editableTasks.map((t) => (
-        <div key={t.id} className="border-b py-2 text-left">
-          <p className="text-sm text-gray-500">{t.time}</p>
-          <p className="font-medium">{t.title}</p>
-        </div>
-      ))}
-    </div>
+  <div
+    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6 text-center"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    <div className="bg-white/85 backdrop-blur-md shadow-lg rounded-2xl p-6 max-w-2xl w-full">
+      <h2 className="text-2xl font-semibold mb-4 text-yellow-800">
+        Lịch trình hoàn chỉnh của bạn
+      </h2>
 
-    <button
-      onClick={() => setStep("ugc")}
-      className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded"
-    >
-      Xác nhận & Tiếp tục
-    </button>
+      <div className="divide-y divide-gray-200">
+        {editableTasks.map((t, i) => (
+          <div
+            key={t.id}
+            className={`py-3 px-4 text-left ${
+              i % 2 === 0 ? "bg-gray-50" : "bg-white"
+            } rounded-lg`}
+          >
+            <p className="text-sm text-gray-500">{t.time}</p>
+            <p className="font-medium text-gray-800">{t.title}</p>
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={() => setStep("ugc")}
+        className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+      >
+        Xác nhận & Tiếp tục
+      </button>
+    </div>
   </div>
 )}
 
-          {/* STEP 4: UGC FORM */}
-          {step === "ugc" && (
-            <div>
-              <h2 className="text-xl font-semibold mb-4">
-                Chia sẻ trải nghiệm cùng Be Chí Cốt
-              </h2>
+   {/* STEP 4: UGC FORM */}
+{step === "ugc" && (
+  <div
+    className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-800">
+        Chia sẻ trải nghiệm cùng Be Chí Cốt
+      </h2>
 
-              <h3 className="font-medium mt-4">Step 1 — Cảm nghĩ</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                {feelingsOptions.map((f) => (
-                  <label
-                    key={f}
-                    className={`p-2 border rounded cursor-pointer ${
-                      ugc.feelings.includes(f)
-                        ? "bg-yellow-100 border-yellow-400"
-                        : ""
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={ugc.feelings.includes(f)}
-                      onChange={() => toggleFeeling(f)}
-                    />
-                    <span className="text-sm">{f}</span>
-                  </label>
-                ))}
-              </div>
+      {/* Step 1 - Cảm nghĩ */}
+      <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+        {feelingsOptions.map((f) => (
+          <label
+            key={f}
+            className={`p-2 border rounded cursor-pointer text-sm ${
+              ugc.feelings.includes(f)
+                ? "bg-yellow-100 border-yellow-400"
+                : "hover:bg-gray-50"
+            }`}
+          >
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={ugc.feelings.includes(f)}
+              onChange={() => toggleFeeling(f)}
+            />
+            {f}
+          </label>
+        ))}
+      </div>
 
-              <h3 className="font-medium mt-4">
-                Step 2 - Kể lại kỷ niệm (2–3 dòng)
-              </h3>
-              <textarea
-                className="w-full border p-2 rounded mt-2"
-                rows={3}
-                value={ugc.story}
-                onChange={(e) =>
-                  setUgc((u) => ({ ...u, story: e.target.value }))
-                }
-                placeholder="Viết ngắn gọn, vui nhẹ, wow moment"
-              />
+      {/* Step 2 - Kỷ niệm */}
+      <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
+      <textarea
+        className="w-full border p-2 rounded mb-4"
+        rows={3}
+        value={ugc.story}
+        onChange={(e) => setUgc((u) => ({ ...u, story: e.target.value }))}
+        placeholder="Chia sẻ với Be nhé!"
+      />
 
-              <h3 className="font-medium mt-4">
-                Step 3 — Hứa hẹn (chọn 2–3)
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                {promisesOptions.map((p) => (
-                  <label
-                    key={p}
-                    className={`p-2 border rounded cursor-pointer ${
-                      ugc.promises.includes(p)
-                        ? "bg-emerald-100 border-emerald-400"
-                        : ""
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={ugc.promises.includes(p)}
-                      onChange={() => togglePromise(p)}
-                    />
-                    <span className="text-sm">{p}</span>
-                  </label>
-                ))}
-              </div>
+      {/* Step 3 - Hứa hẹn */}
+      <h3 className="font-semibold mb-2">Hứa hẹn cho những buổi "date" tiếp theo</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
+        {promisesOptions.map((p) => (
+          <label
+            key={p}
+            className={`p-2 border rounded cursor-pointer text-sm ${
+              ugc.promises.includes(p)
+                ? "bg-yellow-100 border-yellow-400"
+                : "hover:bg-gray-50"
+            }`}
+          >
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={ugc.promises.includes(p)}
+              onChange={() => togglePromise(p)}
+            />
+            {p}
+          </label>
+        ))}
+      </div>
 
-              <div className="mt-4 flex gap-3">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
-                  onClick={() => setStep("certificate")}
-                >
-                  Gửi Be Chí Cốt
-                </button>
-                <button
-                  className="px-4 py-2 bg-gray-300 rounded"
-                  onClick={resetAll}
-                >
-                  Làm lại
-                </button>
-              </div>
-            </div>
-          )}
+      <div className="flex justify-center gap-3">
+        <button
+          className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition"
+          onClick={() => setStep("certificate")}
+        >
+          Gửi Be Chí Cốt
+        </button>
+        <button
+          className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
+          onClick={resetAll}
+        >
+          Làm lại
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
-          {/* STEP 5: CERTIFICATE */}
-          {step === "certificate" && (
-            <div className="flex flex-col items-center">
-              <img
-                src="/cert.png"
-                alt="Chứng nhận tình bạn"
-                className="w-96 mb-4"
-              /> {/* ô “Chứng nhận tình bạn” */}
+        {/* STEP 5: CERTIFICATE */}
+{step === "certificate" && (
+  <div
+    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
+      <h2 className="text-2xl font-bold text-blue-700 mb-4">
+        Chứng nhận tình bạn
+      </h2>
 
-              <canvas ref={canvasRef} className="w-full max-w-[600px] shadow" />
-              <div className="mt-3 flex gap-3">
-                <button
-                  onClick={() => {
-                    const c = canvasRef.current;
-                    const a = document.createElement("a");
-                    a.href = c.toDataURL("image/png");
-                    a.download = "be-chi-cot-certificate.png";
-                    a.click();
-                  }}
-                  className="px-4 py-2 bg-yellow-500 text-white rounded"
-                >
-                  Lưu lại
-                </button>
-                <button
-                  onClick={() => {
-                    const quote = encodeURIComponent(
-                      "Trải nghiệm Be Chí Cốt thật tuyệt!"
-                    );
-                    const shareUrl = encodeURIComponent(window.location.href);
-                    const fb = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${quote}`;
-                    window.open(fb, "_blank");
-                  }}
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
-                >
-                  Chia sẻ
-                </button>
-                <button
-                  onClick={resetAll}
-                  className="px-4 py-2 bg-gray-300 rounded"
-                >
-                  Làm lại
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-  );
-}
+      {/* Canvas hiển thị chứng nhận */}
+      <canvas
+        ref={canvasRef}
+        width={868}
+        height={760}
+        className="w-full max-w-[500px] rounded-lg shadow mb-4"
+      />
+
+      <div className="flex gap-4">
+        <button
+          onClick={() => {
+            const c = canvasRef.current;
+            const a = document.createElement("a");
+            a.href = c.toDataURL("image/png");
+            a.download = "be-chi-cot-certificate.png";
+            a.click();
+          }}
+          className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+        >
+          Tải chứng nhận
+        </button>
+        <button
+          onClick={resetAll}
+          className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
+        >
+          Làm lại
+        </button>
+      </div>
+    </div>
+  </div>
+)}
