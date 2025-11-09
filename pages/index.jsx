@@ -24,6 +24,42 @@ Cấu trúc:
 import React, { useState, useRef, useEffect } from "react";
 
 export default function BeChiCotMicrosite() {
+  function EditableSlot({ slot }) {
+  const [editing, setEditing] = React.useState(false);
+  const [title, setTitle] = React.useState(slot.title);
+
+  return (
+    <div
+      onClick={() => setEditing(true)}
+      className="relative rounded-xl overflow-hidden shadow-lg cursor-pointer border-4 border-transparent hover:border-yellow-400 transition-all duration-200"
+      style={{
+        backgroundImage: `url(${slot.img})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "150px",
+      }}
+    >
+      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+        {editing ? (
+          <input
+            autoFocus
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onBlur={() => setEditing(false)}
+            className="bg-white/80 text-black px-2 py-1 rounded w-3/4 text-sm"
+          />
+        ) : (
+          <p className="text-white text-center font-medium px-2">{title}</p>
+        )}
+      </div>
+
+      <div className="absolute top-2 left-2 bg-white/70 text-xs px-2 py-1 rounded">
+        {slot.time}
+      </div>
+    </div>
+  );
+}
   const [role, setRole] = useState(null);
   const [step, setStep] = useState("chooseRole");
   const canvasRef = useRef(null);
@@ -202,7 +238,7 @@ export default function BeChiCotMicrosite() {
                   Xác nhận
                 </button>
                 <button
-                  onClick={() => setStep("ugc")}
+                  onClick={() => setStepsetStep("editTimetable")}
                   className="px-4 py-2 bg-blue-200 rounded"
                 >
                   Chỉnh sửa lịch trình
@@ -210,6 +246,39 @@ export default function BeChiCotMicrosite() {
               </div>
             </div>
           )}
+      
+{/* STEP 3.5: LỊCH TRÌNH TƯƠNG TÁC (editable timetable) */}
+{step === "editTimetable" && (
+  <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
+    <h2 className="text-xl font-semibold mb-4">Tùy chỉnh lịch trình của bạn</h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+      {[
+        { id: 1, title: "Anh Sơn Be chở đi học", time: "07:00", img: "/svtkb1goiy.jpg" },
+        { id: 2, title: "Đi học ở trường", time: "08:00", img: "/svtkb2goiy.jpg" },
+        { id: 3, title: "Anh Đức Be giao hợp đồng", time: "15:00", img: "/svtkb3goiy.jpg" },
+        { id: 4, title: "Chạy deadline", time: "21:00", img: "/svtkb4goiy.jpg" },
+      ].map((e) => (
+        <EditableSlot key={e.id} slot={e} />
+      ))}
+    </div>
+
+    <div className="mt-6 flex gap-4">
+      <button
+        onClick={() => setStep("ugc")}
+        className="px-4 py-2 bg-yellow-500 text-white rounded"
+      >
+        Hoàn tất & Tiếp tục
+      </button>
+      <button
+        onClick={() => setStep("suggestTimetable")}
+        className="px-4 py-2 bg-gray-300 rounded"
+      >
+        Quay lại
+      </button>
+    </div>
+  </div>
+)}
 
           {/* STEP 4: UGC FORM */}
           {step === "ugc" && (
