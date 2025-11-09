@@ -225,7 +225,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       ctx.textAlign = "center"; // căn giữa
       ctx.textBaseline = "top"; // y là top
 
-      drawSingleLineText(ctx, feelingsText, centerX, 350, textWidth);
+      drawSingleLineText(ctx, feelingsText, centerX, 360, textWidth);
       drawSingleLineText(ctx, storyText, centerX, 425, textWidth);
       drawSingleLineText(ctx, promisesText, centerX, 495, textWidth);
 
@@ -288,16 +288,16 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
           {step === "pickTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-[600px] mb-4" /> {/* ô “Chọn lịch trình...” */}
+              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-[800px] mb-4" /> {/* ô “Chọn lịch trình...” */}
 
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2">
                 {role === "student" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-[210px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
+                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-[230px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
                     </button>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-[210px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
+                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-[230px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
                     </button>
                   </>
                 )}
@@ -305,10 +305,10 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
                 {role === "worker" && (
                   <>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-[210px] rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
+                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-[230px] rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
                     </button>
                     <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-[210px] rounded-lg hover:scale-105 transition" />
+                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-[230px] rounded-lg hover:scale-105 transition" />
                     </button>
                   </>
                 )}
@@ -319,19 +319,19 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           {/* STEP 3: GỢI Ý BE CHÍ CỐT */}
           {step === "suggestTimetable" && (
             <div className="flex flex-col items-center">
-              <img src="/goiy1.png" alt="Be gợi ý" className="w-110 mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
-              <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[210px] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
+              <img src="/goiy1.png" alt="Be gợi ý" className="w-[800px] mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
+              <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[230px] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
 
               <div className="flex gap-4">
                 <button
                   onClick={() => setStep("ugc")}
-                  className="px-4 py-2 bg-yellow-500 text-white rounded shadow"
+                  className="px-4 py-2 bg-yellow-500 text-white rounded hover:shadow-2g"
                 >
                   Xác nhận
                 </button>
                 <button
                   onClick={() => setStep("editTimetable")}
-                  className="px-4 py-2 bg-blue-200 rounded"
+                  className="px-4 py-2 bg-gray-200 rounded hover:shadow-2g"
                 >
                   Chỉnh sửa lịch trình
                 </button>
@@ -349,7 +349,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       Tùy chỉnh lịch trình của bạn
     </h2>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl">
       {editableTasks.map((t) => (
         <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
       ))}
@@ -384,7 +384,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6 text-center"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="bg-white/85 backdrop-blur-md shadow-lg rounded-2xl p-6 max-w-2xl w-full">
+    <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
       <h2 className="text-2xl font-semibold mb-4 text-yellow-800">
         Lịch trình hoàn chỉnh của bạn
       </h2>
@@ -419,7 +419,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-blue-600">
       <h2 className="text-2xl font-bold mb-6 text-center text-yellow-800">
         Chia sẻ trải nghiệm cùng Be Chí Cốt
       </h2>
@@ -433,7 +433,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             className={`p-2 border rounded cursor-pointer text-sm ${
               ugc.feelings.includes(f)
                 ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-50"
+                : "hover:bg-gray-80"
             }`}
           >
             <input
@@ -466,7 +466,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             className={`p-2 border rounded cursor-pointer text-sm ${
               ugc.promises.includes(p)
                 ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-50"
+                : "hover:bg-gray-80"
             }`}
           >
             <input
