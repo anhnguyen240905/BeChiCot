@@ -419,8 +419,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-blue-600">
-      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-800">
+    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+      <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
         Chia sẻ trải nghiệm cùng Be Chí Cốt
       </h2>
 
