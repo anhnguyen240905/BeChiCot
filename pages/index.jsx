@@ -305,7 +305,7 @@ export default function BeChiCotMicrosite() {
                   Xác nhận
                 </button>
                 <button
-                  onClick={() => setStepsetStep("editTimetable")}
+                  onClick={() => setStep("editTimetable")}
                   className="px-4 py-2 bg-blue-200 rounded"
                 >
                   Chỉnh sửa lịch trình
