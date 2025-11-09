@@ -192,7 +192,6 @@ export default function BeChiCotMicrosite() {
 function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
     let fontSize = maxFontSize;
     ctx.font = `${fontSize}px Arial`;
-    ctx.textAlign = "center";   // căn giữa text
   
     while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
       fontSize -= 1;
@@ -213,15 +212,22 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       ctx.drawImage(img, 0, 0, c.width, c.height);
 
       ctx.textBaseline = "top";
-      ctx.fillStyle = "#00f";
+      ctx.fillStyle = "#000";
 
       const feelingsText = ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
       const storyText = ugc.story || "(Chưa nhập)";
       const promisesText = ugc.promises.length > 0 ? ugc.promises.join(", ") : "(Chưa nhập)";
 
-      drawSingleLineText(ctx, feelingsText, 140, 340, 600, 18, 10);
-      drawSingleLineText(ctx, storyText, 140, 420, 600, 18, 10);
-      drawSingleLineText(ctx, promisesText, 140, 500, 600, 18, 10);
+      const textXStart = 140;
+      const textWidth = 600;
+      const centerX = textXStart + textWidth / 2; // = 140 + 600/2 = 440
+
+      ctx.textAlign = "center"; // căn giữa
+      ctx.textBaseline = "top"; // y là top
+
+      drawSingleLineText(ctx, feelingsText, centerX, 340, textWidth);
+      drawSingleLineText(ctx, storyText, centerX, 420, textWidth);
+      drawSingleLineText(ctx, promisesText, centerX, 500, textWidth);
 
     };
   };
