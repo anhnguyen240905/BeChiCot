@@ -536,9 +536,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           onClick={() => {
             const quote = encodeURIComponent("Trải nghiệm Be Chí Cốt thật tuyệt!");
             const shareUrl = encodeURIComponent(window.location.href);
-            const fb = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(imageUrl)}`;
-window.open(fb, "_blank");
-          }}
+            const fb = https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${quote}; window.open(fb, "_blank"); }}
           className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
         >
           Chia sẻ
