@@ -509,6 +509,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         Chứng nhận tình bạn
       </h2>
 
+      {/* Canvas hiển thị chứng nhận */}
       <canvas
         ref={canvasRef}
         width={868}
@@ -516,8 +517,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         className="w-full max-w-[500px] rounded-lg shadow mb-4"
       />
 
-      <div className="flex gap-4">
-        {/* Tải về */}
+      <div className="flex flex-col md:flex-row gap-4">
+        {/* Lưu lại */}
         <button
           onClick={() => {
             const c = canvasRef.current;
@@ -531,37 +532,73 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           Lưu lại
         </button>
 
-        {/* Chia sẻ Facebook */}
+        {/* Upload lên Cloudinary */}
         <button
-  onClick={async () => {
-    const c = canvasRef.current;
-    if (!c) return;
-    const dataUrl = c.toDataURL("image/png");
+          onClick={async () => {
+            const c = canvasRef.current;
+            const base64 = c.toDataURL("image/png");
 
-    try {
-      const resp = await fetch("/api/upload-cert", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: dataUrl }),
-      });
+            const formData = new FormData();
+            formData.append("file", base64);
+            formData.append("upload_preset", "unsigned_preset"); // đổi tên preset bạn tạo
+            formData.append("cloud_name", "dxrfxl6v7");
 
-      const data = await resp.json();
-      if (data.url) {
-        // Mở FB sharer với URL ảnh cá nhân
-        const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.url)}`;
-        window.open(fbUrl, "_blank");
-      } else {
-        alert("Upload thất bại, thử lại nhé!");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Lỗi upload, thử lại nhé!");
-    }
-  }}
-  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
->
-  Chia sẻ 
-</button>
+            try {
+              const res = await fetch(
+                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+                {
+                  method: "POST",
+                  body: formData,
+                }
+              );
+              const data = await res.json();
+              if (data.secure_url) {
+                alert("Upload thành công! URL: " + data.secure_url);
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Upload thất bại");
+            }
+          }}
+          className="px-5 py-2 bg-green-500 text-white rounded shadow hover:scale-105 transition"
+        >
+          Upload Cloud
+        </button>
+
+        {/* Share Facebook */}
+        <button
+          onClick={async () => {
+            const c = canvasRef.current;
+            const base64 = c.toDataURL("image/png");
+
+            // Upload tạm thời để lấy URL public
+            const formData = new FormData();
+            formData.append("file", base64);
+            formData.append("upload_preset", "unsigned_preset");
+            formData.append("cloud_name", "dxrfxl6v7");
+
+            try {
+              const res = await fetch(
+                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+                { method: "POST", body: formData }
+              );
+              const data = await res.json();
+              if (data.secure_url) {
+                // Share Facebook
+                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  data.secure_url
+                )}`;
+                window.open(fbShareUrl, "_blank");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Share thất bại");
+            }
+          }}
+          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+        >
+          Chia sẻ Facebook
+        </button>
 
         {/* Làm lại */}
         <button
