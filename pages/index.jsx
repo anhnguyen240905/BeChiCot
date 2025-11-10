@@ -498,8 +498,6 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   </div>
 )}
 
-đây step 5 của tôi đang như này
-
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
   <div
