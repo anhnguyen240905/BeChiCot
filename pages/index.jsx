@@ -498,6 +498,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   </div>
 )}
 
+đây step 5 của tôi đang như này
+
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
   <div
@@ -533,14 +535,35 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 
         {/* Chia sẻ Facebook */}
         <button
-          onClick={() => {
-            const quote = encodeURIComponent("Trải nghiệm Be Chí Cốt thật tuyệt!");
-            const shareUrl = encodeURIComponent(window.location.href);
-            const fb = https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${quote}; window.open(fb, "_blank"); }}
-          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-        >
-          Chia sẻ
-        </button>
+  onClick={async () => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const dataUrl = c.toDataURL("image/png");
+
+    try {
+      const resp = await fetch("/api/upload-cert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageBase64: dataUrl }),
+      });
+
+      const data = await resp.json();
+      if (data.url) {
+        // Mở FB sharer với URL ảnh cá nhân
+        const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.url)}`;
+        window.open(fbUrl, "_blank");
+      } else {
+        alert("Upload thất bại, thử lại nhé!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Lỗi upload, thử lại nhé!");
+    }
+  }}
+  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+>
+  Chia sẻ 
+</button>
 
         {/* Làm lại */}
         <button
