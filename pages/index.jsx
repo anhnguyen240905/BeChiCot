@@ -517,8 +517,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         className="w-full max-w-[500px] rounded-lg shadow mb-4"
       />
 
-      <div className="flex flex-col md:flex-row gap-4">
-        {/* Lưu lại */}
+      <div className="flex gap-4">
+        {/* 1️⃣ Lưu về máy */}
         <button
           onClick={() => {
             const c = canvasRef.current;
@@ -532,50 +532,15 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           Lưu lại
         </button>
 
-        {/* Upload lên Cloudinary */}
+        {/* 2️⃣ Chia sẻ Facebook */}
         <button
           onClick={async () => {
             const c = canvasRef.current;
-            const base64 = c.toDataURL("image/png");
+            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
 
             const formData = new FormData();
-            formData.append("file", base64);
-            formData.append("upload_preset", "unsigned_preset"); // đổi tên preset bạn tạo
-            formData.append("cloud_name", "dxrfxl6v7");
-
-            try {
-              const res = await fetch(
-                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-                {
-                  method: "POST",
-                  body: formData,
-                }
-              );
-              const data = await res.json();
-              if (data.secure_url) {
-                alert("Upload thành công! URL: " + data.secure_url);
-              }
-            } catch (err) {
-              console.error(err);
-              alert("Upload thất bại");
-            }
-          }}
-          className="px-5 py-2 bg-green-500 text-white rounded shadow hover:scale-105 transition"
-        >
-          Upload Cloud
-        </button>
-
-        {/* Share Facebook */}
-        <button
-          onClick={async () => {
-            const c = canvasRef.current;
-            const base64 = c.toDataURL("image/png");
-
-            // Upload tạm thời để lấy URL public
-            const formData = new FormData();
-            formData.append("file", base64);
-            formData.append("upload_preset", "unsigned_preset");
-            formData.append("cloud_name", "dxrfxl6v7");
+            formData.append("file", blob);
+            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
 
             try {
               const res = await fetch(
@@ -584,7 +549,6 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
               );
               const data = await res.json();
               if (data.secure_url) {
-                // Share Facebook
                 const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
                   data.secure_url
                 )}`;
@@ -597,10 +561,10 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           }}
           className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
         >
-          Chia sẻ Facebook
+          Chia sẻ
         </button>
 
-        {/* Làm lại */}
+        {/* 3️⃣ Làm lại */}
         <button
           onClick={resetAll}
           className="px-5 py-2 bg-gray-300 rounded shadow hover:scale-105 transition"
@@ -611,6 +575,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     </div>
   </div>
 )}
+
     </div>
   );
 }
