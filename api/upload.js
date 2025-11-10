@@ -1,26 +1,21 @@
-// pages/api/upload-cert.js
-import { promises as fs } from "fs";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { imageBase64 } = req.body; // client gửi base64
+      const { imageBase64 } = req.body;
 
-      // Xử lý base64 -> buffer
-      const base64Data = imageBase64.replace(/^data:image\/png;base64,/, "");
-      const buffer = Buffer.from(base64Data, "base64");
+      const uploadResp = await cloudinary.uploader.upload(imageBase64, {
+        folder: "certs",
+      });
 
-      // Lưu file vào /public/uploads (tạo thư mục trước nhé)
-      const timestamp = Date.now();
-      const filename = `cert-${timestamp}.png`;
-      const filePath = path.join(process.cwd(), "public", "uploads", filename);
-
-      await fs.writeFile(filePath, buffer);
-
-      // Trả về URL public
-      const url = `${req.headers.origin}/uploads/${filename}`;
-      res.status(200).json({ url });
+      res.status(200).json({ url: uploadResp.secure_url });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Upload failed" });
