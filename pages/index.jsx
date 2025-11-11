@@ -322,7 +322,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           <img src="/goiy1.png" alt="Be gợi ý" className="w-[800px] mb-4" />
           <img
             src={`/${selectedTimetable || "svtkb1goiy"}.jpg`}
-            className="w-[230px] rounded-lg shadow-lg mb-6"
+            className="w-[250px] rounded-lg shadow-lg mb-6"
           />
           <div className="flex gap-4">
             <button
@@ -333,7 +333,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             </button>
             <button
               onClick={() => setStep("editTimetable")}
-              className="px-4 py-2 bg-blue-200 rounded shadow"
+              className="px-4 py-2 bg-blue-100 rounded shadow"
             >
               Chỉnh sửa lịch trình
             </button>
@@ -344,13 +344,13 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 {/* STEP 3.5 */}
 {step === "editTimetable" && (
   <div
-    className="min-h-screen bg-cover bg-center flex flex-col items-center p-6 text-center"
+    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6 text-center"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
     <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
       <img src="/tuychinh.png" className="w-[800px] mb-4" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+      <div className="grid grid-cols-1 gap-8 w-full max-w-3xl">
         {editableTasks.map((t) => (
           <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
         ))}
@@ -401,24 +401,84 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   </div>
 )}
 
-{/* STEP 4: UGC FORM */}
+   {/* STEP 4: UGC FORM */}
 {step === "ugc" && (
-  <div className="min-h-screen bg-cover bg-center flex items-center justify-center p-6" style={{ backgroundImage: "url('/bg.png')" }}>
+  <div
+    className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
     <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
         Chia sẻ trải nghiệm cùng Be Chí Cốt
       </h2>
-      {/* feelings */}
-      ...
-      {/* story */}
-      ...
-      {/* promises */}
-      ...
+
+      {/* Step 1 - Cảm nghĩ */}
+      <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+        {feelingsOptions.map((f) => (
+          <label
+            key={f}
+            className={`p-2 border rounded cursor-pointer text-sm ${
+              ugc.feelings.includes(f)
+                ? "bg-yellow-100 border-yellow-400"
+                : "hover:bg-gray-80"
+            }`}
+          >
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={ugc.feelings.includes(f)}
+              onChange={() => toggleFeeling(f)}
+            />
+            {f}
+          </label>
+        ))}
+      </div>
+
+      {/* Step 2 - Kỷ niệm */}
+      <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
+      <textarea
+        className="w-full border p-2 rounded mb-4"
+        rows={3}
+        value={ugc.story}
+        onChange={(e) => setUgc((u) => ({ ...u, story: e.target.value }))}
+        placeholder="Chia sẻ với Be nhé!"
+      />
+
+      {/* Step 3 - Hứa hẹn */}
+      <h3 className="font-semibold mb-2">Hứa hẹn cho những buổi "date" tiếp theo</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
+        {promisesOptions.map((p) => (
+          <label
+            key={p}
+            className={`p-2 border rounded cursor-pointer text-sm ${
+              ugc.promises.includes(p)
+                ? "bg-yellow-100 border-yellow-400"
+                : "hover:bg-gray-80"
+            }`}
+          >
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={ugc.promises.includes(p)}
+              onChange={() => togglePromise(p)}
+            />
+            {p}
+          </label>
+        ))}
+      </div>
+
       <div className="flex justify-center gap-3">
-        <button onClick={() => setStep("certificate")} className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition">
+        <button
+          className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition"
+          onClick={() => setStep("certificate")}
+        >
           Gửi Be Chí Cốt
         </button>
-        <button onClick={resetAll} className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition">
+        <button
+          className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
+          onClick={resetAll}
+        >
           Làm lại
         </button>
       </div>
