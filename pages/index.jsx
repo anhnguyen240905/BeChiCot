@@ -119,8 +119,8 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
       : timetableVersion === "svtkb2goiy"
       ? alternatives2
       : timetableVersion === "ndltkb1goiy"
-      ? alternatives3
-      : alternatives4;
+      ? alternatives4
+      : alternatives3;
 const options = alternatives[task.title] || [];
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
