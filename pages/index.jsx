@@ -548,12 +548,12 @@ return (
       <img
         src="/chiase.png"
         alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
-        className="w-[1200px] md:w-[26rem] mb-4 self-center"
+        className="w-[1500px] mb-4 self-center"
       />
 
       {/* Step 1 - Cảm nghĩ */}
-      <h3 className="font-semibold mb-1">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
-      <p className="text-sm text-gray-500 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
+      <h3 className="font-semibold mb-0">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
+      <p className="text-sm text-gray-500 mt-1 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         {feelingsOptions.map((f) => (
           <label
@@ -586,8 +586,8 @@ return (
       />
 
       {/* Step 3 - Hứa hẹn */}
-      <h3 className="font-semibold mb-1">Hứa hẹn cho những buổi "date" tiếp theo</h3>
-      <p className="text-sm text-gray-500 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
+      <h3 className="font-semibold mb-0">Hứa hẹn cho những buổi "date" tiếp theo</h3>
+      <p className="text-sm text-gray-500 mt-1 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
         {promisesOptions.map((p) => (
           <label
