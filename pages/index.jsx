@@ -512,6 +512,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="w-[900px] max-w-full h-auto"
   />
 </div>
+    </div>
+    />
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
@@ -585,9 +587,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           Làm lại
         </button>
       </div>
-</div>
+    </div>
 )}
-
 
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
