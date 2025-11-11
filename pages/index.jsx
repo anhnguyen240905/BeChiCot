@@ -36,15 +36,56 @@ function EditableTask({ task, onSelect }) {
 }
 
 // Component popup chọn gợi ý thay thế
-function SuggestModal({ task, onChoose, onClose }) {
+// Component popup chọn gợi ý thay thế
+function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
   if (!task) return null;
 
-  const alternatives = {
-    "Anh Kiên Be ship bánh mì Hội An": ["Bún chả bà Dung", "Cơm tấm sườn bì", "Bánh cuốn nóng"],
-    "Anh Đức Be giao hợp đồng": ["Anh Đức Be gửi quà cho đối tác", "Anh Đức Be họp với sếp", "Anh Đức Be ship trà sữa"],
-    "Anh Sơn Be chở đi học": ["Anh Sơn Be chở đi làm", "Anh Sơn Be chở đi gym", "Anh Sơn Be chở đi cafe"],
-    "Chạy deadline": ["Đi xem phim", "Đi chơi với bạn", "Ngủ sớm nạp năng lượng"]
+  // --- TKB 1 ---
+  const alternatives1 = {
+    "Anh Kiên Be ship bánh mì Hội An": [
+      "Anh Kiên Be ship bánh bao",
+      "Anh Kiên Be ship xôi xéo",
+      "Anh Kiên Be ship cháo sườn",
+    ],
+    "Anh Thiên Be ship bún chả bà Dung": [
+      "Anh Thiên Be ship bún mắm Đà Nẵng",
+      "Anh Thiên Be ship bánh canh cua Sài Gòn",
+      "Anh Thiên Be ship bún hải sản",
+    ],
+    "Anh Đức Be giao hợp đồng cho đối tác": [
+      "Anh Đức Be giao quà cho đối tác",
+      "Anh Đức Be giao hàng cho khách",
+      "Anh Đức Be giao quà cho ngiu",
+    ],
+    "Anh Minh Be ship trà sữa": [
+      "Anh Minh Be ship trà chanh lô hội",
+      "Anh Minh Be ship chè mít",
+      "Anh Minh Be ship sinh tố xoài",
+    ],
   };
+
+  // --- TKB 2 ---
+  const alternatives2 = {
+    "Anh Phúc Be giao bánh bao trứng muối": [
+      "Anh Phúc Be giao bánh dày",
+      "Anh Phúc Be giao bánh cuốn",
+      "Anh Phúc Be giao bánh ướt",
+    ],
+    "Anh Thiện Be giao phở bò Nam Định": [
+      "Anh Thiện Be giao bún riêu",
+      "Anh Thiện Be giao cơm tấm",
+      "Anh Thiện Be giao mì hải sản",
+    ],
+    "Anh Hải Be giao Matcha Latte": [
+      "Anh Hải Be giao sữa tươi trân châu đường đen",
+      "Anh Hải Be giao rau má mix",
+      "Anh Hải Be giao trà xoài",
+    ],
+  };
+
+  // --- chọn bộ dữ liệu phù hợp ---
+  const alternatives =
+    timetableVersion === "svtkb2goiy" ? alternatives2 : alternatives1;
 
   const options = alternatives[task.title] || [];
 
@@ -53,17 +94,25 @@ function SuggestModal({ task, onChoose, onClose }) {
       <div className="bg-white rounded-xl p-6 w-80 shadow-lg text-center">
         <h3 className="font-semibold mb-4">Chọn gợi ý thay thế</h3>
         <div className="flex flex-col gap-2">
-          {options.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => onChoose(task, opt)}
-              className="px-4 py-2 bg-yellow-100 hover:bg-yellow-200 rounded"
-            >
-              {opt}
-            </button>
-          ))}
+          {options.length > 0 ? (
+            options.map((opt) => (
+              <button
+                key={opt}
+                onClick={() => onChoose(task, opt)}
+                className="px-4 py-2 bg-yellow-100 hover:bg-yellow-200 rounded"
+              >
+                {opt}
+              </button>
+            ))
+          ) : (
+            <p className="text-gray-500 text-sm">
+              (Không có gợi ý thay thế cho mục này)
+            </p>
+          )}
         </div>
-        <button onClick={onClose} className="mt-4 text-sm text-gray-500">Đóng</button>
+        <button onClick={onClose} className="mt-4 text-sm text-gray-500">
+          Đóng
+        </button>
       </div>
     </div>
   );
@@ -108,6 +157,7 @@ export default function BeChiCotMicrosite() {
 }
   const [role, setRole] = useState(null);
   const [step, setStep] = useState("chooseRole");
+  const [selectedTimetable, setSelectedTimetable] = useState("svtkb1goiy");
   const canvasRef = useRef(null);
 
     const [editableTasks, setEditableTasks] = useState([
@@ -323,18 +373,16 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
               <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[230px] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
 
               <div className="flex gap-4">
-                <button
-                  onClick={() => setStep("ugc")}
-                  className="px-4 py-2 bg-yellow-500 text-white rounded hover:shadow-2g"
-                >
-                  Xác nhận
-                </button>
-                <button
-                  onClick={() => setStep("editTimetable")}
-                  className="px-4 py-2 bg-gray-200 rounded hover:shadow-2g"
-                >
-                  Chỉnh sửa lịch trình
-                </button>
+<button
+  onClick={() => {
+    setSelectedTimetable("svtkb1goiy");
+    setStep("editTimetable");
+  }}
+  className="px-4 py-2 bg-gray-200 rounded hover:shadow-2g"
+>
+  Chỉnh sửa lịch trình
+</button>
+
               </div>
             </div>
           )}
@@ -370,11 +418,13 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       </button>
     </div>
 
-    <SuggestModal
-      task={selectedTask}
-      onChoose={handleChooseAlternative}
-      onClose={() => setSelectedTask(null)}
-    />
+<SuggestModal
+  task={selectedTask}
+  onChoose={handleChooseAlternative}
+  onClose={() => setSelectedTask(null)}
+  timetableVersion={selectedTimetable}
+/>
+
   </div>
 )}
 
