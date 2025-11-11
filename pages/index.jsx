@@ -306,7 +306,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   className="min-h-screen bg-cover bg-center relative text-gray-800"
   style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
 >
-          
+ <audio src="/bgmusic.mp3" autoPlay loop />         
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
     {/* Ảnh tiêu đề “Bạn là” */}
@@ -512,8 +512,6 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="w-[900px] max-w-full h-auto"
   />
 </div>
-    </div>
-    />
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
