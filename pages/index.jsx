@@ -301,22 +301,24 @@ useEffect(() => {
 }, [step]);
 
 // Khi component mount, auto play nhạc
-  useEffect(() => {
+useEffect(() => {
+  const playAudio = () => {
     if (audioRef.current) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch((err) => {
-            console.log("Autoplay bị chặn:", err);
-            setIsPlaying(false);
-          });
-      }
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
     }
-  }, []);
+    // Sau khi user đã tương tác 1 lần, bỏ listener
+    window.removeEventListener("click", playAudio);
+  };
 
+  // Lắng nghe 1 click đầu tiên
+  window.addEventListener("click", playAudio);
+
+  return () => {
+    window.removeEventListener("click", playAudio);
+  };
+}, []);
 
   // Hàm toggle nhạc
   const toggleAudio = () => {
