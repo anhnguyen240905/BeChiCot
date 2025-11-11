@@ -388,7 +388,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
         <button
           onClick={() => {
@@ -397,7 +397,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
       </div>
     )}
@@ -505,12 +505,13 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="flex flex-col items-center justify-center min-h-screen text-center">
-    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
-      <img
-      src="/chiase.png"
-      alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
-      className="w-[800px] md:w-[26rem] mb-4"
+   <div className="flex justify-center mb-6">
+  <img
+    src="/chiase.png"
+    alt="Chia sẻ hành trình cùng Be Chí Cốt"
+    className="w-[900px] max-w-full h-auto"
+  />
+</div>
     />
 
       {/* Step 1 - Cảm nghĩ */}
