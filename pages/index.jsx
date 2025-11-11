@@ -512,6 +512,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="w-[900px] max-w-full h-auto"
   />
 </div>
+    </div>
     />
 
       {/* Step 1 - Cảm nghĩ */}
