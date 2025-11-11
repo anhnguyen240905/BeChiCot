@@ -341,44 +341,45 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         </div>
       )}
 
-      {/* STEP 3.5 */}
-      {step === "editTimetable" && (
-        <div
-          className="min-h-screen bg-cover bg-center flex flex-col items-center p-6 text-center"
-          style={{ backgroundImage: "url('/bg.png')" }}
-        >
-          <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
-          <div className="flex flex-col items-center">
-          <img src="/tuychinh.png" className="w-[800px] mb-4" />
-          <div className="flex gap-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
-            {editableTasks.map((t) => (
-              <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
-            ))}
-          </div>
-          <div className="mt-6 flex gap-4">
-            <button
-              onClick={handleFinishEditing}
-              className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-            >
-              Hoàn tất & Tiếp tục
-            </button>
-            <button
-              onClick={() => setStep("suggestTimetable")}
-              className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
-            >
-              Quay lại
-            </button>
-          </div>
+{/* STEP 3.5 */}
+{step === "editTimetable" && (
+  <div
+    className="min-h-screen bg-cover bg-center flex flex-col items-center p-6 text-center"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
+      <img src="/tuychinh.png" className="w-[800px] mb-4" />
 
-          <SuggestModal
-            task={selectedTask}
-            onChoose={handleChooseAlternative}
-            onClose={() => setSelectedTask(null)}
-            timetableVersion={selectedTimetable}
-          />
-        </div>
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+        {editableTasks.map((t) => (
+          <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
+        ))}
+      </div>
+
+      <div className="mt-6 flex gap-4">
+        <button
+          onClick={handleFinishEditing}
+          className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+        >
+          Hoàn tất & Tiếp tục
+        </button>
+        <button
+          onClick={() => setStep("suggestTimetable")}
+          className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
+        >
+          Quay lại
+        </button>
+      </div>
+
+      <SuggestModal
+        task={selectedTask}
+        onChoose={handleChooseAlternative}
+        onClose={() => setSelectedTask(null)}
+        timetableVersion={selectedTimetable}
+      />
+    </div>
+  </div>
+)}
 
       {/* STEP 3.6 */}
       {step === "finalTimetable" && (
