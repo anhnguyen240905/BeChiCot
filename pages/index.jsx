@@ -161,6 +161,8 @@ export default function BeChiCotMicrosite() {
   const [selectedTimetable, setSelectedTimetable] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const canvasRef = useRef(null);
+  const audioRef = useRef(null);
+const [isPlaying, setIsPlaying] = useState(false);
 
   // template cho 2 timetable
   const timetableTemplate1 = [
