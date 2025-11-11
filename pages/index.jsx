@@ -162,8 +162,7 @@ export default function BeChiCotMicrosite() {
   const [selectedTask, setSelectedTask] = useState(null);
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
-const [isPlaying, setIsPlaying] = useState(false);
-
+  const [isPlaying, setIsPlaying] = useState(true);
   // template cho 2 timetable
   const timetableTemplate1 = [
     { id: 1, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:30" },
@@ -300,6 +299,20 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   useEffect(() => {
     if (step === "certificate") generateCertificate();
   }, [step]);
+      if (audioRef.current) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.log("Autoplay bị chặn:", err);
+            setIsPlaying(false);
+          });
+      }
+    }
+  }, []);
 
 
   // =================== UI FLOW ===================
@@ -309,17 +322,28 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
 >
 {/* 🔊 Nhạc nền */}
-    <audio ref={audioRef} src="/bgmusic.mp3" loop />
+  const toggleAudio = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
-    <button
-      onClick={() => {
-        audioRef.current.play();
-        setIsPlaying(true);
-      }}
-      className="fixed top-4 right-4 px-3 py-1 bg-yellow-500 text-white rounded shadow"
-    >
-      {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
-    </button>
+  return (
+    <div className="min-h-screen">
+      {/* Nhạc nền */}
+      <audio ref={audioRef} src="/bgmusic.mp3" loop />
+
+      {/* Nút bật/tắt nhạc */}
+      <button
+        onClick={toggleAudio}
+        className="fixed top-4 right-4 px-3 py-1 bg-yellow-500 text-white rounded shadow"
+      >
+        {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
+      </button>
          
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
