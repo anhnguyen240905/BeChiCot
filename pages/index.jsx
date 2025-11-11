@@ -543,8 +543,8 @@ return (
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="flex flex-col items-center justify-center min-h-screen text-center">
-    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+  <div className="flex flex-col items-center justify-center min-h-screen text-center">
+  <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
       <img
       src="/chiase.png"
       alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
