@@ -381,106 +381,44 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   </div>
 )}
 
-      {/* STEP 3.6 */}
-      {step === "finalTimetable" && (
-        <div
-          className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6 text-center"
-          style={{ backgroundImage: "url('/bg.png')" }}
-        >
-          <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
-            <div className="flex flex-col items-center">
-          <img src="/lichtrinhfinal.png" className="w-[800px] mb-4" />
-          <div className="flex gap-6">
-            <div className="divide-y divide-gray-200">
-              {editableTasks.map((t, i) => (
-                <div key={t.id} className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}>
-                  <p className="text-sm text-gray-500">{t.time}</p>
-                  <p className="font-medium text-gray-800">{t.title}</p>
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={() => setStep("ugc")}
-              className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-            >
-              Xác nhận & Tiếp tục
-            </button>
+{/* STEP 3.6: final timetable */}
+{step === "finalTimetable" && (
+  <div className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6" style={{ backgroundImage: "url('/bg.png')" }}>
+    <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
+      <img src="/lichtrinhfinal.png" className="w-[800px] mb-4" />
+      <div className="divide-y divide-gray-200">
+        {editableTasks.map((t, i) => (
+          <div key={t.id} className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}>
+            <p className="text-sm text-gray-500">{t.time}</p>
+            <p className="font-medium text-gray-800">{t.title}</p>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+      <button onClick={() => setStep("ugc")} className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition">
+        Xác nhận & Tiếp tục
+      </button>
+    </div>
+  </div>
+)}
 
-  {/* STEP 4: UGC FORM */}
+{/* STEP 4: UGC FORM */}
 {step === "ugc" && (
-  <div
-    className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
-    style={{ backgroundImage: "url('/bg.png')" }}
-  >
+  <div className="min-h-screen bg-cover bg-center flex items-center justify-center p-6" style={{ backgroundImage: "url('/bg.png')" }}>
     <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
         Chia sẻ trải nghiệm cùng Be Chí Cốt
       </h2>
-
-      {/* Step 1 - Cảm nghĩ */}
-      <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
-        {feelingsOptions.map((f) => (
-<label
-  key={f}
-  className={`p-2 border rounded cursor-pointer text-sm transition-colors
-    ${ugc.feelings.includes(f) ? "bg-yellow-100 border-yellow-400" : "hover:bg-yellow-100"}`}
->
-  <input
-    type="checkbox"
-    className="mr-2"
-    checked={ugc.feelings.includes(f)}
-    onChange={() => toggleFeeling(f)}
-  />
-  {f}
-</label>
-        ))}
-      </div>
-
-      {/* Step 2 - Kỷ niệm */}
-      <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
-      <textarea
-        className="w-full border p-2 rounded mb-4"
-        rows={3}
-        value={ugc.story}
-        onChange={(e) => setUgc((u) => ({ ...u, story: e.target.value }))}
-        placeholder="Chia sẻ với Be nhé!"
-      />
-
-      {/* Step 3 - Hứa hẹn */}
-      <h3 className="font-semibold mb-2">Hứa hẹn cho những buổi "date" tiếp theo</h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
-        {promisesOptions.map((p) => (
-<label
-  key={p}
-  className={`p-2 border rounded cursor-pointer text-sm transition-colors
-    ${ugc.promises.includes(p) ? "bg-yellow-100 border-yellow-400" : "hover:bg-yellow-100"}`}
->
-  <input
-    type="checkbox"
-    className="mr-2"
-    checked={ugc.promises.includes(p)}
-    onChange={() => togglePromise(p)}
-  />
-  {p}
-</label>
-        ))}
-      </div>
-
+      {/* feelings */}
+      ...
+      {/* story */}
+      ...
+      {/* promises */}
+      ...
       <div className="flex justify-center gap-3">
-        <button
-          className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition"
-          onClick={() => setStep("certificate")}
-        >
+        <button onClick={() => setStep("certificate")} className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition">
           Gửi Be Chí Cốt
         </button>
-        <button
-          className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
-          onClick={resetAll}
-        >
+        <button onClick={resetAll} className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition">
           Làm lại
         </button>
       </div>
@@ -490,79 +428,16 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
-  <div
-    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6"
-    style={{ backgroundImage: "url('/bg.png')" }}
-  >
+  <div className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6" style={{ backgroundImage: "url('/bg.png')" }}>
     <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
-    
-      {/* Canvas hiển thị chứng nhận */}
-      <canvas
-        ref={canvasRef}
-        width={868}
-        height={760}
-        className="w-full max-w-[500px] rounded-lg shadow mb-4"
-      />
-
+      <canvas ref={canvasRef} width={868} height={760} className="w-full max-w-[500px] rounded-lg shadow mb-4" />
       <div className="flex gap-4">
-        {/* 1️⃣ Lưu về máy */}
-        <button
-          onClick={() => {
-            const c = canvasRef.current;
-            const a = document.createElement("a");
-            a.href = c.toDataURL("image/png");
-            a.download = "be-chi-cot-certificate.png";
-            a.click();
-          }}
-          className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-        >
-          Lưu lại
-        </button>
-
-        {/* 2️⃣ Chia sẻ Facebook */}
-        <button
-          onClick={async () => {
-            const c = canvasRef.current;
-            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
-
-            const formData = new FormData();
-            formData.append("file", blob);
-            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
-
-            try {
-              const res = await fetch(
-                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-                { method: "POST", body: formData }
-              );
-              const data = await res.json();
-              if (data.secure_url) {
-                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  data.secure_url
-                )}`;
-                window.open(fbShareUrl, "_blank");
-              }
-            } catch (err) {
-              console.error(err);
-              alert("Share thất bại");
-            }
-          }}
-          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-        >
-          Chia sẻ
-        </button>
-
-        {/* 3️⃣ Làm lại */}
-        <button
-          onClick={resetAll}
-          className="px-5 py-2 bg-gray-300 rounded shadow hover:scale-105 transition"
-        >
-          Làm lại
-        </button>
+        <button onClick={downloadCertificate} className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition">Lưu lại</button>
+        <button onClick={shareFacebook} className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition">Chia sẻ</button>
+        <button onClick={resetAll} className="px-5 py-2 bg-gray-300 rounded shadow hover:scale-105 transition">Làm lại</button>
       </div>
     </div>
   </div>
 )}
-
-    </div>
   );
 }
