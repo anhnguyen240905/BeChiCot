@@ -543,17 +543,17 @@ return (
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-  <div className="flex flex-col items-center justify-center min-h-screen text-center">
-  <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800 flex flex-col gap-4 overflow-auto">
+      
       <img
-      src="/chiase.png"
-      alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
-      className="w-[900px] md:w-[26rem] mb-4"
+        src="/chiase.png"
+        alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
+        className="w-[900px] md:w-[26rem] mb-4 self-center"
       />
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
-      <p className="text-sm text-gray-500 mb-3"> Chọn tối đa 2 lựa chọn bạn nhé </p>
+      <p className="text-sm text-gray-500 mb-3">Chọn tối đa 2 lựa chọn bạn nhé</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         {feelingsOptions.map((f) => (
           <label
@@ -561,7 +561,7 @@ return (
             className={`p-2 border rounded cursor-pointer text-sm ${
               ugc.feelings.includes(f)
                 ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-80"
+                : "hover:bg-gray-100"
             }`}
           >
             <input
@@ -573,7 +573,7 @@ return (
             {f}
           </label>
         ))}
-        </div>
+      </div>
 
       {/* Step 2 - Kỷ niệm */}
       <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
@@ -587,7 +587,7 @@ return (
 
       {/* Step 3 - Hứa hẹn */}
       <h3 className="font-semibold mb-2">Hứa hẹn cho những buổi "date" tiếp theo</h3>
-      <p className="text-sm text-gray-500 mb-3"> Chọn tối đa 2 lựa chọn bạn nhé </p>
+      <p className="text-sm text-gray-500 mb-3">Chọn tối đa 2 lựa chọn bạn nhé</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
         {promisesOptions.map((p) => (
           <label
@@ -595,7 +595,7 @@ return (
             className={`p-2 border rounded cursor-pointer text-sm ${
               ugc.promises.includes(p)
                 ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-80"
+                : "hover:bg-gray-100"
             }`}
           >
             <input
@@ -609,6 +609,7 @@ return (
         ))}
       </div>
 
+      {/* Nút gửi / làm lại */}
       <div className="flex justify-center gap-3">
         <button
           className="px-5 py-2 bg-blue-600 text-white rounded hover:scale-105 transition"
@@ -626,7 +627,6 @@ return (
     </div>
   </div>
 )}
-
 
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
