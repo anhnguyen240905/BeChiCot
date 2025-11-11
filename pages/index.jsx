@@ -388,7 +388,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb1goiy.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
         <button
           onClick={() => {
@@ -397,7 +397,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb2goiy.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
       </div>
     )}
