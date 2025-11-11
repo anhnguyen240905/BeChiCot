@@ -306,7 +306,19 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   className="min-h-screen bg-cover bg-center relative text-gray-800"
   style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
 >
- <audio src="/bgmusic.mp3" autoPlay loop />         
+{/* 🔊 Nhạc nền */}
+    <audio ref={audioRef} src="/bgmusic.mp3" loop />
+
+    <button
+      onClick={() => {
+        audioRef.current.play();
+        setIsPlaying(true);
+      }}
+      className="fixed top-4 right-4 px-3 py-1 bg-yellow-500 text-white rounded shadow"
+    >
+      {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
+    </button>
+         
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
     {/* Ảnh tiêu đề “Bạn là” */}
@@ -505,13 +517,13 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-   <div className="flex justify-center mb-6">
-  <img
-    src="/chiase.png"
-    alt="Chia sẻ hành trình cùng Be Chí Cốt"
-    className="w-[900px] max-w-full h-auto"
-  />
-</div>
+    <div className="flex flex-col items-center justify-center min-h-screen text-center">
+    <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
+      <img
+      src="/chiase.png"
+      alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
+      className="w-[900px] md:w-[26rem] mb-4"
+    />
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
@@ -587,6 +599,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       </div>
     </div>
 )}
+
 
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
