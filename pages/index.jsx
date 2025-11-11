@@ -329,23 +329,19 @@ useEffect(() => {
     setIsPlaying(!isPlaying);
   };
 
-  return (
-    <div className="min-h-screen">
-      {/* Nhạc nền */}
-      <audio ref={audioRef} src="/bgmusic.mp3" loop />
+return (
+  <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
+  
+    {/* Nhạc nền */}
+    <audio ref={audioRef} src="/bgmusic.mp3" loop />
 
-      {/* Nút bật/tắt nhạc */}
-      <button
-        onClick={toggleAudio}
-        className="fixed top-4 right-4 px-3 py-1 bg-yellow-500 text-white rounded shadow"
-      >
-        {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
-      </button>
-
-  return (
-    <div
-  className="min-h-screen bg-cover bg-center relative text-gray-800"
-  style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
+    {/* Nút bật/tắt nhạc */}
+    <button
+      onClick={toggleAudio}
+      className="fixed top-4 right-4 px-3 py-1 bg-yellow-500 text-white rounded shadow"
+    >
+      {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
+    </button>
       
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
