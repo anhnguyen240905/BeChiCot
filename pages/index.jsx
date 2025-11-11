@@ -193,11 +193,11 @@ function togglePromise(p) {
 
 function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
     let fontSize = maxFontSize;
-    ctx.font = `${fontSize}px Arial`;
+    ctx.font = `${fontSize}px Roboto`;
   
     while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
       fontSize -= 1;
-      ctx.font = `${fontSize}px Arial`;
+      ctx.font = `${fontSize}px Roboto`;
     }
 
     ctx.fillText(text, x, y);
@@ -292,7 +292,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       {/* STEP 2 */}
       {step === "pickTimetable" && (
         <div className="flex flex-col items-center">
-          <img src="/chonlichtrinh.png" className="w-[600px] mb-4" />
+          <img src="/chonlichtrinh.png" className="w-[800px] mb-4" />
           <div className="flex gap-6">
             <button
               onClick={() => {
@@ -301,7 +301,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
                 setStep("suggestTimetable");
               }}
             >
-              <img src="/svtkb1.jpg" className="w-[230px] rounded-lg hover:scale-105 transition" />
+              <img src="/svtkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
             </button>
             <button
               onClick={() => {
@@ -310,7 +310,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
                 setStep("suggestTimetable");
               }}
             >
-              <img src="/svtkb2.jpg" className="w-[230px] rounded-lg hover:scale-105 transition" />
+              <img src="/svtkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
             </button>
           </div>
         </div>
@@ -347,9 +347,10 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           className="min-h-screen bg-cover bg-center flex flex-col items-center p-6 text-center"
           style={{ backgroundImage: "url('/bg.png')" }}
         >
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-800 drop-shadow">
-            Tùy chỉnh lịch trình của bạn
-          </h2>
+          <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
+          <div className="flex flex-col items-center">
+          <img src="/tuychinh.png" className="w-[800px] mb-4" />
+          <div className="flex gap-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
             {editableTasks.map((t) => (
               <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
@@ -386,9 +387,9 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
           style={{ backgroundImage: "url('/bg.png')" }}
         >
           <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
-            <h2 className="text-2xl font-semibold mb-4 text-yellow-800">
-              Lịch trình hoàn chỉnh của bạn
-            </h2>
+            <div className="flex flex-col items-center">
+          <img src="/lichtrinhfinal.png" className="w-[800px] mb-4" />
+          <div className="flex gap-6">
             <div className="divide-y divide-gray-200">
               {editableTasks.map((t, i) => (
                 <div key={t.id} className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}>
@@ -493,10 +494,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     style={{ backgroundImage: "url('/bg.png')" }}
   >
     <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-blue-700 mb-4">
-        Chứng nhận tình bạn
-      </h2>
-
+    
       {/* Canvas hiển thị chứng nhận */}
       <canvas
         ref={canvasRef}
