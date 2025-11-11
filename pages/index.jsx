@@ -299,29 +299,17 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   useEffect(() => {
     if (step === "certificate") generateCertificate();
   }, [step]);
-      if (audioRef.current) {
+if (audioRef.current) {
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch((err) => {
-            console.log("Autoplay bị chặn:", err);
-            setIsPlaying(false);
-          });
+          .then(() => setIsPlaying(true))
+          .catch(() => setIsPlaying(false)); // trình duyệt chặn autoplay
       }
     }
   }, []);
 
-
-  // =================== UI FLOW ===================
-   return (
-    <div
-  className="min-h-screen bg-cover bg-center relative text-gray-800"
-  style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
->
-{/* 🔊 Nhạc nền */}
+  // Hàm toggle nhạc
   const toggleAudio = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -344,7 +332,12 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       >
         {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
       </button>
-         
+
+  return (
+    <div
+  className="min-h-screen bg-cover bg-center relative text-gray-800"
+  style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
+      
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
     {/* Ảnh tiêu đề “Bạn là” */}
