@@ -69,8 +69,8 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
     ],
   };
 
-  // 🔵 GỢI Ý CHO ndltkb1goiy
-  const alternatives3 = {
+  // 🔵 GỢI Ý CHO ndltkb2goiy
+  const alternatives4 = {
     "Anh Cường Be ship phở bò": [
       "Anh Cường Be ship bánh mì Hội An",
       "Anh Cường Be ship bánh cuốn",
@@ -88,8 +88,8 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
     ],
   };
 
-  // 🔴 GỢI Ý CHO ndltkb2goiy
-  const alternatives4 = {
+  // 🔴 GỢI Ý CHO ndltkb1goiy
+  const alternatives3 = {
     "Anh Minh Be ship xôi thập cẩm": [
       "Anh Minh Be ship bánh mì xíu mại",
       "Anh Minh Be ship bánh đúc nóng",
@@ -119,8 +119,8 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
       : timetableVersion === "svtkb2goiy"
       ? alternatives2
       : timetableVersion === "ndltkb1goiy"
-      ? alternatives3
-      : alternatives4;
+      ? alternatives4
+      : alternatives3;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -388,7 +388,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
         <button
           onClick={() => {
@@ -397,7 +397,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
       </div>
     )}
