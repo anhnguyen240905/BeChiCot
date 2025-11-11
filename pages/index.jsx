@@ -499,22 +499,19 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   </div>
 )}
 
-   {/* STEP 4: UGC FORM */}
 {/* STEP 4: UGC FORM */}
 {step === "ugc" && (
   <div
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="flex flex-col items-center w-full max-w-4xl">
-      {/* Ảnh tiêu đề */}
-      <div className="flex justify-center mb-6">
-        <img
-          src="/chiase.png"
-          alt="Chia sẻ hành trình cùng Be Chí Cốt"
-          className="w-[900px] max-w-full h-auto"
-        />
-      </div>
+   <div className="flex justify-center mb-6">
+  <img
+    src="/chiase.png"
+    alt="Chia sẻ hành trình cùng Be Chí Cốt"
+    className="w-[900px] max-w-full h-auto"
+  />
+</div>
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">
@@ -530,7 +527,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             className={`p-2 border rounded cursor-pointer text-sm ${
               ugc.feelings.includes(f)
                 ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-80"
+                : "hover:bg-yellow-80"
             }`}
           >
             <input
@@ -572,7 +569,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             className={`p-2 border rounded cursor-pointer text-sm ${
               ugc.promises.includes(p)
                 ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-80"
+                : "hover:bg-yellow-80"
             }`}
           >
             <input
