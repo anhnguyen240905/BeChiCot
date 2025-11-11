@@ -383,7 +383,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       <div className="flex gap-6">
         <button
           onClick={() => {
-            setSelectedTimetable("ndltkb1goiy");
+            setSelectedTimetable("ndltkb2goiy");
             setEditableTasks(timetableTemplate3.map((t) => ({ ...t })));
             setStep("suggestTimetable");
           }}
@@ -392,7 +392,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         </button>
         <button
           onClick={() => {
-            setSelectedTimetable("ndltkb2goiy");
+            setSelectedTimetable("ndltkb1goiy");
             setEditableTasks(timetableTemplate4.map((t) => ({ ...t })));
             setStep("suggestTimetable");
           }}
