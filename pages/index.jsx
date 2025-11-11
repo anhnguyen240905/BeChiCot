@@ -299,12 +299,15 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
   useEffect(() => {
     if (step === "certificate") generateCertificate();
   }, [step]);
-if (audioRef.current) {
+  if (audioRef.current) {
     const playPromise = audioRef.current.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false)); // trình duyệt chặn autoplay
+        .catch(() => {
+          // trình duyệt chặn autoplay
+          setIsPlaying(false);
+        });
     }
   }
 }, []);
