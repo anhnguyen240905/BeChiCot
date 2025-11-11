@@ -1,28 +1,11 @@
 /* 
 BE CHÍ CỐT — Microsite (Next.js + Tailwind)
 Version: 2025
-Tác giả: ChatGPT (theo brief của bạn)
-Cấu trúc:
-1️⃣ Chọn vai trò (nút ảnh)
-2️⃣ Chọn timetable (ảnh)
-3️⃣ Gợi ý timetable có dịch vụ Be (ảnh)
-4️⃣ Form UGC (text + multiple choice)
-5️⃣ Certificate (ảnh chứng nhận)
-
-Ảnh cần upload vào /public/:
-- bg.png (background microsite)
-- banla.png (ảnh tiêu đề “Bạn là”)
-- nguoidilam.png (nút “Người đi làm”)
-- sinhvien.png (nút “Sinh viên”)
-- chonlichtrinh.png (ô “Chọn lịch trình…”)
-- svtkb1.png, svtkb2.png (2 ảnh thời khóa biểu)
-- goiy1.png (ô “Be Chí Cốt gợi ý…”)
-- svtkbgoiy.png (thời khóa biểu gợi ý)
-- chungnhan.png (ô “Chứng nhận tình bạn”)
 */
 
 import React, { useState, useRef, useEffect } from "react";
-// Component hiển thị từng ô (task)
+
+// COMPONENT: Một ô lịch trình có thể bấm để chỉnh
 function EditableTask({ task, onSelect }) {
   return (
     <button
@@ -35,36 +18,40 @@ function EditableTask({ task, onSelect }) {
   );
 }
 
-// Component popup chọn gợi ý thay thế
-// Component popup chọn gợi ý thay thế
+// COMPONENT: Popup chọn gợi ý thay thế
 function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
   if (!task) return null;
 
-  // --- TKB 1 ---
+  // Gợi ý cho svtkb1
   const alternatives1 = {
+    "Anh Sơn Be chở đi học": [
+      "Anh Sơn Be chở đi làm",
+      "Anh Sơn Be chở đi gym",
+      "Anh Sơn Be chở đi cafe",
+    ],
     "Anh Kiên Be ship bánh mì Hội An": [
       "Anh Kiên Be ship bánh bao",
       "Anh Kiên Be ship xôi xéo",
       "Anh Kiên Be ship cháo sườn",
     ],
-    "Anh Thiên Be ship bún chả bà Dung": [
-      "Anh Thiên Be ship bún mắm Đà Nẵng",
-      "Anh Thiên Be ship bánh canh cua Sài Gòn",
-      "Anh Thiên Be ship bún hải sản",
+    "Đi học ở trường": [
+      "Đến thư viện học nhóm",
+      "Tham gia câu lạc bộ",
+      "Đi học thêm buổi tối",
     ],
-    "Anh Đức Be giao hợp đồng cho đối tác": [
+    "Anh Đức Be giao hợp đồng": [
       "Anh Đức Be giao quà cho đối tác",
-      "Anh Đức Be giao hàng cho khách",
-      "Anh Đức Be giao quà cho ngiu",
+      "Anh Đức Be gửi báo cáo sếp",
+      "Anh Đức Be nhận đơn mới",
     ],
-    "Anh Minh Be ship trà sữa": [
-      "Anh Minh Be ship trà chanh lô hội",
-      "Anh Minh Be ship chè mít",
-      "Anh Minh Be ship sinh tố xoài",
+    "Chạy deadline": [
+      "Đi chơi sau deadline",
+      "Đi xem phim với bạn",
+      "Ngủ bù 10 tiếng liền",
     ],
   };
 
-  // --- TKB 2 ---
+  // Gợi ý cho svtkb2
   const alternatives2 = {
     "Anh Phúc Be giao bánh bao trứng muối": [
       "Anh Phúc Be giao bánh dày",
@@ -77,39 +64,48 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
       "Anh Thiện Be giao mì hải sản",
     ],
     "Anh Hải Be giao Matcha Latte": [
-      "Anh Hải Be giao sữa tươi trân châu đường đen",
+      "Anh Hải Be giao sữa tươi trân châu",
       "Anh Hải Be giao rau má mix",
       "Anh Hải Be giao trà xoài",
     ],
+    "Đi họp công ty": [
+      "Họp online 30 phút",
+      "Họp team building",
+      "Họp client cuối năm",
+    ],
+    "Chạy deadline": [
+      "Làm báo cáo nhanh",
+      "Gọi team hỗ trợ",
+      "Nghỉ ngơi để hồi sức",
+    ],
   };
 
-  // --- chọn bộ dữ liệu phù hợp ---
   const alternatives =
     timetableVersion === "svtkb2goiy" ? alternatives2 : alternatives1;
-
   const options = alternatives[task.title] || [];
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-80 shadow-lg text-center">
-        <h3 className="font-semibold mb-4">Chọn gợi ý thay thế</h3>
+        <h3 className="font-semibold mb-2">Chọn gợi ý thay thế cho:</h3>
+        <p className="text-gray-700 text-sm mb-4 italic">{task.title}</p>
+
         <div className="flex flex-col gap-2">
           {options.length > 0 ? (
             options.map((opt) => (
               <button
                 key={opt}
                 onClick={() => onChoose(task, opt)}
-                className="px-4 py-2 bg-yellow-100 hover:bg-yellow-200 rounded"
+                className="px-4 py-2 bg-yellow-100 hover:bg-yellow-200 rounded transition"
               >
                 {opt}
               </button>
             ))
           ) : (
-            <p className="text-gray-500 text-sm">
-              (Không có gợi ý thay thế cho mục này)
-            </p>
+            <p className="text-gray-500 text-sm">(Không có gợi ý thay thế)</p>
           )}
         </div>
+
         <button onClick={onClose} className="mt-4 text-sm text-gray-500">
           Đóng
         </button>
@@ -118,56 +114,47 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
   );
 }
 
+// ===============================
+// MAIN COMPONENT
+// ===============================
 export default function BeChiCotMicrosite() {
-  function EditableSlot({ slot }) {
-  const [editing, setEditing] = React.useState(false);
-  const [title, setTitle] = React.useState(slot.title);
-
-  return (
-    <div
-      onClick={() => setEditing(true)}
-      className="relative rounded-xl overflow-hidden shadow-lg cursor-pointer border-4 border-transparent hover:border-yellow-400 transition-all duration-200"
-      style={{
-        backgroundImage: `url(${slot.img})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "150px",
-      }}
-    >
-      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-        {editing ? (
-          <input
-            autoFocus
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={() => setEditing(false)}
-            className="bg-white/80 text-black px-2 py-1 rounded w-3/4 text-sm"
-          />
-        ) : (
-          <p className="text-white text-center font-medium px-2">{title}</p>
-        )}
-      </div>
-
-      <div className="absolute top-2 left-2 bg-white/70 text-xs px-2 py-1 rounded">
-        {slot.time}
-      </div>
-    </div>
-  );
-}
   const [role, setRole] = useState(null);
   const [step, setStep] = useState("chooseRole");
-  const [selectedTimetable, setSelectedTimetable] = useState("svtkb1goiy");
+  const [selectedTimetable, setSelectedTimetable] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
   const canvasRef = useRef(null);
 
-    const [editableTasks, setEditableTasks] = useState([
+  // template cho 2 timetable
+  const timetableTemplate1 = [
     { id: 1, title: "Anh Sơn Be chở đi học", time: "07:00" },
     { id: 2, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:30" },
     { id: 3, title: "Đi học ở trường", time: "08:00" },
     { id: 4, title: "Anh Đức Be giao hợp đồng", time: "15:00" },
     { id: 5, title: "Chạy deadline", time: "21:00" },
-  ]);
-  const [selectedTask, setSelectedTask] = useState(null);
+  ];
+
+  const timetableTemplate2 = [
+    { id: 1, title: "Anh Phúc Be giao bánh bao trứng muối", time: "07:00" },
+    { id: 2, title: "Anh Thiện Be giao phở bò Nam Định", time: "08:00" },
+    { id: 3, title: "Anh Hải Be giao Matcha Latte", time: "12:00" },
+    { id: 4, title: "Đi họp công ty", time: "14:00" },
+    { id: 5, title: "Chạy deadline", time: "21:00" },
+  ];
+
+  const [editableTasks, setEditableTasks] = useState(timetableTemplate1);
+
+  // Hàm chọn task
+  const handleSelectTask = (task) => setSelectedTask(task);
+  const handleChooseAlternative = (task, newTitle) => {
+    setEditableTasks((prev) =>
+      prev.map((t) => (t.id === task.id ? { ...t, title: newTitle } : t))
+    );
+    setSelectedTask(null);
+  };
+
+  const handleFinishEditing = () => setStep("finalTimetable");
+
+  const [ugc, setUgc] = useState({ feelings: [], story: "", promises: [] });
 
   const feelingsOptions = [
     "Dễ thương phết chứ không đùa",
@@ -194,44 +181,6 @@ export default function BeChiCotMicrosite() {
     "Công phá 7749 trò chơi",
     "Đi dạo đêm quanh thành phố",
   ];
-  const handleSelectTask = (task) => setSelectedTask(task);
-
-  const handleChooseAlternative = (task, newTitle) => {
-    setEditableTasks((prev) =>
-      prev.map((t) => (t.id === task.id ? { ...t, title: newTitle } : t))
-    );
-    setSelectedTask(null);
-  };
-
-  const handleFinishEditing = () => {
-    setStep("finalTimetable");
-  };
-
-  const [ugc, setUgc] = useState({ feelings: [], story: "", promises: [] });
-
-  const toggleFeeling = (f) => {
-    setUgc((u) => {
-      const has = u.feelings.includes(f);
-      return {
-        ...u,
-        feelings: has
-          ? u.feelings.filter((x) => x !== f)
-          : [...u.feelings, f],
-      };
-    });
-  };
-
-  const togglePromise = (p) => {
-    setUgc((u) => {
-      const has = u.promises.includes(p);
-      return {
-        ...u,
-        promises: has
-          ? u.promises.filter((x) => x !== p)
-          : [...u.promises, p],
-      };
-    });
-  };
 
   function resetAll() {
     setRole(null);
@@ -239,15 +188,13 @@ export default function BeChiCotMicrosite() {
     setUgc({ feelings: [], story: "", promises: [] });
   }
 
-function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
+  function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
     let fontSize = maxFontSize;
     ctx.font = `${fontSize}px Arial`;
-  
     while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
       fontSize -= 1;
       ctx.font = `${fontSize}px Arial`;
     }
-
     ctx.fillText(text, x, y);
   }
 
@@ -255,213 +202,176 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     const c = canvasRef.current;
     if (!c) return;
     const ctx = c.getContext("2d");
-
     const img = new Image();
     img.src = "/cert.png";
     img.onload = () => {
       ctx.drawImage(img, 0, 0, c.width, c.height);
-
       ctx.textBaseline = "top";
       ctx.fillStyle = "#000";
-
-      const feelingsText = ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
+      const feelingsText = ugc.feelings.join(", ") || "(Chưa nhập)";
       const storyText = ugc.story || "(Chưa nhập)";
-      const promisesText = ugc.promises.length > 0 ? ugc.promises.join(", ") : "(Chưa nhập)";
-
+      const promisesText = ugc.promises.join(", ") || "(Chưa nhập)";
       const textXStart = 140;
       const textWidth = 600;
-      const centerX = textXStart + textWidth / 2; // = 140 + 600/2 = 440
-
-      ctx.textAlign = "center"; // căn giữa
-      ctx.textBaseline = "top"; // y là top
-
+      const centerX = textXStart + textWidth / 2;
+      ctx.textAlign = "center";
       drawSingleLineText(ctx, feelingsText, centerX, 360, textWidth);
       drawSingleLineText(ctx, storyText, centerX, 425, textWidth);
       drawSingleLineText(ctx, promisesText, centerX, 495, textWidth);
-
     };
   };
-
-  // useEffect tự vẽ khi bước certificate
   useEffect(() => {
     if (step === "certificate") generateCertificate();
   }, [step]);
-  
+
+  // =================== UI FLOW ===================
   return (
     <div
-  className="min-h-screen bg-cover bg-center relative text-gray-800"
-  style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
->
-          
-{step === "chooseRole" && (
-  <div className="flex flex-col items-center justify-center min-h-screen text-center">
-    {/* Ảnh tiêu đề “Bạn là” */}
-    <img
-      src="/banla.png"
-      alt="Bạn là"
-      className="w-[22rem] md:w-[26rem] mb-4"
-    />
-
-    {/* Hai nút ảnh đều to và thẳng hàng */}
-    <div className="flex flex-col gap-1 md:gap-2 items-center justify-center mt-2">
-      <button
-        onClick={() => {
-          setRole("student");
-          setStep("pickTimetable");
-        }}
-        className="w-full"
-      >
-        <img
-          src="/sinhvien.png"
-          alt="Sinh viên"
-          className="w-full max-w-xl h-auto hover:scale-105 transition-transform duration-200"
-        />
-      </button>
-
-      <button
-        onClick={() => {
-          setRole("worker");
-          setStep("pickTimetable");
-        }}
-        className="w-full"
-      >
-        <img
-          src="/nguoidilam.png"
-          alt="Người đi làm"
-          className="w-full max-w-xl h-auto hover:scale-105 transition-transform duration-200"
-        />
-      </button>
-    </div>
-  </div>
-)}
-
-          {/* STEP 2: CHỌN THỜI KHÓA BIỂU */}
-          {step === "pickTimetable" && (
-            <div className="flex flex-col items-center">
-              <img src="/chonlichtrinh.png" alt="Chọn lịch trình" className="w-[800px] mb-4" /> {/* ô “Chọn lịch trình...” */}
-
-              <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-2">
-                {role === "student" && (
-                  <>
-                    <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb1.jpg" alt="TKB sinh viên 1" className="w-[230px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB1 */}
-                    </button>
-                    <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/svtkb2.jpg" alt="TKB sinh viên 2" className="w-[230px] rounded-lg hover:scale-105 transition" /> {/* ảnh TKB2 */}
-                    </button>
-                  </>
-                )}
-
-                {role === "worker" && (
-                  <>
-                    <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb1.jpg" alt="TKB người đi làm 1" className="w-[230px] rounded-lg hover:scale-105 transition" /> {/* có thể thay bằng ảnh riêng */}
-                    </button>
-                    <button onClick={() => setStep("suggestTimetable")}>
-                      <img src="/ndltkb2.jpg" alt="TKB người đi làm 2" className="w-[230px] rounded-lg hover:scale-105 transition" />
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3: GỢI Ý BE CHÍ CỐT */}
-          {step === "suggestTimetable" && (
-            <div className="flex flex-col items-center">
-              <img src="/goiy1.png" alt="Be gợi ý" className="w-[800px] mb-4" /> {/* ô “Be Chí Cốt gợi ý...” */}
-              <img src="/svtkb1goiy.jpg" alt="TKB gợi ý" className="w-[230px] rounded-lg shadow-lg mb-6" /> {/* ảnh thời khóa biểu gợi ý */}
-
-              <div className="flex gap-4">
-<button
-  onClick={() => {
-    setSelectedTimetable("svtkb1goiy");
-    setStep("editTimetable");
-  }}
-  className="px-4 py-2 bg-gray-200 rounded hover:shadow-2g"
->
-  Chỉnh sửa lịch trình
-</button>
-
-              </div>
-            </div>
-          )}
-      
-{/* STEP 3.5: LỊCH TRÌNH TƯƠNG TÁC (editable timetable) */}
-{step === "editTimetable" && (
-  <div
-    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-start p-6 text-center"
-    style={{ backgroundImage: "url('/bg.png')" }}
-  >
-    <h2 className="text-2xl font-semibold mb-4 text-yellow-800 drop-shadow">
-      Tùy chỉnh lịch trình của bạn
-    </h2>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl">
-      {editableTasks.map((t) => (
-        <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
-      ))}
-    </div>
-
-    <div className="mt-6 flex gap-4">
-      <button
-        onClick={handleFinishEditing}
-        className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-      >
-        Hoàn tất & Tiếp tục
-      </button>
-      <button
-        onClick={() => setStep("suggestTimetable")}
-        className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
-      >
-        Quay lại
-      </button>
-    </div>
-
-<SuggestModal
-  task={selectedTask}
-  onChoose={handleChooseAlternative}
-  onClose={() => setSelectedTask(null)}
-  timetableVersion={selectedTimetable}
-/>
-
-  </div>
-)}
-
-{/* STEP 3.6: LỊCH TRÌNH HOÀN CHỈNH */}
-{step === "finalTimetable" && (
-  <div
-    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6 text-center"
-    style={{ backgroundImage: "url('/bg.png')" }}
-  >
-    <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
-      <h2 className="text-2xl font-semibold mb-4 text-yellow-800">
-        Lịch trình hoàn chỉnh của bạn
-      </h2>
-
-      <div className="divide-y divide-gray-200">
-        {editableTasks.map((t, i) => (
-          <div
-            key={t.id}
-            className={`py-3 px-4 text-left ${
-              i % 2 === 0 ? "bg-gray-50" : "bg-white"
-            } rounded-lg`}
-          >
-            <p className="text-sm text-gray-500">{t.time}</p>
-            <p className="font-medium text-gray-800">{t.title}</p>
+      className="min-h-screen bg-cover bg-center relative text-gray-800"
+      style={{ backgroundImage: "url('/bg.png')" }}
+    >
+      {/* STEP 1 */}
+      {step === "chooseRole" && (
+        <div className="flex flex-col items-center justify-center min-h-screen text-center">
+          <img src="/banla.png" alt="Bạn là" className="w-[22rem] mb-4" />
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => {
+                setRole("student");
+                setStep("pickTimetable");
+              }}
+            >
+              <img src="/sinhvien.png" className="w-full max-w-sm hover:scale-105 transition" />
+            </button>
+            <button
+              onClick={() => {
+                setRole("worker");
+                setStep("pickTimetable");
+              }}
+            >
+              <img src="/nguoidilam.png" className="w-full max-w-sm hover:scale-105 transition" />
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
 
-      <button
-        onClick={() => setStep("ugc")}
-        className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-      >
-        Xác nhận & Tiếp tục
-      </button>
-    </div>
-  </div>
-)}
+      {/* STEP 2 */}
+      {step === "pickTimetable" && (
+        <div className="flex flex-col items-center">
+          <img src="/chonlichtrinh.png" className="w-[600px] mb-4" />
+          <div className="flex gap-6">
+            <button
+              onClick={() => {
+                setSelectedTimetable("svtkb1goiy");
+                setEditableTasks(timetableTemplate1.map((t) => ({ ...t })));
+                setStep("suggestTimetable");
+              }}
+            >
+              <img src="/svtkb1.jpg" className="w-[230px] rounded-lg hover:scale-105 transition" />
+            </button>
+            <button
+              onClick={() => {
+                setSelectedTimetable("svtkb2goiy");
+                setEditableTasks(timetableTemplate2.map((t) => ({ ...t })));
+                setStep("suggestTimetable");
+              }}
+            >
+              <img src="/svtkb2.jpg" className="w-[230px] rounded-lg hover:scale-105 transition" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3 */}
+      {step === "suggestTimetable" && (
+        <div className="flex flex-col items-center">
+          <img src="/goiy1.png" alt="Be gợi ý" className="w-[800px] mb-4" />
+          <img
+            src={`/${selectedTimetable || "svtkb1goiy"}.jpg`}
+            className="w-[230px] rounded-lg shadow-lg mb-6"
+          />
+          <div className="flex gap-4">
+            <button
+              onClick={() => setStep("ugc")}
+              className="px-4 py-2 bg-yellow-500 text-white rounded shadow"
+            >
+              Xác nhận
+            </button>
+            <button
+              onClick={() => setStep("editTimetable")}
+              className="px-4 py-2 bg-blue-200 rounded shadow"
+            >
+              Chỉnh sửa lịch trình
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3.5 */}
+      {step === "editTimetable" && (
+        <div
+          className="min-h-screen bg-cover bg-center flex flex-col items-center p-6 text-center"
+          style={{ backgroundImage: "url('/bg.png')" }}
+        >
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-800 drop-shadow">
+            Tùy chỉnh lịch trình của bạn
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+            {editableTasks.map((t) => (
+              <EditableTask key={t.id} task={t} onSelect={handleSelectTask} />
+            ))}
+          </div>
+          <div className="mt-6 flex gap-4">
+            <button
+              onClick={handleFinishEditing}
+              className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+            >
+              Hoàn tất & Tiếp tục
+            </button>
+            <button
+              onClick={() => setStep("suggestTimetable")}
+              className="px-5 py-2 bg-gray-300 rounded hover:scale-105 transition"
+            >
+              Quay lại
+            </button>
+          </div>
+
+          <SuggestModal
+            task={selectedTask}
+            onChoose={handleChooseAlternative}
+            onClose={() => setSelectedTask(null)}
+            timetableVersion={selectedTimetable}
+          />
+        </div>
+      )}
+
+      {/* STEP 3.6 */}
+      {step === "finalTimetable" && (
+        <div
+          className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6 text-center"
+          style={{ backgroundImage: "url('/bg.png')" }}
+        >
+          <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
+            <h2 className="text-2xl font-semibold mb-4 text-yellow-800">
+              Lịch trình hoàn chỉnh của bạn
+            </h2>
+            <div className="divide-y divide-gray-200">
+              {editableTasks.map((t, i) => (
+                <div key={t.id} className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}>
+                  <p className="text-sm text-gray-500">{t.time}</p>
+                  <p className="font-medium text-gray-800">{t.title}</p>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setStep("ugc")}
+              className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+            >
+              Xác nhận & Tiếp tục
+            </button>
+          </div>
+        </div>
+      )}
 
    {/* STEP 4: UGC FORM */}
 {step === "ugc" && (
