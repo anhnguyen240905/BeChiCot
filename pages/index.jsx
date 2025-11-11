@@ -142,7 +142,23 @@ export default function BeChiCotMicrosite() {
   const handleFinishEditing = () => setStep("finalTimetable");
 
   const [ugc, setUgc] = useState({ feelings: [], story: "", promises: [] });
+function toggleFeeling(f) {
+  setUgc((u) => {
+    const newFeelings = u.feelings.includes(f)
+      ? u.feelings.filter((x) => x !== f)
+      : [...u.feelings, f];
+    return { ...u, feelings: newFeelings };
+  });
+}
 
+function togglePromise(p) {
+  setUgc((u) => {
+    const newPromises = u.promises.includes(p)
+      ? u.promises.filter((x) => x !== p)
+      : [...u.promises, p];
+    return { ...u, promises: newPromises };
+  });
+}
   const feelingsOptions = [
     "Dễ thương phết chứ không đùa",
     "Có tâm hơn cả ny cũ luôn á",
@@ -406,22 +422,19 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         {feelingsOptions.map((f) => (
-          <label
-            key={f}
-            className={`p-2 border rounded cursor-pointer text-sm ${
-              ugc.feelings.includes(f)
-                ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-80"
-            }`}
-          >
-            <input
-              type="checkbox"
-              className="mr-2"
-              checked={ugc.feelings.includes(f)}
-              onChange={() => toggleFeeling(f)}
-            />
-            {f}
-          </label>
+<label
+  key={f}
+  className={`p-2 border rounded cursor-pointer text-sm transition-colors
+    ${ugc.feelings.includes(f) ? "bg-yellow-100 border-yellow-400" : "hover:bg-yellow-100"}`}
+>
+  <input
+    type="checkbox"
+    className="mr-2"
+    checked={ugc.feelings.includes(f)}
+    onChange={() => toggleFeeling(f)}
+  />
+  {f}
+</label>
         ))}
       </div>
 
@@ -439,22 +452,19 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       <h3 className="font-semibold mb-2">Hứa hẹn cho những buổi "date" tiếp theo</h3>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
         {promisesOptions.map((p) => (
-          <label
-            key={p}
-            className={`p-2 border rounded cursor-pointer text-sm ${
-              ugc.promises.includes(p)
-                ? "bg-yellow-100 border-yellow-400"
-                : "hover:bg-gray-80"
-            }`}
-          >
-            <input
-              type="checkbox"
-              className="mr-2"
-              checked={ugc.promises.includes(p)}
-              onChange={() => togglePromise(p)}
-            />
-            {p}
-          </label>
+<label
+  key={p}
+  className={`p-2 border rounded cursor-pointer text-sm transition-colors
+    ${ugc.promises.includes(p) ? "bg-yellow-100 border-yellow-400" : "hover:bg-yellow-100"}`}
+>
+  <input
+    type="checkbox"
+    className="mr-2"
+    checked={ugc.promises.includes(p)}
+    onChange={() => togglePromise(p)}
+  />
+  {p}
+</label>
         ))}
       </div>
 
