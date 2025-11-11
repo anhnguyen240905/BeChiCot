@@ -428,17 +428,82 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 
 {/* STEP 5: CERTIFICATE */}
 {step === "certificate" && (
-  <div className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6" style={{ backgroundImage: "url('/bg.png')" }}>
+  <div
+    className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
     <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
-      <canvas ref={canvasRef} width={868} height={760} className="w-full max-w-[500px] rounded-lg shadow mb-4" />
+      <h2 className="text-2xl font-bold text-blue-700 mb-4">
+        Chứng nhận tình bạn
+      </h2>
+
+      {/* Canvas hiển thị chứng nhận */}
+      <canvas
+        ref={canvasRef}
+        width={868}
+        height={760}
+        className="w-full max-w-[500px] rounded-lg shadow mb-4"
+      />
+
       <div className="flex gap-4">
-        <button onClick={downloadCertificate} className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition">Lưu lại</button>
-        <button onClick={shareFacebook} className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition">Chia sẻ</button>
-        <button onClick={resetAll} className="px-5 py-2 bg-gray-300 rounded shadow hover:scale-105 transition">Làm lại</button>
+        {/* 1️⃣ Lưu về máy */}
+        <button
+          onClick={() => {
+            const c = canvasRef.current;
+            const a = document.createElement("a");
+            a.href = c.toDataURL("image/png");
+            a.download = "be-chi-cot-certificate.png";
+            a.click();
+          }}
+          className="px-5 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+        >
+          Lưu lại
+        </button>
+
+        {/* 2️⃣ Chia sẻ Facebook */}
+        <button
+          onClick={async () => {
+            const c = canvasRef.current;
+            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+
+            const formData = new FormData();
+            formData.append("file", blob);
+            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
+
+            try {
+              const res = await fetch(
+                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+                { method: "POST", body: formData }
+              );
+              const data = await res.json();
+              if (data.secure_url) {
+                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  data.secure_url
+                )}`;
+                window.open(fbShareUrl, "_blank");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Share thất bại");
+            }
+          }}
+          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+        >
+          Chia sẻ
+        </button>
+
+        {/* 3️⃣ Làm lại */}
+        <button
+          onClick={resetAll}
+          className="px-5 py-2 bg-gray-300 rounded shadow hover:scale-105 transition"
+        >
+          Làm lại
+        </button>
       </div>
     </div>
   </div>
 )}
-</div> {/* đóng div outer của return */}
-);     {/* đóng return */}
-}      {/* đóng function BeChiCotMicrosite */}
+
+    </div>
+  );
+}
