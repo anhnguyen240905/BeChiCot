@@ -121,7 +121,7 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
       : timetableVersion === "ndltkb1goiy"
       ? alternatives3
       : alternatives4;
-
+const options = alternatives[task.title] || [];
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-80 shadow-lg text-center">
@@ -383,8 +383,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       <div className="flex gap-6">
         <button
           onClick={() => {
-            setSelectedTimetable("ndltkb1goiy");
-            setEditableTasks(timetableTemplate3.map((t) => ({ ...t })));
+            setSelectedTimetable("ndltkb2goiy");
+            setEditableTasks(timetableTemplate4.map((t) => ({ ...t })));
             setStep("suggestTimetable");
           }}
         >
@@ -392,8 +392,8 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         </button>
         <button
           onClick={() => {
-            setSelectedTimetable("ndltkb2goiy");
-            setEditableTasks(timetableTemplate4.map((t) => ({ ...t })));
+            setSelectedTimetable("ndltkb1goiy");
+            setEditableTasks(timetableTemplate3.map((t) => ({ ...t })));
             setStep("suggestTimetable");
           }}
         >
