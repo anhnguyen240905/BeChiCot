@@ -225,35 +225,53 @@ export default function BeChiCotMicrosite() {
   }, [step]);
 
   // =================== UI FLOW ===================
-  return (
+   return (
     <div
-      className="min-h-screen bg-cover bg-center relative text-gray-800"
-      style={{ backgroundImage: "url('/bg.png')" }}
-    >
-      {/* STEP 1 */}
-      {step === "chooseRole" && (
-        <div className="flex flex-col items-center justify-center min-h-screen text-center">
-          <img src="/banla.png" alt="Bạn là" className="w-[22rem] mb-4" />
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setRole("student");
-                setStep("pickTimetable");
-              }}
-            >
-              <img src="/sinhvien.png" className="w-full max-w-sm hover:scale-105 transition" />
-            </button>
-            <button
-              onClick={() => {
-                setRole("worker");
-                setStep("pickTimetable");
-              }}
-            >
-              <img src="/nguoidilam.png" className="w-full max-w-sm hover:scale-105 transition" />
-            </button>
-          </div>
-        </div>
-      )}
+  className="min-h-screen bg-cover bg-center relative text-gray-800"
+  style={{ backgroundImage: "url('/bg.png')" }} // ảnh background microsite
+>
+          
+{step === "chooseRole" && (
+  <div className="flex flex-col items-center justify-center min-h-screen text-center">
+    {/* Ảnh tiêu đề “Bạn là” */}
+    <img
+      src="/banla.png"
+      alt="Bạn là"
+      className="w-[22rem] md:w-[26rem] mb-4"
+    />
+
+    {/* Hai nút ảnh đều to và thẳng hàng */}
+    <div className="flex flex-col gap-1 md:gap-2 items-center justify-center mt-2">
+      <button
+        onClick={() => {
+          setRole("student");
+          setStep("pickTimetable");
+        }}
+        className="w-full"
+      >
+        <img
+          src="/sinhvien.png"
+          alt="Sinh viên"
+          className="w-full max-w-xl h-auto hover:scale-105 transition-transform duration-200"
+        />
+      </button>
+
+      <button
+        onClick={() => {
+          setRole("worker");
+          setStep("pickTimetable");
+        }}
+        className="w-full"
+      >
+        <img
+          src="/nguoidilam.png"
+          alt="Người đi làm"
+          className="w-full max-w-xl h-auto hover:scale-105 transition-transform duration-200"
+        />
+      </button>
+    </div>
+  </div>
+)}
 
       {/* STEP 2 */}
       {step === "pickTimetable" && (
