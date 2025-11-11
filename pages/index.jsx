@@ -383,18 +383,29 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 
 {/* STEP 3.6: final timetable */}
 {step === "finalTimetable" && (
-  <div className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-6" style={{ backgroundImage: "url('/bg.png')" }}>
-    <div className="bg-white/85 shadow-lg rounded-2xl p-6 max-w-2xl w-full">
-      <img src="/lichtrinhfinal.png" className="w-[800px] mb-4" />
-      <div className="divide-y divide-gray-200">
+  <div
+    className="min-h-screen bg-cover bg-center flex justify-center items-center p-6"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    <div className="bg-white/85 shadow-lg rounded-2xl p-8 max-w-xl w-full flex flex-col items-center text-center">
+      <img src="/lichtrinhfinal.png" className="w-[600px] mb-6" alt="Lịch trình cuối cùng" />
+
+      <div className="divide-y divide-gray-200 w-full mb-6">
         {editableTasks.map((t, i) => (
-          <div key={t.id} className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}>
+          <div
+            key={t.id}
+            className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}
+          >
             <p className="text-sm text-gray-500">{t.time}</p>
             <p className="font-medium text-gray-800">{t.title}</p>
           </div>
         ))}
       </div>
-      <button onClick={() => setStep("ugc")} className="mt-6 px-6 py-2 bg-yellow-500 text-white rounded shadow hover:scale-105 transition">
+
+      <button
+        onClick={() => setStep("ugc")}
+        className="mt-2 px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+      >
         Xác nhận & Tiếp tục
       </button>
     </div>
@@ -408,12 +419,15 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     style={{ backgroundImage: "url('/bg.png')" }}
   >
     <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
-      <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
-        Chia sẻ trải nghiệm cùng Be Chí Cốt
-      </h2>
+      <img
+      src="/chiase.png"
+      alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
+      className="w-[22rem] md:w-[26rem] mb-4"
+    />
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
+      <p className="text-sm text-gray-500 mb-3"> Chọn tối đa 2 lựa chọn bạn nhé </p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         {feelingsOptions.map((f) => (
           <label
@@ -447,6 +461,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 
       {/* Step 3 - Hứa hẹn */}
       <h3 className="font-semibold mb-2">Hứa hẹn cho những buổi "date" tiếp theo</h3>
+      <p className="text-sm text-gray-500 mb-3"> Chọn tối đa 2 lựa chọn bạn nhé </p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
         {promisesOptions.map((p) => (
           <label
@@ -493,16 +508,13 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     style={{ backgroundImage: "url('/bg.png')" }}
   >
     <div className="flex flex-col items-center bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-blue-700 mb-4">
-        Chứng nhận tình bạn
-      </h2>
 
       {/* Canvas hiển thị chứng nhận */}
       <canvas
         ref={canvasRef}
         width={868}
         height={760}
-        className="w-full max-w-[500px] rounded-lg shadow mb-4"
+        className="w-full max-w-[700px] rounded-lg shadow mb-4"
       />
 
       <div className="flex gap-4">
