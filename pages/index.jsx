@@ -439,5 +439,6 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     </div>
   </div>
 )}
-  );
-}
+</div> {/* đóng div outer của return */}
+);     {/* đóng return */}
+}      {/* đóng function BeChiCotMicrosite */}
