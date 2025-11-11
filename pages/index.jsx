@@ -69,7 +69,7 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
     ],
   };
 
-  // 🔵 GỢI Ý CHO ndltkb2goiy
+  // 🔵 GỢI Ý CHO ndltkb1goiy
   const alternatives3 = {
     "Anh Cường Be ship phở bò": [
       "Anh Cường Be ship bánh mì Hội An",
@@ -88,7 +88,7 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
     ],
   };
 
-  // 🔴 GỢI Ý CHO ndltkb1goiy
+  // 🔴 GỢI Ý CHO ndltkb12goiy
   const alternatives4 = {
     "Anh Minh Be ship xôi thập cẩm": [
       "Anh Minh Be ship bánh mì xíu mại",
@@ -176,13 +176,13 @@ export default function BeChiCotMicrosite() {
     { id: 3, title: "Anh Hải Be giao Matcha Latte", time: "15:00" },
   ];
 // 🟠 TEMPLATE CHO NGƯỜI ĐI LÀM
-  const timetableTemplate4 = [
+  const timetableTemplate3 = [
     { id: 1, title: "Anh Cường Be ship phở bò", time: "08:30" },
     { id: 2, title: "Anh Nam Be ship lẩu thái 1 người ăn", time: "12:00" },
     { id: 3, title: "Chị Lan Be ship bánh tráng trộn và trà sữa", time: "21:00" },
   ];
 
-  const timetableTemplate3 = [
+  const timetableTemplate4 = [
     { id: 1, title: "Anh Minh Be ship xôi thập cẩm", time: "07:00" },
     { id: 2, title: "Anh Thiện Be ship nem nướng", time: "12:00" },
     { id: 3, title: "Anh Linh Be ship hồ sơ cho đối tác", time: "14:00" },
