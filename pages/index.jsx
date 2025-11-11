@@ -177,16 +177,16 @@ export default function BeChiCotMicrosite() {
   ];
 // 🟠 TEMPLATE CHO NGƯỜI ĐI LÀM
   const timetableTemplate3 = [
-    { id: 1, title: "Anh Cường Be ship phở bò", time: "07:30" },
+    { id: 1, title: "Anh Cường Be ship phở bò", time: "08:30" },
     { id: 2, title: "Anh Nam Be ship lẩu thái 1 người ăn", time: "12:00" },
-    { id: 3, title: "Chị Lan Be ship bánh tráng trộn và trà sữa", time: "19:00" },
+    { id: 3, title: "Chị Lan Be ship bánh tráng trộn và trà sữa", time: "21:00" },
   ];
 
   const timetableTemplate4 = [
     { id: 1, title: "Anh Minh Be ship xôi thập cẩm", time: "07:00" },
-    { id: 2, title: "Anh Thiện Be ship nem nướng", time: "12:30" },
-    { id: 3, title: "Anh Linh Be ship hồ sơ cho đối tác", time: "15:00" },
-    { id: 4, title: "Anh Bách Be ship Starbuck", time: "19:30" },
+    { id: 2, title: "Anh Thiện Be ship nem nướng", time: "12:00" },
+    { id: 3, title: "Anh Linh Be ship hồ sơ cho đối tác", time: "14:00" },
+    { id: 4, title: "Anh Bách Be ship Starbuck", time: "16:00" },
   ];
   const [editableTasks, setEditableTasks] = useState(timetableTemplate1);
 
@@ -388,7 +388,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
         <button
           onClick={() => {
@@ -397,7 +397,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
             setStep("suggestTimetable");
           }}
         >
-          <img src="/ndltkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+          <img src="/ndltkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
         </button>
       </div>
     )}
