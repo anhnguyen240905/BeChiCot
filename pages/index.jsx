@@ -69,10 +69,58 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
     ],
   };
 
+  // 🔵 GỢI Ý CHO ndltkb1goiy
+  const alternatives3 = {
+    "Anh Cường Be ship phở bò": [
+      "Anh Cường Be ship bánh mì Hội An",
+      "Anh Cường Be ship bánh cuốn",
+      "Anh Cường Be ship xôi gà",
+    ],
+    "Anh Nam Be ship lẩu thái 1 người ăn": [
+      "Anh Nam Be ship bún đậu mắm tôm",
+      "Anh Nam Be ship bún ốc nguội",
+      "Anh Nam Be ship nem chua rán",
+    ],
+    "Chị Lan Be ship bánh tráng trộn và trà sữa": [
+      "Chị Lan Be ship bánh mì nướng muối ớt",
+      "Chị Lan Be ship tàu phớ",
+      "Chị Lan Be ship mì cay",
+    ],
+  };
+
+  // 🔴 GỢI Ý CHO ndltkb2goiy
+  const alternatives4 = {
+    "Anh Minh Be ship xôi thập cẩm": [
+      "Anh Minh Be ship bánh mì xíu mại",
+      "Anh Minh Be ship bánh đúc nóng",
+      "Anh Minh Be ship bánh ướt",
+    ],
+    "Anh Thiện Be ship nem nướng": [
+      "Anh Thiện Be ship nem nướng Tân Việt",
+      "Anh Thiện Be ship bún chả bà Dung",
+      "Anh Thiện Be ship ngan cháy tỏi",
+    ],
+    "Anh Linh Be ship hồ sơ cho đối tác": [
+      "Anh Linh Be ship thư tình cho crush",
+      "Anh Linh Be ship hàng cho khách",
+      "Anh Linh Be ship quà cho khách",
+    ],
+    "Anh Bách Be ship Starbuck": [
+      "Anh Bách Be ship trà sữa thái xanh",
+      "Anh Bách Be ship chè Thái",
+      "Anh Bách Be ship tàu phớ",
+    ],
+  };
+
   // chọn bộ gợi ý theo version
   const alternatives =
-    timetableVersion === "svtkb2goiy" ? alternatives2 : alternatives1;
-  const options = alternatives[task.title] || [];
+    timetableVersion === "svtkb1goiy"
+      ? alternatives1
+      : timetableVersion === "svtkb2goiy"
+      ? alternatives2
+      : timetableVersion === "ndltkb1goiy"
+      ? alternatives3
+      : alternatives4;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -127,7 +175,19 @@ export default function BeChiCotMicrosite() {
     { id: 2, title: "Anh Thiện Be giao phở bò Nam Định", time: "10:30" },
     { id: 3, title: "Anh Hải Be giao Matcha Latte", time: "15:00" },
   ];
+// 🟠 TEMPLATE CHO NGƯỜI ĐI LÀM
+  const timetableTemplate3 = [
+    { id: 1, title: "Anh Cường Be ship phở bò", time: "07:30" },
+    { id: 2, title: "Anh Nam Be ship lẩu thái 1 người ăn", time: "12:00" },
+    { id: 3, title: "Chị Lan Be ship bánh tráng trộn và trà sữa", time: "19:00" },
+  ];
 
+  const timetableTemplate4 = [
+    { id: 1, title: "Anh Minh Be ship xôi thập cẩm", time: "07:00" },
+    { id: 2, title: "Anh Thiện Be ship nem nướng", time: "12:30" },
+    { id: 3, title: "Anh Linh Be ship hồ sơ cho đối tác", time: "15:00" },
+    { id: 4, title: "Anh Bách Be ship Starbuck", time: "19:30" },
+  ];
   const [editableTasks, setEditableTasks] = useState(timetableTemplate1);
 
   // Hàm chọn task
@@ -291,31 +351,58 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
 
       {/* STEP 2 */}
       {step === "pickTimetable" && (
-        <div className="flex flex-col items-center">
-          <img src="/chonlichtrinh.png" className="w-[800px] mb-4" />
-          <div className="flex gap-6">
-            <button
-              onClick={() => {
-                setSelectedTimetable("svtkb1goiy");
-                setEditableTasks(timetableTemplate1.map((t) => ({ ...t })));
-                setStep("suggestTimetable");
-              }}
-            >
-              <img src="/svtkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
-            </button>
-            <button
-              onClick={() => {
-                setSelectedTimetable("svtkb2goiy");
-                setEditableTasks(timetableTemplate2.map((t) => ({ ...t })));
-                setStep("suggestTimetable");
-              }}
-            >
-              <img src="/svtkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="flex flex-col items-center">
+    <img src="/chonlichtrinh.png" className="w-[800px] mb-4" />
 
+    {/* Nếu là SINH VIÊN */}
+    {role === "student" && (
+      <div className="flex gap-6">
+        <button
+          onClick={() => {
+            setSelectedTimetable("svtkb1goiy");
+            setEditableTasks(timetableTemplate1.map((t) => ({ ...t })));
+            setStep("suggestTimetable");
+          }}
+        >
+          <img src="/svtkb1.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+        </button>
+        <button
+          onClick={() => {
+            setSelectedTimetable("svtkb2goiy");
+            setEditableTasks(timetableTemplate2.map((t) => ({ ...t })));
+            setStep("suggestTimetable");
+          }}
+        >
+          <img src="/svtkb2.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+        </button>
+      </div>
+    )}
+
+    {/* Nếu là NGƯỜI ĐI LÀM */}
+    {role === "worker" && (
+      <div className="flex gap-6">
+        <button
+          onClick={() => {
+            setSelectedTimetable("ndltkb1goiy");
+            setEditableTasks(timetableTemplate3.map((t) => ({ ...t })));
+            setStep("suggestTimetable");
+          }}
+        >
+          <img src="/ndltkb1goiy.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+        </button>
+        <button
+          onClick={() => {
+            setSelectedTimetable("ndltkb2goiy");
+            setEditableTasks(timetableTemplate4.map((t) => ({ ...t })));
+            setStep("suggestTimetable");
+          }}
+        >
+          <img src="/ndltkb2goiy.jpg" className="w-[250px] rounded-lg hover:scale-105 transition" />
+        </button>
+      </div>
+    )}
+  </div>
+)}
       {/* STEP 3 */}
       {step === "suggestTimetable" && (
         <div className="flex flex-col items-center">
@@ -418,11 +505,12 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
+    <div className="flex flex-col items-center justify-center min-h-screen text-center">
     <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 max-w-3xl w-full text-gray-800">
       <img
       src="/chiase.png"
       alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
-      className="w-[600px] md:w-[26rem] mb-4"
+      className="w-[800px] md:w-[26rem] mb-4"
     />
 
       {/* Step 1 - Cảm nghĩ */}
