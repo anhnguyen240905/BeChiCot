@@ -587,6 +587,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       </div>
     </div>
   </div>
+</div>
 )}
 
 {/* STEP 5: CERTIFICATE */}
