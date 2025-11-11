@@ -599,6 +599,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
         </button>
       </div>
     </div>
+  </div>
 )}
 
 
