@@ -295,26 +295,27 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     };
   };
 
-  // useEffect tự vẽ khi bước certificate
  // 1️⃣ useEffect cho certificate
 useEffect(() => {
   if (step === "certificate") generateCertificate();
 }, [step]);
 
-// 2️⃣ useEffect cho auto-play nhạc
-useEffect(() => {
-  if (audioRef.current) {
-    const playPromise = audioRef.current.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => setIsPlaying(true))
-        .catch(() => {
-          // trình duyệt chặn autoplay
-          setIsPlaying(false);
-        });
+// Khi component mount, auto play nhạc
+  useEffect(() => {
+    if (audioRef.current) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.log("Autoplay bị chặn:", err);
+            setIsPlaying(false);
+          });
+      }
     }
-  }
-}, []); // chạy 1 lần khi component mount
+  }, []);
 
 
   // Hàm toggle nhạc
