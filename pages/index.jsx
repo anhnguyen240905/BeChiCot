@@ -22,36 +22,35 @@ function EditableTask({ task, onSelect }) {
 function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
   if (!task) return null;
 
-  // Gợi ý cho svtkb1
+  // ==============================
+  // 🟡 GỢI Ý CHO svtkb1goiy
+  // ==============================
   const alternatives1 = {
-    "Anh Sơn Be chở đi học": [
-      "Anh Sơn Be chở đi làm",
-      "Anh Sơn Be chở đi gym",
-      "Anh Sơn Be chở đi cafe",
-    ],
     "Anh Kiên Be ship bánh mì Hội An": [
       "Anh Kiên Be ship bánh bao",
       "Anh Kiên Be ship xôi xéo",
       "Anh Kiên Be ship cháo sườn",
     ],
-    "Đi học ở trường": [
-      "Đến thư viện học nhóm",
-      "Tham gia câu lạc bộ",
-      "Đi học thêm buổi tối",
+    "Anh Thiên Be ship bún chả bà Dung": [
+      "Anh Thiên Be ship bún mắm Đà Nẵng",
+      "Anh Thiên Be ship bánh canh cua Sài Gòn",
+      "Anh Thiên Be ship bún hải sản",
     ],
-    "Anh Đức Be giao hợp đồng": [
+    "Anh Đức Be giao hợp đồng cho đối tác": [
       "Anh Đức Be giao quà cho đối tác",
-      "Anh Đức Be gửi báo cáo sếp",
-      "Anh Đức Be nhận đơn mới",
+      "Anh Đức Be giao hàng cho khách",
+      "Anh Đức Be giao quà cho ngiu",
     ],
-    "Chạy deadline": [
-      "Đi chơi sau deadline",
-      "Đi xem phim với bạn",
-      "Ngủ bù 10 tiếng liền",
+    "Anh Minh Be ship trà sữa": [
+      "Anh Minh Be ship trà chanh lô hội",
+      "Anh Minh Be ship chè mít",
+      "Anh Minh Be ship sinh tố xoài",
     ],
   };
 
-  // Gợi ý cho svtkb2
+  // ==============================
+  // 🟢 GỢI Ý CHO svtkb2goiy
+  // ==============================
   const alternatives2 = {
     "Anh Phúc Be giao bánh bao trứng muối": [
       "Anh Phúc Be giao bánh dày",
@@ -60,26 +59,17 @@ function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
     ],
     "Anh Thiện Be giao phở bò Nam Định": [
       "Anh Thiện Be giao bún riêu",
-      "Anh Thiện Be giao cơm tấm",
+      "Anh Thiện Be giao cơm Tấm",
       "Anh Thiện Be giao mì hải sản",
     ],
     "Anh Hải Be giao Matcha Latte": [
-      "Anh Hải Be giao sữa tươi trân châu",
+      "Anh Hải Be giao sữa tươi trân châu đường đen",
       "Anh Hải Be giao rau má mix",
       "Anh Hải Be giao trà xoài",
     ],
-    "Đi họp công ty": [
-      "Họp online 30 phút",
-      "Họp team building",
-      "Họp client cuối năm",
-    ],
-    "Chạy deadline": [
-      "Làm báo cáo nhanh",
-      "Gọi team hỗ trợ",
-      "Nghỉ ngơi để hồi sức",
-    ],
   };
 
+  // chọn bộ gợi ý theo version
   const alternatives =
     timetableVersion === "svtkb2goiy" ? alternatives2 : alternatives1;
   const options = alternatives[task.title] || [];
@@ -126,19 +116,16 @@ export default function BeChiCotMicrosite() {
 
   // template cho 2 timetable
   const timetableTemplate1 = [
-    { id: 1, title: "Anh Sơn Be chở đi học", time: "07:00" },
-    { id: 2, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:30" },
-    { id: 3, title: "Đi học ở trường", time: "08:00" },
-    { id: 4, title: "Anh Đức Be giao hợp đồng", time: "15:00" },
-    { id: 5, title: "Chạy deadline", time: "21:00" },
+    { id: 1, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:30" },
+    { id: 2, title: "Anh Thiên Be ship bún chả bà Dung", time: "08:00" },
+    { id: 3, title: "Anh Đức Be giao hợp đồng cho đối tác", time: "15:00" },
+    { id: 4, title: "Anh Minh Be ship trà sữa", time: "20:30" },
   ];
 
   const timetableTemplate2 = [
-    { id: 1, title: "Anh Phúc Be giao bánh bao trứng muối", time: "07:00" },
-    { id: 2, title: "Anh Thiện Be giao phở bò Nam Định", time: "08:00" },
-    { id: 3, title: "Anh Hải Be giao Matcha Latte", time: "12:00" },
-    { id: 4, title: "Đi họp công ty", time: "14:00" },
-    { id: 5, title: "Chạy deadline", time: "21:00" },
+    { id: 1, title: "Anh Phúc Be giao bánh bao trứng muối", time: "08:00" },
+    { id: 2, title: "Anh Thiện Be giao phở bò Nam Định", time: "10:30" },
+    { id: 3, title: "Anh Hải Be giao Matcha Latte", time: "15:00" },
   ];
 
   const [editableTasks, setEditableTasks] = useState(timetableTemplate1);
@@ -182,19 +169,21 @@ export default function BeChiCotMicrosite() {
     "Đi dạo đêm quanh thành phố",
   ];
 
-  function resetAll() {
+   function resetAll() {
     setRole(null);
     setStep("chooseRole");
     setUgc({ feelings: [], story: "", promises: [] });
   }
 
-  function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
+function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
     let fontSize = maxFontSize;
     ctx.font = `${fontSize}px Arial`;
+  
     while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
       fontSize -= 1;
       ctx.font = `${fontSize}px Arial`;
     }
+
     ctx.fillText(text, x, y);
   }
 
@@ -202,27 +191,38 @@ export default function BeChiCotMicrosite() {
     const c = canvasRef.current;
     if (!c) return;
     const ctx = c.getContext("2d");
+
     const img = new Image();
     img.src = "/cert.png";
     img.onload = () => {
       ctx.drawImage(img, 0, 0, c.width, c.height);
+
       ctx.textBaseline = "top";
       ctx.fillStyle = "#000";
-      const feelingsText = ugc.feelings.join(", ") || "(Chưa nhập)";
+
+      const feelingsText = ugc.feelings.length > 0 ? ugc.feelings.join(", ") : "(Chưa nhập)";
       const storyText = ugc.story || "(Chưa nhập)";
-      const promisesText = ugc.promises.join(", ") || "(Chưa nhập)";
+      const promisesText = ugc.promises.length > 0 ? ugc.promises.join(", ") : "(Chưa nhập)";
+
       const textXStart = 140;
       const textWidth = 600;
-      const centerX = textXStart + textWidth / 2;
-      ctx.textAlign = "center";
+      const centerX = textXStart + textWidth / 2; // = 140 + 600/2 = 440
+
+      ctx.textAlign = "center"; // căn giữa
+      ctx.textBaseline = "top"; // y là top
+
       drawSingleLineText(ctx, feelingsText, centerX, 360, textWidth);
       drawSingleLineText(ctx, storyText, centerX, 425, textWidth);
       drawSingleLineText(ctx, promisesText, centerX, 495, textWidth);
+
     };
   };
+
+  // useEffect tự vẽ khi bước certificate
   useEffect(() => {
     if (step === "certificate") generateCertificate();
   }, [step]);
+
 
   // =================== UI FLOW ===================
    return (
@@ -391,7 +391,7 @@ export default function BeChiCotMicrosite() {
         </div>
       )}
 
-   {/* STEP 4: UGC FORM */}
+  {/* STEP 4: UGC FORM */}
 {step === "ugc" && (
   <div
     className="min-h-screen bg-cover bg-center flex items-center justify-center p-6"
