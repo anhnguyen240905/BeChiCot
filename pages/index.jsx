@@ -387,14 +387,14 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     className="min-h-screen bg-cover bg-center flex justify-center items-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
-    <div className="bg-white/85 shadow-lg rounded-2xl p-8 max-w-xl w-full flex flex-col items-center text-center">
+    <div className="bg-white/95 shadow-lg rounded-2xl p-8 max-w-xl w-full flex flex-col items-center text-center">
       <img src="/lichtrinhfinal.png" className="w-[600px] mb-6" alt="Lịch trình cuối cùng" />
 
       <div className="divide-y divide-gray-200 w-full mb-6">
         {editableTasks.map((t, i) => (
           <div
             key={t.id}
-            className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-50"}`}
+            className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-20"}`}
           >
             <p className="text-sm text-gray-500">{t.time}</p>
             <p className="font-medium text-gray-800">{t.title}</p>
@@ -422,7 +422,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       <img
       src="/chiase.png"
       alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
-      className="w-[22rem] md:w-[26rem] mb-4"
+      className="w-[600px] md:w-[26rem] mb-4"
     />
 
       {/* Step 1 - Cảm nghĩ */}
