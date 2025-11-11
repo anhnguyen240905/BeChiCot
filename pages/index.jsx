@@ -549,8 +549,7 @@ return (
       src="/chiase.png"
       alt="Chia sẻ trải nghiệm cùng Be Chí Cốt"
       className="w-[900px] md:w-[26rem] mb-4"
-    />
-    </div>
+      />
 
       {/* Step 1 - Cảm nghĩ */}
       <h3 className="font-semibold mb-2">Cảm nghĩ sau buổi "First Date" cùng Be Chí Cốt</h3>
@@ -574,7 +573,7 @@ return (
             {f}
           </label>
         ))}
-      </div>
+        </div>
 
       {/* Step 2 - Kỷ niệm */}
       <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
