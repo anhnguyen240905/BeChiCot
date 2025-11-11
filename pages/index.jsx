@@ -300,14 +300,14 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
     if (step === "certificate") generateCertificate();
   }, [step]);
 if (audioRef.current) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setIsPlaying(true))
-          .catch(() => setIsPlaying(false)); // trình duyệt chặn autoplay
-      }
+    const playPromise = audioRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false)); // trình duyệt chặn autoplay
     }
-  }, []);
+  }
+}, []);
 
   // Hàm toggle nhạc
   const toggleAudio = () => {
