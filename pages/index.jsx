@@ -642,45 +642,45 @@ return (
 
       {/* 🧭 Hiển thị full lịch (gồm cả phần fix và phần user đã sửa) */}
       <div className="divide-y divide-gray-200 w-full mb-6 rounded-lg overflow-hidden">
-        {finalFullTimetable.map((task, i) => {
-  // Nếu user có chỉnh sửa, lấy version đã sửa
-  const editedTask = editableTasks.find((t) => t.id === task.id);
-  const displayTitle = editedTask ? editedTask.title : task.title;
+        {finalFullTimetable.map((task) => {
+          const editedTask = editableTasks.find((t) => t.id === task.id);
+          const displayTitle = editedTask ? editedTask.title : task.title;
 
-  return (
-    <div
-      key={task.id}
-      className={`py-3 px-4 text-left rounded ${
-        task.editable
-          ? "bg-yellow-100 border-l-4 border-yellow-400" // phần user chỉnh màu vàng
-          : "bg-blue-500 text-white" // phần cố định màu xanh dương
-      }`}
-    >
-      <p className="text-sm opacity-90">{task.time}</p>
-      <p className="font-medium">{displayTitle}</p>
-    </div>
-  );
-})}
+          return (
+            <div
+              key={task.id}
+              className={`py-3 px-4 text-left rounded ${
+                task.editable
+                  ? "bg-yellow-100 border-l-4 border-yellow-400"
+                  : "bg-blue-500 text-white"
+              }`}
+            >
+              <p className="text-sm opacity-90">{task.time}</p>
+              <p className="font-medium">{displayTitle}</p>
+            </div>
+          );
+        })}
       </div>
 
-  <div className="flex gap-4 mt-2">
-  <button
-    onClick={() => setStep("ugc")}
-    className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-  >
-    Xác nhận & Tiếp tục
-  </button>
-  
-  <button
-    onClick={() => setStep("editTimetable")}
-    className="px-6 py-3 bg-gray-300 text-gray-700 rounded shadow hover:scale-105 transition"
-  >
-    Quay lại
-  </button>
+      <div className="flex gap-4 mt-2">
+        <button
+          onClick={() => setStep("ugc")}
+          className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+        >
+          Xác nhận & Tiếp tục
+        </button>
+
+        <button
+          onClick={() => setStep("editTimetable")}
+          className="px-6 py-3 bg-gray-300 text-gray-700 rounded shadow hover:scale-105 transition"
+        >
+          Quay lại
+        </button>
+      </div>
+    </div> {/* đóng div bg-white/95 */}
   </div>
-  </div> {/* đóng div bg-white/95 */}
-  </div>  
 )}
+
 
 {/* STEP 4: UGC FORM */}
 {step === "ugc" && (
