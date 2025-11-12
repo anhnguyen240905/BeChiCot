@@ -219,39 +219,6 @@ const fullTimetableWorker2 = [
   { id: 11, time: "21:30", title: "Chạy nốt Deadline", editable: false },
 ];
 
-// COMPONENT: IntroSlides
-function IntroSlides({ onStart }) {
-  const [page, setPage] = React.useState(0);
-
-  const backgrounds = [
-    "/1.png",
-    "/2.png",
-    "/3.png",
-    "/4.png",
-    "/5.png",
-    "/6.png",
-  ];
-
-  const handleNext = () => {
-    if (page < backgrounds.length - 1) setPage(page + 1);
-    else onStart(); // hết slide → bắt đầu microsite
-  };
-
-  return (
-    <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center transition-all duration-500"
-      style={{ backgroundImage: `url(${backgrounds[page]})` }}
-    >
-      <button
-        onClick={handleNext}
-        className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-      >
-        {page === backgrounds.length - 1 ? "Bắt đầu" : "Tiếp tục"}
-      </button>
-    </div>
-  );
-}
-  
 // ===============================
 // MAIN COMPONENT
 // ===============================
@@ -449,16 +416,7 @@ return (
         <meta property="og:url" content="https://be-chi-cot.vercel.app" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-
-      {/* Phần intro slides */}
-      {introPage <= 6 ? (
-        <IntroSlides onStart={() => setIntroPage(7)} />
-      ) : (
-        <div
-          className="min-h-screen bg-cover bg-center relative text-gray-800"
-          style={{ backgroundImage: "url('/bg.png')" }}
-        >
-  
+    <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
     {/* Nhạc nền */}
     <audio ref={audioRef} src="/bgmusic.mp3" loop />
 
