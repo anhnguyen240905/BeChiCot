@@ -450,6 +450,9 @@ return (
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
     
+    {introPage <= 6 ? (
+      <IntroSlides onStart={() => setIntroPage(7)} />
+    ) : (
   <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
   
     {/* Nhạc nền */}
