@@ -443,22 +443,22 @@ return (
         : "/6.png"
       }
       alt={`Trang giới thiệu ${introPage}`}
-      className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+      className="absolute top-0 left-0 w-full h-auto max-h-screen object-cover md:object-contain transition-opacity duration-200 ease-in-out"
     />
 
     {/* Nút điều hướng */}
-    <div className="relative z-10 mb-12 flex flex-col items-center">
+    <div className="absolute inset-0 flex items-center justify-center z-10">
       {introPage < 6 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
-          className="px-8 py-5 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+          className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Tiếp tục
         </button>
       ) : (
         <button
           onClick={() => setStep('chooseRole')}
-          className="px-8 py-5 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+          className="px-8 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Bắt đầu
         </button>
