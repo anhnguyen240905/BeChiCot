@@ -430,48 +430,43 @@ return (
 
 {/* STEP 0: INTRO PAGES */}
 {step === "intro" && (
-  <div
-    className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center text-center"
-    style={{ backgroundImage: "url('/bg.png')" }}
-  >
-    {/* Ảnh intro tương ứng */}
+  <div className="relative w-screen h-screen flex flex-col items-center justify-end">
+    {/* Ảnh nền toàn màn hình */}
     <img
-      src={
-        introPage === 1 ? "/1.png" :
-        introPage === 2 ? "/2.png" :
-        introPage === 3 ? "/3.png" :
-        introPage === 4 ? "/4.png" :
-        introPage === 5 ? "/5.png" :
-        "/6.png"
-      }
+      src={`/${introPage}.png`} // dùng 1.png, 2.png, ...
       alt={`Trang giới thiệu ${introPage}`}
-      className="w-[800px] max-w-full mb-8 rounded-2xl shadow-lg transition-all duration-700 ease-in-out"
+      className="absolute top-0 left-0 w-full h-full object-cover"
     />
 
-    {/* Nút điều hướng */}
-    {introPage < 6 ? (
-      <button
-        onClick={() => setIntroPage(introPage + 1)}
-        className="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
-      >
-        Tiếp tục
-      </button>
-    ) : (
-      <button
-        onClick={() => setStep("chooseRole")}
-        className="px-6 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
-      >
-        Bắt đầu
-      </button>
-    )}
+    {/* Overlay gradient nhẹ để nút dễ đọc (tuỳ chọn) */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
 
-    {/* Tuỳ chọn: nút bỏ qua intro */}
-    {/* <button
-      onClick={() => setStep("chooseRole")}
-      className="mt-4 text-sm text-gray-500 underline"
-    >
-      Bỏ qua
-    </button> */}
+    {/* Nút điều hướng */}
+    <div className="relative z-10 mb-12 flex flex-col items-center">
+      {introPage < 6 ? (
+        <button
+          onClick={() => setIntroPage(introPage + 1)}
+          className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+        >
+          Tiếp tục
+        </button>
+      ) : (
+        <button
+          onClick={() => setStep('chooseRole')}
+          className="px-8 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+        >
+          Bắt đầu
+        </button>
+      )}
+
+      {/* (tuỳ chọn) nút bỏ qua intro */}
+      {/* <button
+        onClick={() => setStep('chooseRole')}
+        className="mt-4 text-sm text-gray-300 underline"
+      >
+        Bỏ qua
+      </button> */}
+    </div>
   </div>
 )}
 
