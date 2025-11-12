@@ -853,4 +853,5 @@ return (
   </div>
 )}
   </>
-);
+); // <-- đóng return
+} // <-- đóng function component
