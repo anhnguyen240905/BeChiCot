@@ -852,7 +852,6 @@ return (
     </div>
   </div>
 )}
-    </div> // <-- END main div
-    )}
-  </>
-);
+ </div> {/* <-- END main div */}
+  )}
+</>
