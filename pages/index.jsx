@@ -508,8 +508,8 @@ return (
   </div>
 )}
 
-      {/* STEP 2 */}
-      {step === "pickTimetable" && (
+{/* STEP 2 */}
+  {step === "pickTimetable" && (
   <div className="flex flex-col items-center">
     <img src="/chonlichtrinh.png" className="w-[800px] mb-4" />
 
@@ -663,7 +663,7 @@ return (
 })}
       </div>
 
-<div className="flex gap-4 mt-2">
+  <div className="flex gap-4 mt-2">
   <button
     onClick={() => setStep("ugc")}
     className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
@@ -852,7 +852,6 @@ return (
     </div>
   </div>
 )}
-    </div>
-    )}
-  </>
+    </>
 );
+}
