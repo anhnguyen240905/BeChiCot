@@ -626,13 +626,21 @@ return (
 })}
       </div>
 
-      <button
-        onClick={() => setStep("ugc")}
-        className="mt-2 px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
-      >
-        Xác nhận & Tiếp tục
-      </button>
-    </div>
+<div className="flex gap-4 mt-2">
+  <button
+    onClick={() => setStep("editTimetable")}
+    className="px-6 py-3 bg-gray-300 text-gray-700 rounded shadow hover:scale-105 transition"
+  >
+    Quay lại
+  </button>
+
+  <button
+    onClick={() => setStep("ugc")}
+    className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
+  >
+    Xác nhận & Tiếp tục
+  </button>
+</div>
   </div>
 )}
 
