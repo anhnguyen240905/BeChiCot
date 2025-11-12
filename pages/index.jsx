@@ -6,25 +6,18 @@ Version: 2025
 import React, { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 
-// COMPONENT: IntroSlides an toàn
-function IntroSlides({ onStart }) {
-  const [page, setPage] = React.useState(0);
-
-  const backgrounds = [
-    "/1.png",
-    "/2.png",
-    "/3.png",
-    "/4.png",
-    "/5.png",
-    "/6.png",
-  ];
-
-  const totalPages = backgrounds.length;
-
-  const handleNext = () => {
-    if (page < totalPages - 1) setPage((p) => p + 1);
-    else onStart(); // hết slide → bắt đầu microsite
-  };
+// COMPONENT: Một ô lịch trình có thể bấm để chỉnh
+function EditableTask({ task, onSelect }) {
+  return (
+    <button
+      onClick={() => onSelect(task)}
+      className="w-full text-left px-4 py-3 bg-gray-100 hover:bg-yellow-100 rounded-lg shadow-sm border border-gray-200 transition"
+    >
+      <p className="text-sm text-gray-600">{task.time}</p>
+      <p className="font-medium text-gray-800">{task.title}</p>
+    </button>
+  );
+}
 
 // COMPONENT: Popup chọn gợi ý thay thế
 function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
