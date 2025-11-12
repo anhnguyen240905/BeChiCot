@@ -642,24 +642,19 @@ return (
 
       {/* 🧭 Hiển thị full lịch (gồm cả phần fix và phần user đã sửa) */}
       <div className="divide-y divide-gray-200 w-full mb-6 rounded-lg overflow-hidden">
-        {finalFullTimetable.map((task) => {
-          const editedTask = editableTasks.find((t) => t.id === task.id);
-          const displayTitle = editedTask ? editedTask.title : task.title;
-
-          return (
-            <div
-              key={task.id}
-              className={`py-3 px-4 text-left rounded ${
-                task.editable
-                  ? "bg-yellow-100 border-l-4 border-yellow-400"
-                  : "bg-blue-500 text-white"
-              }`}
-            >
-              <p className="text-sm opacity-90">{task.time}</p>
-              <p className="font-medium">{displayTitle}</p>
-            </div>
-          );
-        })}
+        {finalFullTimetable.map((task) => (
+  <div
+    key={task.id}
+    className={`py-3 px-4 text-left rounded ${
+      task.editable
+        ? "bg-yellow-100 border-l-4 border-yellow-400"
+        : "bg-blue-500 text-white"
+    }`}
+  >
+    <p className="text-sm opacity-90">{task.time}</p>
+    <p className="font-medium">{editableTasks.find(t => t.id === task.id)?.title || task.title}</p>
+  </div>
+))}
       </div>
 
       <div className="flex gap-4 mt-2">
@@ -680,7 +675,6 @@ return (
     </div> {/* đóng div bg-white/95 */}
   </div>
 )}
-
 
 {/* STEP 4: UGC FORM */}
 {step === "ugc" && (
