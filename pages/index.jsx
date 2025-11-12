@@ -759,34 +759,35 @@ return (
         </button>
 
 {/* 2️⃣ Chia sẻ Facebook */}
-        <button
-          onClick={async () => {
-            // 1️⃣ Upload Canvas lên Cloudinary
-            const c = canvasRef.current;
-            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+<button
+  onClick={async () => {
+    // 1️⃣ Upload Canvas lên Cloudinary
+    const c = canvasRef.current;
+    const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
 
-            const formData = new FormData();
-            formData.append("file", blob);
-            formData.append("upload_preset", "microsite_cert");
+    const formData = new FormData();
+    formData.append("file", blob);
+    formData.append("upload_preset", "microsite_cert");
 
-            const res = await fetch("https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload", {
-              method: "POST",
-              body: formData,
-            });
-            const data = await res.json();
-            const uploadedFileId = data.public_id; // tên file hoặc id để tạo link page
+    const res = await fetch("https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-            // 2️⃣ Share link certificate page lên Facebook
-            const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-              `https://be-chi-cot.vercel.app/certificate/${uploadedFileId}`
-            )}`;
+    const data = await res.json();
+    const uploadedFileId = data.public_id;
 
-            window.open(fbShareUrl, "_blank");
-          }}
-          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-        >
-          Chia sẻ
-        </button>
+    // 2️⃣ Share link page certificate lên Facebook
+    const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      `https://be-chi-cot.vercel.app/certificate/${uploadedFileId}`
+    )}`;
+
+    window.open(fbShareUrl, "_blank");
+  }}
+  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+>
+  Chia sẻ
+</button>
 
         {/* 3️⃣ Làm lại */}
         <button
