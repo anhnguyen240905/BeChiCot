@@ -446,22 +446,19 @@ return (
       className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
     />
 
-    {/* Overlay gradient nhẹ để nút dễ nhìn */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-
     {/* Nút điều hướng */}
     <div className="relative z-10 mb-12 flex flex-col items-center">
       {introPage < 6 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
-          className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+          className="px-8 py-5 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Tiếp tục
         </button>
       ) : (
         <button
           onClick={() => setStep('chooseRole')}
-          className="px-8 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+          className="px-8 py-5 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Bắt đầu
         </button>
