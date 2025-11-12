@@ -232,29 +232,29 @@ export default function BeChiCotMicrosite() {
   const [isPlaying, setIsPlaying] = useState(true);
   // template cho 2 timetable
   const timetableTemplate1 = [
-    { id: 1, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:00" },
-    { id: 2, title: "Anh Thiên Be ship bún chả bà Dung", time: "11:30" },
-    { id: 3, title: "Anh Đức Be giao hợp đồng cho đối tác", time: "15:00" },
-    { id: 4, title: "Anh Minh Be ship trà sữa", time: "20:30" },
+    { id: 2, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:00" },
+    { id: 4, title: "Anh Thiên Be ship bún chả bà Dung", time: "11:30" },
+    { id: 7, title: "Anh Đức Be giao hợp đồng cho đối tác", time: "15:00" },
+    { id: 13, title: "Anh Minh Be ship trà sữa", time: "20:30" },
   ];
 
   const timetableTemplate2 = [
     { id: 1, title: "Anh Phúc Be giao bánh bao trứng muối", time: "08:00" },
-    { id: 2, title: "Anh Thiện Be giao phở bò Nam Định", time: "10:30" },
-    { id: 3, title: "Anh Hải Be giao Matcha Latte", time: "15:00" },
+    { id: 4, title: "Anh Thiện Be giao phở bò Nam Định", time: "10:30" },
+    { id: 8, title: "Anh Hải Be giao Matcha Latte", time: "15:00" },
   ];
 // 🟠 TEMPLATE CHO NGƯỜI ĐI LÀM
   const timetableTemplate3 = [
     { id: 1, title: "Anh Cường Be ship phở bò", time: "08:30" },
-    { id: 2, title: "Anh Nam Be ship lẩu thái 1 người ăn", time: "12:00" },
-    { id: 3, title: "Chị Lan Be ship bánh tráng trộn và trà sữa", time: "21:00" },
+    { id: 3, title: "Anh Nam Be ship lẩu thái 1 người ăn", time: "12:00" },
+    { id: 12, title: "Chị Lan Be ship bánh tráng trộn và trà sữa", time: "21:00" },
   ];
 
   const timetableTemplate4 = [
-    { id: 1, title: "Anh Minh Be ship xôi thập cẩm", time: "07:00" },
-    { id: 2, title: "Anh Thiện Be ship nem nướng", time: "12:00" },
-    { id: 3, title: "Anh Linh Be ship hồ sơ cho đối tác", time: "14:00" },
-    { id: 4, title: "Anh Bách Be ship Starbuck", time: "16:00" },
+    { id: 2, title: "Anh Minh Be ship xôi thập cẩm", time: "07:00" },
+    { id: 4, title: "Anh Thiện Be ship nem nướng", time: "12:00" },
+    { id: 6, title: "Anh Linh Be ship hồ sơ cho đối tác", time: "14:00" },
+    { id: 7, title: "Anh Bách Be ship Starbuck", time: "16:00" },
   ];
   const [editableTasks, setEditableTasks] = useState(timetableTemplate1);
 
