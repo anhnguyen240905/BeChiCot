@@ -6,18 +6,25 @@ Version: 2025
 import React, { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 
-// COMPONENT: Một ô lịch trình có thể bấm để chỉnh
-function EditableTask({ task, onSelect }) {
-  return (
-    <button
-      onClick={() => onSelect(task)}
-      className="w-full text-left px-4 py-3 bg-gray-100 hover:bg-yellow-100 rounded-lg shadow-sm border border-gray-200 transition"
-    >
-      <p className="text-sm text-gray-600">{task.time}</p>
-      <p className="font-medium text-gray-800">{task.title}</p>
-    </button>
-  );
-}
+// COMPONENT: IntroSlides an toàn
+function IntroSlides({ onStart }) {
+  const [page, setPage] = React.useState(0);
+
+  const backgrounds = [
+    "/1.png",
+    "/2.png",
+    "/3.png",
+    "/4.png",
+    "/5.png",
+    "/6.png",
+  ];
+
+  const totalPages = backgrounds.length;
+
+  const handleNext = () => {
+    if (page < totalPages - 1) setPage((p) => p + 1);
+    else onStart(); // hết slide → bắt đầu microsite
+  };
 
 // COMPONENT: Popup chọn gợi ý thay thế
 function SuggestModal({ task, onChoose, onClose, timetableVersion }) {
@@ -219,10 +226,9 @@ const fullTimetableWorker2 = [
   { id: 11, time: "21:30", title: "Chạy nốt Deadline", editable: false },
 ];
 
-// 1️⃣ Component giới thiệu các slide trước step 1
+// COMPONENT: IntroSlides an toàn
 function IntroSlides({ onStart }) {
-  const [page, setPage] = React.useState(1);
-  const totalPages = 6;
+  const [page, setPage] = React.useState(0);
 
   const backgrounds = [
     "/1.png",
@@ -233,25 +239,30 @@ function IntroSlides({ onStart }) {
     "/6.png",
   ];
 
+  const totalPages = backgrounds.length;
+
   const handleNext = () => {
-    if (page < totalPages) setPage(page + 1);
-    else onStart();
+    if (page < totalPages - 1) setPage((p) => p + 1);
+    else onStart(); // hết slide → bắt đầu microsite
   };
 
-  return (
+ return (
     <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: `url(${backgrounds[page - 1]})` }}
+      className="min-h-screen bg-cover bg-center flex items-center justify-center transition-all duration-500"
+      style={{
+        backgroundImage: `url(${backgrounds[page]})`,
+      }}
     >
       <button
         onClick={handleNext}
         className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
       >
-        {page === totalPages ? "Bắt đầu" : "Tiếp tục"}
+        {page === totalPages - 1 ? "Bắt đầu" : "Tiếp tục"}
       </button>
     </div>
   );
 }
+  
 // ===============================
 // MAIN COMPONENT
 // ===============================
@@ -450,9 +461,6 @@ return (
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
     
-    {introPage <= 6 ? (
-      <IntroSlides onStart={() => setIntroPage(7)} />
-    ) : (
   <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
   
     {/* Nhạc nền */}
