@@ -849,7 +849,6 @@ return (
           Làm lại
         </button>
       </div>
-    </div>
   </div>
 )}
   </>
