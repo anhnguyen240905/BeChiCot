@@ -524,7 +524,7 @@ return (
 
 {/* STEP 2 */}
   {step === "pickTimetable" && (
-  <div className="flex flex-col items-center justify-cente">
+  <div className="flex flex-col items-center justify-center">
     <img src="/chonlichtrinh.png" className="w-[800px] mb-4" />
 
     {/* Nếu là SINH VIÊN */}
