@@ -679,7 +679,7 @@ return (
   </button>
   </div>
   </div> {/* đóng div bg-white/95 */}
-  </div>   /* đóng div min-h-screen */
+  </div>  
 )}
 
 {/* STEP 4: UGC FORM */}
@@ -804,7 +804,6 @@ return (
           Lưu lại
         </button>
 
-{/* 2️⃣ Chia sẻ Facebook */}
 {/* 2️⃣ Chia sẻ Facebook */}
 <button
   onClick={async () => {
