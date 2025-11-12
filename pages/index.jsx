@@ -853,3 +853,6 @@ return (
     </div>
   </div>
 )}
+    </>
+); // <-- đóng return
+} // <-- đóng component
