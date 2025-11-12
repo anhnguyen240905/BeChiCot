@@ -271,8 +271,8 @@ export default function BeChiCotMicrosite() {
 let finalFullTimetable = [];
 if (selectedTimetable === "svtkb1goiy") finalFullTimetable = fullTimetableStudent1;
 else if (selectedTimetable === "svtkb2goiy") finalFullTimetable = fullTimetableStudent2;
-else if (selectedTimetable === "ndltkb1goiy") finalFullTimetable = fullTimetableWorker1;
-else if (selectedTimetable === "ndltkb2goiy") finalFullTimetable = fullTimetableWorker2;
+else if (selectedTimetable === "ndltkb1goiy") finalFullTimetable = fullTimetableWorker2;
+else if (selectedTimetable === "ndltkb2goiy") finalFullTimetable = fullTimetableWorker1;
 
   const [ugc, setUgc] = useState({ feelings: [], story: "", promises: [] });
 function toggleFeeling(f) {
