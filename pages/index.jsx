@@ -443,11 +443,11 @@ return (
         : "/6.png"
       }
       alt={`Trang giới thiệu ${introPage}`}
-      className="absolute top-0 left-0 w-full h-auto max-h-screen object-cover md:object-contain transition-opacity duration-200 ease-in-out"
+      className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-200 ease-in-out"
     />
 
     {/* Nút điều hướng */}
-    <div className="absolute inset-0 flex items-center justify-center z-10">
+    <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 z-10">
       {introPage < 6 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
