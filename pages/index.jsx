@@ -152,6 +152,72 @@ const options = alternatives[task.title] || [];
   );
 }
 
+// 🧭 FULL TIMETABLES (4 BẢN)
+
+// 1️⃣ Sinh viên - Gợi ý 1
+const fullTimetableStudent1 = [
+  { id: 1, time: "06:30", title: "Anh Sơn Be chở đi học", editable: false },
+  { id: 2, time: "07:00", title: "Anh Kiên Be ship bánh mì Hội An", editable: true },
+  { id: 3, time: "07:30", title: "Đi học ở trường", editable: false },
+  { id: 4, time: "11:30", title: "Anh Thiên Be ship bún chả bà Dung", editable: true },
+  { id: 5, time: "12:00", title: "Anh Ngọc Be chở đến công ty", editable: false },
+  { id: 6, time: "13:00", title: "Đi thực tập ở công ty", editable: false },
+  { id: 7, time: "15:00", title: "Anh Đức Be giao hợp đồng cho đối tác", editable: true },
+  { id: 8, time: "17:30", title: "Anh Mỹ Be chở về nhà", editable: false },
+  { id: 9, time: "18:30", title: "Tắm rửa", editable: false },
+  { id: 10, time: "19:00", title: "Chị Mỹ Be dọn phòng", editable: false },
+  { id: 11, time: "19:30", title: "Ăn tối tại nhà", editable: false },
+  { id: 12, time: "20:00", title: "Chạy deadline", editable: false },
+  { id: 13, time: "20:30", title: "Anh Minh Be ship trà sữa", editable: true },
+];
+
+// 2️⃣ Sinh viên - Gợi ý 2
+const fullTimetableStudent2 = [
+  { id: 1, time: "08:00", title: "Anh Phúc Be giao bánh bao trứng muối", editable: true },
+  { id: 2, time: "08:30", title: "Ăn sáng", editable: false },
+  { id: 3, time: "09:00", title: "Dạy thêm IELTS", editable: false },
+  { id: 4, time: "10:30", title: "Anh Thiện Be giao phở bò Nam Định", editable: true },
+  { id: 5, time: "11:00", title: "Ăn trưa", editable: false },
+  { id: 6, time: "11:30", title: "Anh Tin Be chở đi học", editable: false },
+  { id: 7, time: "12:00", title: "Học ở trường", editable: false },
+  { id: 8, time: "15:00", title: "Anh Hải Be giao Matcha Latte", editable: true },
+  { id: 9, time: "17:00", title: "Anh Nam Be chở về trọ", editable: false },
+  { id: 10, time: "18:00", title: "Tắm rửa, Make up", editable: false },
+  { id: 11, time: "19:00", title: "Đi chơi, Bonding cùng bạn bè", editable: false },
+  { id: 12, time: "22:30", title: "Anh Sinh Be - BUTL chở về nhà", editable: false },
+];
+
+// 3️⃣ Người đi làm - Gợi ý 1
+const fullTimetableWorker1 = [
+  { id: 1, time: "08:30", title: "Anh Cường Be ship phở bò", editable: true },
+  { id: 2, time: "09:00", title: "Làm việc Freelance", editable: false },
+  { id: 3, time: "12:00", title: "Anh Nam Be ship lẩu thái 1 người ăn", editable: true },
+  { id: 4, time: "13:00", title: "Nghỉ trưa", editable: false },
+  { id: 5, time: "14:00", title: "Anh Tiến Be chở đến văn phòng đối tác", editable: false },
+  { id: 6, time: "15:00", title: "Gặp mặt đối tác", editable: false },
+  { id: 7, time: "16:30", title: "Anh Kiên Be chở ra sân bóng gần nhà", editable: false },
+  { id: 8, time: "17:00", title: "Chị Ngân Be dọn phòng, Chơ Pickle Ball", editable: false },
+  { id: 9, time: "18:00", title: "Ăn tối tại nhà", editable: false },
+  { id: 10, time: "19:30", title: "Tắm rửa", editable: false },
+  { id: 11, time: "20:00", title: "Chạy nốt deadline Freelance", editable: false },
+  { id: 12, time: "21:00", title: "Chị Lan Be ship bánh tráng trộn và trà sữa", editable: true },
+];
+
+// 4️⃣ Người đi làm - Gợi ý 2
+const fullTimetableWorker2 = [
+  { id: 1, time: "06:30", title: "Đi xe đến chỗ làm", editable: false },
+  { id: 2, time: "07:00", title: "Anh Minh Be ship xôi thập cẩm", editable: true },
+  { id: 3, time: "08:00", title: "Đi làm ở công ty", editable: false },
+  { id: 4, time: "12:00", title: "Anh Thiện Be ship nem nướng", editable: true },
+  { id: 5, time: "13:00", title: "Đi làm ở công ty", editable: false },
+  { id: 6, time: "14:00", title: "Anh Linh Be ship hồ sơ cho đối tác", editable: true },
+  { id: 7, time: "16:00", title: "Anh Bách Be ship Starbuck", editable: true },
+  { id: 8, time: "18:30", title: "Ăn tối với đồng nghiệp", editable: false },
+  { id: 9, time: "19:00", title: "Anh Khánh Be - BUTL chở về nhà", editable: false },
+  { id: 10, time: "20:00", title: "Tắm rửa", editable: false },
+  { id: 11, time: "21:30", title: "Chạy nốt Deadline", editable: false },
+];
+
 // ===============================
 // MAIN COMPONENT
 // ===============================
@@ -165,8 +231,8 @@ export default function BeChiCotMicrosite() {
   const [isPlaying, setIsPlaying] = useState(true);
   // template cho 2 timetable
   const timetableTemplate1 = [
-    { id: 1, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:30" },
-    { id: 2, title: "Anh Thiên Be ship bún chả bà Dung", time: "08:00" },
+    { id: 1, title: "Anh Kiên Be ship bánh mì Hội An", time: "07:00" },
+    { id: 2, title: "Anh Thiên Be ship bún chả bà Dung", time: "11:30" },
     { id: 3, title: "Anh Đức Be giao hợp đồng cho đối tác", time: "15:00" },
     { id: 4, title: "Anh Minh Be ship trà sữa", time: "20:30" },
   ];
@@ -201,6 +267,12 @@ export default function BeChiCotMicrosite() {
   };
 
   const handleFinishEditing = () => setStep("finalTimetable");
+// 🎯 Chọn full timetable tương ứng với version người dùng đã chọn
+let finalFullTimetable = [];
+if (selectedTimetable === "svtkb1goiy") finalFullTimetable = fullTimetableStudent1;
+else if (selectedTimetable === "svtkb2goiy") finalFullTimetable = fullTimetableStudent2;
+else if (selectedTimetable === "ndltkb1goiy") finalFullTimetable = fullTimetableWorker1;
+else if (selectedTimetable === "ndltkb2goiy") finalFullTimetable = fullTimetableWorker2;
 
   const [ugc, setUgc] = useState({ feelings: [], story: "", promises: [] });
 function toggleFeeling(f) {
@@ -506,25 +578,46 @@ return (
   </div>
 )}
 
-{/* STEP 3.6: final timetable */}
+{/* STEP 3.6: FINAL TIMETABLE */}
 {step === "finalTimetable" && (
   <div
     className="min-h-screen bg-cover bg-center flex justify-center items-center p-6"
     style={{ backgroundImage: "url('/bg.png')" }}
   >
     <div className="bg-white/95 shadow-lg rounded-2xl p-8 max-w-xl w-full flex flex-col items-center text-center">
-      <img src="/lichtrinhfinal.png" className="w-[600px] mb-6" alt="Lịch trình cuối cùng" />
+      <img
+        src="/lichtrinhfinal.png"
+        className="w-[600px] mb-6"
+        alt="Lịch trình cuối cùng"
+      />
 
-      <div className="divide-y divide-gray-200 w-full mb-6">
-        {editableTasks.map((t, i) => (
-          <div
-            key={t.id}
-            className={`py-3 px-4 text-left ${i % 2 ? "bg-white" : "bg-gray-20"}`}
-          >
-            <p className="text-sm text-gray-500">{t.time}</p>
-            <p className="font-medium text-gray-800">{t.title}</p>
-          </div>
-        ))}
+      {/* 🧭 Hiển thị full lịch (gồm cả phần fix và phần user đã sửa) */}
+      <div className="divide-y divide-gray-200 w-full mb-6 rounded-lg overflow-hidden">
+        {finalFullTimetable.map((t, i) => {
+          const edited = editableTasks.find((e) => e.id === t.id);
+          const displayTitle = edited ? edited.title : t.title;
+
+          // Chọn màu theo loại task
+          const bgColor = t.editable
+            ? edited
+              ? "bg-yellow-100" // 🟨 user đã sửa
+              : "bg-white" // chưa sửa, vẫn nền trắng
+            : "bg-blue-500 text-white"; // 🟦 hoạt động cố định
+
+          return (
+            <div
+              key={t.id}
+              className={`py-3 px-4 text-left ${bgColor}`}
+            >
+              <p className={`text-sm ${t.editable ? "text-gray-500" : "text-white/90"}`}>
+                {t.time}
+              </p>
+              <p className={`font-medium ${t.editable ? "text-gray-800" : "text-white"}`}>
+                {displayTitle}
+              </p>
+            </div>
+          );
+        })}
       </div>
 
       <button
