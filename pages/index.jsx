@@ -225,6 +225,7 @@ const fullTimetableWorker2 = [
 export default function BeChiCotMicrosite() {
   const [role, setRole] = useState(null);
   const [step, setStep] = useState("intro");
+  const [introPage, setIntroPage] = useState(0);
   const [selectedTimetable, setSelectedTimetable] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [introPage, setIntroPage] = useState(1); // 1 → 6
@@ -428,39 +429,40 @@ return (
       {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
     </button>
 
-{/* STEP 0: INTRO PAGES */}
+{/* STEP 0: INTRO + COVER */}
 {step === "intro" && (
-  <div className="relative w-screen h-screen flex flex-col items-center justify-end">
-    {/* Ảnh nền toàn màn hình */}
+  <div className="relative w-screen h-screen flex flex-col items-center justify-end overflow-hidden">
+    {/* Ảnh nền toàn màn hình (cover + 6 intro) */}
     <img
       src={
-        introPage === 1 ? "/Cover.png
-        introPage === 2 ? "/1.png" :
-        introPage === 3 ? "/2.png" :
-        introPage === 4 ? "/3.png" :
-        introPage === 5 ? "/4.png" :
-        introPage === 6 ? "/5.png" :
-        "/6.png"}
+        introPage === 0 ? "/Cover.png"
+        : introPage === 1 ? "/1.png"
+        : introPage === 2 ? "/2.png"
+        : introPage === 3 ? "/3.png"
+        : introPage === 4 ? "/4.png"
+        : introPage === 5 ? "/5.png"
+        : "/6.png"
+      }
       alt={`Trang giới thiệu ${introPage}`}
-      className="absolute top-0 left-0 w-full h-full object-cover"
+      className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
     />
 
-    {/* Overlay gradient nhẹ để nút dễ đọc (tuỳ chọn) */}
+    {/* Overlay gradient nhẹ để nút dễ nhìn */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
 
     {/* Nút điều hướng */}
     <div className="relative z-10 mb-12 flex flex-col items-center">
-      {introPage < 7 ? (
+      {introPage < 6 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
-          className="px-8 py-10 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+          className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Tiếp tục
         </button>
       ) : (
         <button
           onClick={() => setStep('chooseRole')}
-          className="px-8 py-10 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+          className="px-8 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Bắt đầu
         </button>
