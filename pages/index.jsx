@@ -593,31 +593,25 @@ return (
 
       {/* 🧭 Hiển thị full lịch (gồm cả phần fix và phần user đã sửa) */}
       <div className="divide-y divide-gray-200 w-full mb-6 rounded-lg overflow-hidden">
-        {finalFullTimetable.map((t, i) => {
-          const edited = editableTasks.find((e) => e.id === t.id);
-          const displayTitle = edited ? edited.title : t.title;
+        {fullTimetable.map((task, i) => {
+  // Nếu user có chỉnh sửa, lấy version đã sửa
+  const editedTask = editableTasks.find((t) => t.id === task.id);
+  const displayTitle = editedTask ? editedTask.title : task.title;
 
-          // Chọn màu theo loại task
-          const bgColor = t.editable
-            ? edited
-              ? "bg-yellow-100" // 🟨 user đã sửa
-              : "bg-yellow-100" // chưa sửa, vẫn nền trắng
-            : "bg-blue-500 text-white"; // 🟦 hoạt động cố định
-
-          return (
-            <div
-              key={t.id}
-              className={`py-3 px-4 text-left ${bgColor}`}
-            >
-              <p className={`text-sm ${t.editable ? "text-gray-500" : "text-white/90"}`}>
-                {t.time}
-              </p>
-              <p className={`font-medium ${t.editable ? "text-gray-800" : "text-white"}`}>
-                {displayTitle}
-              </p>
-            </div>
-          );
-        })}
+  return (
+    <div
+      key={task.id}
+      className={`py-3 px-4 text-left rounded ${
+        task.editable
+          ? "bg-yellow-100 border-l-4 border-yellow-400" // phần user chỉnh màu vàng
+          : "bg-blue-500 text-white" // phần cố định màu xanh dương
+      }`}
+    >
+      <p className="text-sm opacity-90">{task.time}</p>
+      <p className="font-medium">{displayTitle}</p>
+    </div>
+  );
+})}
       </div>
 
       <button
@@ -752,37 +746,42 @@ return (
           Lưu lại
         </button>
 
-        {/* 2️⃣ Chia sẻ Facebook */}
-        <button
-          onClick={async () => {
-            const c = canvasRef.current;
-            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+{/* 2️⃣ Chia sẻ Facebook */}
+<button
+  onClick={async () => {
+    const c = canvasRef.current;
+    const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
 
-            const formData = new FormData();
-            formData.append("file", blob);
-            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
+    const formData = new FormData();
+    formData.append("file", blob);
+    formData.append("upload_preset", "microsite_cert"); // Cloudinary preset
 
-            try {
-              const res = await fetch(
-                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-                { method: "POST", body: formData }
-              );
-              const data = await res.json();
-              if (data.secure_url) {
-                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  data.secure_url
-                )}`;
-                window.open(fbShareUrl, "_blank");
-              }
-            } catch (err) {
-              console.error(err);
-              alert("Share thất bại");
-            }
-          }}
-          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-        >
-          Chia sẻ
-        </button>
+    try {
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+        { method: "POST", body: formData }
+      );
+      const data = await res.json();
+      if (data.secure_url) {
+        const caption = `First date cùng cốt tại: https://your-vercel-link.vercel.app
+
+#BeChíCốt #CốtChìuBạnChill #NgàyNhịpNhàngBớtLoToang #FirstdatecungCot #marketingonair #MOA2025_Activation #be`;
+
+        const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          data.secure_url
+        )}&quote=${encodeURIComponent(caption)}`;
+
+        window.open(fbShareUrl, "_blank");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Share thất bại");
+    }
+  }}
+  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+>
+  Chia sẻ
+</button>
 
         {/* 3️⃣ Làm lại */}
         <button
