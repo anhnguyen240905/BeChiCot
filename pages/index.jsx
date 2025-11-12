@@ -228,7 +228,6 @@ export default function BeChiCotMicrosite() {
   const [introPage, setIntroPage] = useState(0);
   const [selectedTimetable, setSelectedTimetable] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-  const [introPage, setIntroPage] = useState(1); // 1 → 6
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
