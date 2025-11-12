@@ -461,7 +461,7 @@ return (
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
     
-  <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
+    <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
   
     {/* Nhạc nền */}
     <audio ref={audioRef} src="/bgmusic.mp3" loop />
@@ -860,6 +860,6 @@ return (
     </div>
   </div> 
 )}
-</>
+  </>
 );
 }
