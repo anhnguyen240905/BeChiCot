@@ -226,7 +226,7 @@ const fullTimetableWorker2 = [
   { id: 11, time: "21:30", title: "Chạy nốt Deadline", editable: false },
 ];
 
-// COMPONENT: IntroSlides an toàn
+// COMPONENT: IntroSlides
 function IntroSlides({ onStart }) {
   const [page, setPage] = React.useState(0);
 
@@ -239,25 +239,21 @@ function IntroSlides({ onStart }) {
     "/6.png",
   ];
 
-  const totalPages = backgrounds.length;
-
   const handleNext = () => {
-    if (page < totalPages - 1) setPage((p) => p + 1);
+    if (page < backgrounds.length - 1) setPage(page + 1);
     else onStart(); // hết slide → bắt đầu microsite
   };
 
- return (
+  return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center transition-all duration-500"
-      style={{
-        backgroundImage: `url(${backgrounds[page]})`,
-      }}
+      style={{ backgroundImage: `url(${backgrounds[page]})` }}
     >
       <button
         onClick={handleNext}
         className="px-6 py-3 bg-yellow-500 text-white rounded shadow hover:scale-105 transition"
       >
-        {page === totalPages - 1 ? "Bắt đầu" : "Tiếp tục"}
+        {page === backgrounds.length - 1 ? "Bắt đầu" : "Tiếp tục"}
       </button>
     </div>
   );
@@ -460,8 +456,15 @@ return (
         <meta property="og:url" content="https://be-chi-cot.vercel.app" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-    
-    <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
+
+      {/* Phần intro slides */}
+      {introPage <= 6 ? (
+        <IntroSlides onStart={() => setIntroPage(7)} />
+      ) : (
+        <div
+          className="min-h-screen bg-cover bg-center relative text-gray-800"
+          style={{ backgroundImage: "url('/bg.png')" }}
+        >
   
     {/* Nhạc nền */}
     <audio ref={audioRef} src="/bgmusic.mp3" loop />
