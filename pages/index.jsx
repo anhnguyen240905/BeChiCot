@@ -601,7 +601,7 @@ return (
           const bgColor = t.editable
             ? edited
               ? "bg-yellow-100" // 🟨 user đã sửa
-              : "bg-white" // chưa sửa, vẫn nền trắng
+              : "bg-yellow-100" // chưa sửa, vẫn nền trắng
             : "bg-blue-500 text-white"; // 🟦 hoạt động cố định
 
           return (
