@@ -224,7 +224,7 @@ const fullTimetableWorker2 = [
 // ===============================
 export default function BeChiCotMicrosite() {
   const [role, setRole] = useState(null);
-  const [step, setStep] = useState("chooseRole");
+  const [step, setStep] = useState("intro");
   const [selectedTimetable, setSelectedTimetable] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [introPage, setIntroPage] = useState(1); // 1 → 6
@@ -427,7 +427,55 @@ return (
     >
       {isPlaying ? "Tắt nhạc" : "Bật nhạc"}
     </button>
-      
+
+{/* STEP 0: INTRO PAGES */}
+{step === "intro" && (
+  <div
+    className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center text-center"
+    style={{ backgroundImage: "url('/bg.png')" }}
+  >
+    {/* Ảnh intro tương ứng */}
+    <img
+      src={
+        introPage === 1 ? "/1.png" :
+        introPage === 2 ? "/2.png" :
+        introPage === 3 ? "/3.png" :
+        introPage === 4 ? "/4.png" :
+        introPage === 5 ? "/5.png" :
+        "/6.png"
+      }
+      alt={`Trang giới thiệu ${introPage}`}
+      className="w-[800px] max-w-full mb-8 rounded-2xl shadow-lg transition-all duration-700 ease-in-out"
+    />
+
+    {/* Nút điều hướng */}
+    {introPage < 6 ? (
+      <button
+        onClick={() => setIntroPage(introPage + 1)}
+        className="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+      >
+        Tiếp tục
+      </button>
+    ) : (
+      <button
+        onClick={() => setStep("chooseRole")}
+        className="px-6 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+      >
+        Bắt đầu
+      </button>
+    )}
+
+    {/* Tuỳ chọn: nút bỏ qua intro */}
+    {/* <button
+      onClick={() => setStep("chooseRole")}
+      className="mt-4 text-sm text-gray-500 underline"
+    >
+      Bỏ qua
+    </button> */}
+  </div>
+)}
+
+{/* STEP 1 */}
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
     {/* Ảnh tiêu đề “Bạn là” */}
