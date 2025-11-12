@@ -4,6 +4,7 @@ Version: 2025
 */
 
 import React, { useState, useRef, useEffect } from "react";
+import Head from "next/head";
 
 // COMPONENT: Một ô lịch trình có thể bấm để chỉnh
 function EditableTask({ task, onSelect }) {
@@ -404,6 +405,17 @@ useEffect(() => {
   };
 
 return (
+  <>
+      {/* 🌟 META TAGS CHO LINK PREVIEW */}
+      <Head>
+        <title>Be Chí Cốt Microsite</title>
+        <meta property="og:title" content="Be Chí Cốt Microsite" />
+        <meta property="og:description" content="Trải nghiệm First Date cùng Be Chí Cốt" />
+        <meta property="og:image" content="https://be-chi-cot.vercel.app/Cover.png" />
+        <meta property="og:url" content="https://be-chi-cot.vercel.app" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+    
   <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
   
     {/* Nhạc nền */}
@@ -593,7 +605,7 @@ return (
 
       {/* 🧭 Hiển thị full lịch (gồm cả phần fix và phần user đã sửa) */}
       <div className="divide-y divide-gray-200 w-full mb-6 rounded-lg overflow-hidden">
-        {fullTimetable.map((task, i) => {
+        {finalFullTimetable.map((task, i) => {
   // Nếu user có chỉnh sửa, lấy version đã sửa
   const editedTask = editableTasks.find((t) => t.id === task.id);
   const displayTitle = editedTask ? editedTask.title : task.title;
