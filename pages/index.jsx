@@ -741,7 +741,7 @@ return (
       {/* Step 2 - Kỷ niệm */}
       <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
       <textarea
-        className="w-full border p-2 rounded mt-[20px] mb-2"
+        className="w-full border p-2 rounded mt-[50px]"
         rows={3}
         value={ugc.story}
         onChange={(e) => setUgc((u) => ({ ...u, story: e.target.value }))}
@@ -751,7 +751,7 @@ return (
       {/* Step 3 - Hứa hẹn */}
       <h3 className="font-semibold mb-0">Hứa hẹn cho những buổi "date" tiếp theo</h3>
       <p className="text-sm text-gray-500 mt-1 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-[30px] mb-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-[100px]">
         {promisesOptions.map((p) => (
           <label
             key={p}
@@ -822,44 +822,37 @@ return (
           Lưu lại
         </button>
 
-{/* 2️⃣ Chia sẻ Facebook */}
-<button
-  onClick={() => {
-    const c = canvasRef.current;
-    c.toBlob(async (blob) => {
-      const formData = new FormData();
-      formData.append("file", blob);
-      formData.append("upload_preset", "microsite_cert");
+        {/* 2️⃣ Chia sẻ Facebook */}
+        <button
+          onClick={async () => {
+            const c = canvasRef.current;
+            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
 
-      try {
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-          { method: "POST", body: formData }
-        );
-        const data = await res.json();
+            const formData = new FormData();
+            formData.append("file", blob);
+            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
 
-        if (data.secure_url) {
-          if (navigator.share) {
-            await navigator.share({
-              title: "Be Chí Cốt",
-              text: "Chia sẻ khoảnh khắc của bạn cùng Be Chí Cốt 💛",
-              url: data.secure_url,
-            });
-          } else {
-            // Tạo 1 link tạm để mở Facebook popup chắc chắn
-            const fbWin = window.open("", "_blank");
-            fbWin.location.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
-          }
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Share thất bại");
-      }
-    }, "image/png");
-  }}
->
-  Chia sẻ
-</button>
+            try {
+              const res = await fetch(
+                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+                { method: "POST", body: formData }
+              );
+              const data = await res.json();
+              if (data.secure_url) {
+                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  data.secure_url
+                )}`;
+                window.open(fbShareUrl, "_blank");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Share thất bại");
+            }
+          }}
+          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+        >
+          Chia sẻ
+        </button>
 
         {/* 3️⃣ Làm lại */}
         <button
