@@ -328,11 +328,11 @@ function togglePromise(p) {
 
 function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFontSize = 10) {
     let fontSize = maxFontSize;
-    ctx.font = `${fontSize}px Arial`;
+    ctx.font = `${fontSize}px Helvetica`;
   
     while (ctx.measureText(text).width > maxWidth && fontSize > minFontSize) {
       fontSize -= 1;
-      ctx.font = `${fontSize}px Arial`;
+      ctx.font = `${fontSize}px Helvetica`;
     }
 
     ctx.fillText(text, x, y);
