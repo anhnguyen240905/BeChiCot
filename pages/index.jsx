@@ -363,7 +363,7 @@ function drawSingleLineText(ctx, text, x, y, maxWidth, maxFontSize = 18, minFont
       ctx.textBaseline = "top"; // y là top
 
       drawSingleLineText(ctx, feelingsText, centerX, 358, textWidth);
-      drawSingleLineText(ctx, storyText, centerX, 465, textWidth);
+      drawSingleLineText(ctx, storyText, centerX, 466, textWidth);
       drawSingleLineText(ctx, promisesText, centerX, 580, textWidth);
 
     };
