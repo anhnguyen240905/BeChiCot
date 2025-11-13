@@ -825,23 +825,14 @@ return (
 {/* 2️⃣ Chia sẻ Facebook */}
 <button
   onClick={async () => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const c = canvasRef.current;
     if (!c) return;
 
-    // Mở popup ngay lập tức để mobile không chặn
-    const shareWindow = isMobile ? window.open("", "_blank") : null;
+    // Chuyển canvas sang base64 JPEG
+    const dataUrl = c.toDataURL("image/jpeg", 0.9);
 
-    // Chuyển canvas sang JPEG nén nhẹ
-    const blob = await new Promise((resolve) =>
-      setTimeout(() => c.toBlob(resolve, "image/jpeg", 0.9), 50)
-    );
-
-    if (!blob) {
-      alert("Không tạo được hình ảnh!");
-      if (shareWindow) shareWindow.close();
-      return;
-    }
+    // Chia tách base64 để upload lên Cloudinary
+    const blob = await (await fetch(dataUrl)).blob();
 
     const formData = new FormData();
     formData.append("file", blob);
@@ -856,19 +847,13 @@ return (
 
       if (data.secure_url) {
         const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
-        if (isMobile && shareWindow) {
-          shareWindow.location.href = fbShareUrl; // cập nhật URL popup
-        } else {
-          window.open(fbShareUrl, "_blank");
-        }
+        window.open(fbShareUrl, "_blank"); // mobile + desktop đều OK
       } else {
         alert("Share thất bại");
-        if (shareWindow) shareWindow.close();
       }
     } catch (err) {
       console.error(err);
       alert("Share thất bại");
-      if (shareWindow) shareWindow.close();
     }
   }}
   className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
