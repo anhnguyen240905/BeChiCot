@@ -830,23 +830,17 @@ return (
       const data = await res.json();
 
       if (data.secure_url) {
-        // --- MOBILE SHARE (Web Share API) ---
-        if (navigator.share) {
-          try {
-            await navigator.share({
-              title: "Be Chí Cốt",
-              text: "Chia sẻ khoảnh khắc của bạn cùng Be Chí Cốt 💛",
-              url: data.secure_url,
-            });
-          } catch (err) {
-            console.warn("User cancelled share:", err);
-          }
-        } else {
-          // --- FALLBACK (Desktop) ---
-          const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            data.secure_url
-          )}`;
-          window.open(fbShareUrl, "_blank");
+        // ✅ Dùng sharer URL của Facebook
+        const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          data.secure_url
+        )}`;
+
+        // ✅ Mở đúng cách để tránh bị popup-block trên mobile
+        const newWin = window.open(fbShareUrl, "_blank");
+
+        // Nếu bị popup-block (trả về null), fallback sang redirect
+        if (!newWin) {
+          window.location.href = fbShareUrl;
         }
       }
     } catch (err) {
