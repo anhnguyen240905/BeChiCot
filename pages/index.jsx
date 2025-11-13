@@ -821,15 +821,17 @@ return (
         >
           Lưu lại
         </button>
-        {/* 2️⃣ Chia sẻ Facebook */}
+
+{/* 2️⃣ Chia sẻ Facebook */}
 <button
   onClick={async () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const c = canvasRef.current;
     if (!c) return;
 
+    // Chuyển canvas sang JPEG nén nhẹ để mobile upload ổn định hơn
     const blob = await new Promise((resolve) =>
-      setTimeout(() => c.toBlob(resolve, "image/png"), 50)
+      setTimeout(() => c.toBlob(resolve, "image/jpeg", 0.9), 50)
     );
 
     if (!blob) {
@@ -839,10 +841,11 @@ return (
 
     const formData = new FormData();
     formData.append("file", blob);
-    formData.append("upload_preset", "microsite_cert");
+    formData.append("upload_preset", "microsite_cert"); // preset Cloudinary
 
     try {
       if (isMobile) {
+        // Mở popup ngay để tránh bị chặn trên mobile
         const shareWindow = window.open("", "_blank");
 
         const res = await fetch(
@@ -853,17 +856,19 @@ return (
 
         if (data.secure_url) {
           const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
-          shareWindow.location.href = fbShareUrl;
+          shareWindow.location.href = fbShareUrl; // cập nhật URL popup
         } else {
           shareWindow.close();
           alert("Share thất bại");
         }
       } else {
+        // Desktop: mở sau khi upload xong
         const res = await fetch(
           "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
           { method: "POST", body: formData }
         );
         const data = await res.json();
+
         if (data.secure_url) {
           const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
           window.open(fbShareUrl, "_blank");
@@ -880,6 +885,7 @@ return (
 >
   Chia sẻ
 </button>
+
 
         {/* 3️⃣ Làm lại */}
         <button
