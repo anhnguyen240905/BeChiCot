@@ -829,63 +829,52 @@ return (
     const c = canvasRef.current;
     if (!c) return;
 
-    // Chuyển canvas sang JPEG nén nhẹ để mobile upload ổn định hơn
+    // Mở popup ngay lập tức để mobile không chặn
+    const shareWindow = isMobile ? window.open("", "_blank") : null;
+
+    // Chuyển canvas sang JPEG nén nhẹ
     const blob = await new Promise((resolve) =>
       setTimeout(() => c.toBlob(resolve, "image/jpeg", 0.9), 50)
     );
 
     if (!blob) {
       alert("Không tạo được hình ảnh!");
+      if (shareWindow) shareWindow.close();
       return;
     }
 
     const formData = new FormData();
     formData.append("file", blob);
-    formData.append("upload_preset", "microsite_cert"); // preset Cloudinary
+    formData.append("upload_preset", "microsite_cert");
 
     try {
-      if (isMobile) {
-        // Mở popup ngay để tránh bị chặn trên mobile
-        const shareWindow = window.open("", "_blank");
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+        { method: "POST", body: formData }
+      );
+      const data = await res.json();
 
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-          { method: "POST", body: formData }
-        );
-        const data = await res.json();
-
-        if (data.secure_url) {
-          const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
+      if (data.secure_url) {
+        const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
+        if (isMobile && shareWindow) {
           shareWindow.location.href = fbShareUrl; // cập nhật URL popup
         } else {
-          shareWindow.close();
-          alert("Share thất bại");
+          window.open(fbShareUrl, "_blank");
         }
       } else {
-        // Desktop: mở sau khi upload xong
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-          { method: "POST", body: formData }
-        );
-        const data = await res.json();
-
-        if (data.secure_url) {
-          const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
-          window.open(fbShareUrl, "_blank");
-        } else {
-          alert("Share thất bại");
-        }
+        alert("Share thất bại");
+        if (shareWindow) shareWindow.close();
       }
     } catch (err) {
       console.error(err);
       alert("Share thất bại");
+      if (shareWindow) shareWindow.close();
     }
   }}
   className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
 >
   Chia sẻ
 </button>
-
 
         {/* 3️⃣ Làm lại */}
         <button
