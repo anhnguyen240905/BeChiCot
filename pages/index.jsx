@@ -812,17 +812,15 @@ return (
           Lưu lại
         </button>
 
-        {/* 2️⃣ Chia sẻ Facebook */}
+       {/* 2️⃣ Chia sẻ Facebook */}
         <button
           onClick={async () => {
             const c = canvasRef.current;
-            const blob = await new Promise((resolve) =>
-              c.toBlob(resolve, "image/png")
-            );
+            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
 
             const formData = new FormData();
             formData.append("file", blob);
-            formData.append("upload_preset", "microsite_cert"); // Cloudinary preset
+            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
 
             try {
               const res = await fetch(
@@ -831,14 +829,9 @@ return (
               );
               const data = await res.json();
               if (data.secure_url) {
-                const caption = `First date cùng cốt tại: https://your-vercel-link.vercel.app
-
-#BeChíCốt #CốtChìuBạnChill #NgàyNhịpNhàngBớtLoToang #FirstdatecungCot #marketingonair #MOA2025_Activation #be`;
-
                 const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
                   data.secure_url
-                )}&quote=${encodeURIComponent(caption)}`;
-
+                )}`;
                 window.open(fbShareUrl, "_blank");
               }
             } catch (err) {
