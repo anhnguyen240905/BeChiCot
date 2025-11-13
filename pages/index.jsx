@@ -815,30 +815,41 @@ return (
         {/* 2️⃣ Chia sẻ Facebook */}
         <button
           onClick={async () => {
-            const c = canvasRef.current;
-            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+  // ✅ Mở sẵn popup ngay khi người dùng click (được phép trên mobile)
+  const newTab = window.open("", "_blank");
 
-            const formData = new FormData();
-            formData.append("file", blob);
-            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
+  const c = canvasRef.current;
+  const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
 
-            try {
-              const res = await fetch(
-                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-                { method: "POST", body: formData }
-              );
-              const data = await res.json();
-              if (data.secure_url) {
-                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  data.secure_url
-                )}`;
-                window.open(fbShareUrl, "_blank");
-              }
-            } catch (err) {
-              console.error(err);
-              alert("Share thất bại");
-            }
-          }}
+  const formData = new FormData();
+  formData.append("file", blob);
+  formData.append("upload_preset", "microsite_cert");
+
+  try {
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+      { method: "POST", body: formData }
+    );
+    const data = await res.json();
+    if (data.secure_url) {
+      const caption =
+        "First date cùng cốt tại: https://your-vercel-link.vercel.app\n\n#BeChíCốt #CốtChìuBạnChill #NgàyNhịpNhàngBớtLoToang #FirstdatecungCot #marketingonair #MOA2025_Activation #be";
+      const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        data.secure_url
+      )}&quote=${encodeURIComponent(caption)}`;
+
+      // ✅ Gán lại URL cho tab đã mở (thay vì window.open sau khi upload)
+      newTab.location.href = fbShareUrl;
+    } else {
+      newTab.close();
+      alert("Upload ảnh thất bại");
+    }
+  } catch (err) {
+    console.error(err);
+    newTab.close();
+    alert("Share thất bại");
+  }
+}}
           className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
         >
           Chia sẻ
