@@ -434,7 +434,13 @@ return (
 
 {/* STEP 0: INTRO + COVER */}
 {step === "intro" && (
-  <div className="relative w-screen h-screen flex flex-col items-center justify-end overflow-hidden">
+  <div
+    className="relative w-screen h-screen flex flex-col items-center justify-end overflow-hidden"
+    style={{
+      touchAction: "pan-y pinch-zoom", // ✅ Cho phép zoom bằng tay
+      overflow: "auto",                // ✅ Cho phép cuộn / phóng to
+    }}
+  >
     {/* Ảnh nền toàn màn hình (cover + 6 intro) */}
     <img
       src={
@@ -447,7 +453,10 @@ return (
         : "/6.png"
       }
       alt={`Trang giới thiệu ${introPage}`}
-      className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-200 ease-in-out"
+      className="absolute top-0 left-0 max-w-none w-auto h-auto object-contain transition-opacity duration-200 ease-in-out"
+      style={{
+        transformOrigin: "center center", // ✅ Đảm bảo zoom từ giữa ảnh
+      }}
     />
 
     {/* Nút điều hướng */}
@@ -816,7 +825,7 @@ return (
           Lưu lại
         </button>
 
-       {/* 2️⃣ Chia sẻ Facebook */}
+{/* 2️⃣ Chia sẻ Facebook */}
 <button
   onClick={async () => {
     const c = canvasRef.current;
@@ -834,17 +843,23 @@ return (
       const data = await res.json();
 
       if (data.secure_url) {
-        // ✅ Dùng sharer URL của Facebook
-        const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          data.secure_url
-        )}`;
-
-        // ✅ Mở đúng cách để tránh bị popup-block trên mobile
-        const newWin = window.open(fbShareUrl, "_blank");
-
-        // Nếu bị popup-block (trả về null), fallback sang redirect
-        if (!newWin) {
-          window.location.href = fbShareUrl;
+        // --- MOBILE SHARE (Web Share API) ---
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "Be Chí Cốt",
+              text: "Chia sẻ khoảnh khắc của bạn cùng Be Chí Cốt 💛",
+              url: data.secure_url,
+            });
+          } catch (err) {
+            console.warn("User cancelled share:", err);
+          }
+        } else {
+          // --- FALLBACK (Desktop) ---
+          const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            data.secure_url
+          )}`;
+          window.open(fbShareUrl, "_blank");
         }
       }
     } catch (err) {
