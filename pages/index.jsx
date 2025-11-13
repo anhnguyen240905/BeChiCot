@@ -741,7 +741,7 @@ return (
       {/* Step 2 - Kỷ niệm */}
       <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
       <textarea
-        className="w-full border p-2 rounded mt-1 mb-2"
+        className="w-full border p-2 rounded mt-[20px] mb-2"
         rows={3}
         value={ugc.story}
         onChange={(e) => setUgc((u) => ({ ...u, story: e.target.value }))}
@@ -751,7 +751,7 @@ return (
       {/* Step 3 - Hứa hẹn */}
       <h3 className="font-semibold mb-0">Hứa hẹn cho những buổi "date" tiếp theo</h3>
       <p className="text-sm text-gray-500 mt-1 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 mb-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-[30px] mb-2">
         {promisesOptions.map((p) => (
           <label
             key={p}
@@ -824,66 +824,42 @@ return (
 
 {/* 2️⃣ Chia sẻ Facebook */}
 <button
-  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-  onClick={async () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  onClick={() => {
+    const c = canvasRef.current;
+    c.toBlob(async (blob) => {
+      const formData = new FormData();
+      formData.append("file", blob);
+      formData.append("upload_preset", "microsite_cert");
 
-    // 1️⃣ Lấy blob từ canvas
-    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
-    if (!blob) {
-      alert("Không thể tạo ảnh certificate.");
-      return;
-    }
-
-    // 2️⃣ Upload lên Cloudinary
-    const formData = new FormData();
-    formData.append("file", blob);
-    formData.append("upload_preset", "microsite_cert"); // preset Cloudinary
-
-    try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (!data.secure_url) {
-        alert("Upload thất bại.");
-        return;
-      }
-
-      const imageUrl = data.secure_url;
-
-      // 3️⃣ Mobile: Web Share API
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: "Be Chí Cốt",
-            text: "Chia sẻ khoảnh khắc của bạn cùng Be Chí Cốt 💛",
-            url: imageUrl,
-          });
-        } catch (err) {
-          console.warn("User cancelled share:", err);
-        }
-      } else {
-        // 4️⃣ Desktop: mở Facebook share link tới /share page
-        const desktopShareUrl = `https://be-chi-cot.vercel.app/share?img=${encodeURIComponent(imageUrl)}`;
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(desktopShareUrl)}`,
-          "_blank"
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+          { method: "POST", body: formData }
         );
+        const data = await res.json();
+
+        if (data.secure_url) {
+          if (navigator.share) {
+            await navigator.share({
+              title: "Be Chí Cốt",
+              text: "Chia sẻ khoảnh khắc của bạn cùng Be Chí Cốt 💛",
+              url: data.secure_url,
+            });
+          } else {
+            // Tạo 1 link tạm để mở Facebook popup chắc chắn
+            const fbWin = window.open("", "_blank");
+            fbWin.location.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Share thất bại");
       }
-    } catch (err) {
-      console.error(err);
-      alert("Share thất bại.");
-    }
+    }, "image/png");
   }}
 >
   Chia sẻ
 </button>
-
-
 
         {/* 3️⃣ Làm lại */}
         <button
