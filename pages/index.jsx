@@ -822,52 +822,39 @@ return (
           Lưu lại
         </button>
 
-{/* 2️⃣ Chia sẻ Facebook */}
-<button
-  onClick={async () => {
-    const c = canvasRef.current;
-    const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+       {/* 2️⃣ Chia sẻ Facebook */}
+              <button
+                onClick={async () => {
+                  const c = canvasRef.current;
+                  const blob = await new Promise((resolve) =>
+                    c.toBlob(resolve, "image/png")
+                  );
 
-    const formData = new FormData();
-    formData.append("file", blob);
-    formData.append("upload_preset", "microsite_cert"); // preset Cloudinary
+                  const formData = new FormData();
+                  formData.append("file", blob);
+                  formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
 
-    try {
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-        { method: "POST", body: formData }
-      );
-      const data = await res.json();
-
-      if (data.secure_url) {
-        // --- MOBILE SHARE (Web Share API) ---
-        if (navigator.share) {
-          try {
-            await navigator.share({
-              title: "Be Chí Cốt",
-              text: "Chia sẻ khoảnh khắc của bạn cùng Be Chí Cốt 💛",
-              url: data.secure_url,
-            });
-          } catch (err) {
-            console.warn("User cancelled share:", err);
-          }
-        } else {
-          // --- FALLBACK (Desktop) ---
-          const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            data.secure_url
-          )}`;
-          window.open(fbShareUrl, "_blank");
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Share thất bại");
-    }
-  }}
-  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
->
-  Chia sẻ
-</button>
+                  try {
+                    const res = await fetch(
+                      "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+                      { method: "POST", body: formData }
+                    );
+                    const data = await res.json();
+                    if (data.secure_url) {
+                      const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                        data.secure_url
+                      )}`;
+                      window.open(fbShareUrl, "_blank");
+                    }
+                  } catch (err) {
+                    console.error(err);
+                    alert("Share thất bại");
+                  }
+                }}
+                className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+              >
+                Chia sẻ
+              </button>
 
         {/* 3️⃣ Làm lại */}
         <button
