@@ -822,44 +822,46 @@ return (
           Lưu lại
         </button>
 
-{/* 2️⃣ Chia sẻ Facebook */}
-<button
-  onClick={async () => {
-    const c = canvasRef.current;
-    if (!c) return;
+        {/* 2️⃣ Chia sẻ link preview */}
+        <button
+          onClick={async () => {
+            const c = canvasRef.current;
+            if (!c) return;
 
-    // Chuyển canvas sang base64 JPEG
-    const dataUrl = c.toDataURL("image/jpeg", 0.9);
+            // Chuyển canvas sang base64 rồi upload lên Cloudinary
+            const dataUrl = c.toDataURL("image/jpeg", 0.9);
+            const blob = await (await fetch(dataUrl)).blob();
 
-    // Chia tách base64 để upload lên Cloudinary
-    const blob = await (await fetch(dataUrl)).blob();
+            const formData = new FormData();
+            formData.append("file", blob);
+            formData.append("upload_preset", "microsite_cert");
 
-    const formData = new FormData();
-    formData.append("file", blob);
-    formData.append("upload_preset", "microsite_cert");
+            try {
+              const res = await fetch(
+                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+                { method: "POST", body: formData }
+              );
+              const data = await res.json();
 
-    try {
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-        { method: "POST", body: formData }
-      );
-      const data = await res.json();
-
-      if (data.secure_url) {
-        const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(data.secure_url)}`;
-        window.open(fbShareUrl, "_blank"); // mobile + desktop đều OK
-      } else {
-        alert("Share thất bại");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Share thất bại");
-    }
-  }}
-  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
->
-  Chia sẻ
-</button>
+              if (data.secure_url) {
+                // Share link tới landing page preview certificate
+                const shareUrl = `https://be-chi-cot.vercel.app/certificate-preview?img=${encodeURIComponent(data.secure_url)}`;
+                window.open(
+                  `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+                  "_blank"
+                );
+              } else {
+                alert("Share thất bại");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Share thất bại");
+            }
+          }}
+          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+        >
+          Chia sẻ
+        </button>
 
         {/* 3️⃣ Làm lại */}
         <button
@@ -870,7 +872,7 @@ return (
         </button>
       </div>
     </div>
-  </div> 
+  </div>
 )}
   </div> 
   </> 
