@@ -741,7 +741,7 @@ return (
       {/* Step 2 - Kỷ niệm */}
       <h3 className="font-semibold mb-2">Kể lại kỷ niệm sau buổi "First Date" cùng Be Chí Cốt</h3>
       <textarea
-        className="w-full border p-2 rounded mb-2"
+        className="w-full border p-2 rounded mt-4 mb-2"
         rows={3}
         value={ugc.story}
         onChange={(e) => setUgc((u) => ({ ...u, story: e.target.value }))}
@@ -751,7 +751,7 @@ return (
       {/* Step 3 - Hứa hẹn */}
       <h3 className="font-semibold mb-0">Hứa hẹn cho những buổi "date" tiếp theo</h3>
       <p className="text-sm text-gray-500 mt-1 mb-2">Chọn tối đa 2 lựa chọn bạn nhé</p>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-6 mb-2">
         {promisesOptions.map((p) => (
           <label
             key={p}
