@@ -415,6 +415,10 @@ return (
         <meta property="og:image" content="https://be-chi-cot.vercel.app/Cover.png" />
         <meta property="og:url" content="https://be-chi-cot.vercel.app" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+  />
       </Head>
     <div className="min-h-screen bg-cover bg-center relative text-gray-800" style={{ backgroundImage: "url('/bg.png')" }}>
     {/* Nhạc nền */}
