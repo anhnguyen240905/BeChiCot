@@ -448,7 +448,7 @@ return (
 
     {/* Nút điều hướng */}
     <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 z-10">
-      {introPage < 6 ? (
+      {introPage < 7 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
           className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
@@ -812,7 +812,7 @@ return (
           Lưu lại
         </button>
 
-       {/* 2️⃣ Chia sẻ Facebook */}
+        {/* 2️⃣ Chia sẻ Facebook */}
         <button
           onClick={async () => {
             const c = canvasRef.current;
