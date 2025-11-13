@@ -823,36 +823,48 @@ return (
         </button>
 
         {/* 2️⃣ Chia sẻ Facebook */}
-        <button
-          onClick={async () => {
-            const c = canvasRef.current;
-            const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+<button
+  onClick={async () => {
+    const c = canvasRef.current;
 
-            const formData = new FormData();
-            formData.append("file", blob);
-            formData.append("upload_preset", "microsite_cert"); // đổi tên preset Cloudinary
+    // 1️⃣ Mở pop-up ngay
+    const fbShareWindow = window.open("about:blank", "_blank");
 
-            try {
-              const res = await fetch(
-                "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
-                { method: "POST", body: formData }
-              );
-              const data = await res.json();
-              if (data.secure_url) {
-                const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  data.secure_url
-                )}`;
-                window.open(fbShareUrl, "_blank");
-              }
-            } catch (err) {
-              console.error(err);
-              alert("Share thất bại");
-            }
-          }}
-          className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
-        >
-          Chia sẻ
-        </button>
+    try {
+      // 2️⃣ Upload ảnh lên Cloudinary
+      const blob = await new Promise((resolve) => c.toBlob(resolve, "image/png"));
+      const formData = new FormData();
+      formData.append("file", blob);
+      formData.append("upload_preset", "microsite_cert"); // đổi tên preset nếu cần
+
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dxrfxl6v7/image/upload",
+        { method: "POST", body: formData }
+      );
+
+      const data = await res.json();
+
+      if (data.secure_url) {
+        // 3️⃣ Khi upload xong, set location của pop-up sang URL Facebook share
+        const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          data.secure_url
+        )}`;
+        fbShareWindow.location.href = fbShareUrl;
+      } else {
+        fbShareWindow.close();
+        alert("Upload thất bại, không thể share Facebook");
+      }
+    } catch (err) {
+      console.error(err);
+      fbShareWindow.close();
+      alert("Share thất bại");
+    }
+  }}
+  className="px-5 py-2 bg-blue-600 text-white rounded shadow hover:scale-105 transition"
+>
+  Chia sẻ
+</button>
+
 
         {/* 3️⃣ Làm lại */}
         <button
