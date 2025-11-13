@@ -453,10 +453,7 @@ return (
         : "/6.png"
       }
       alt={`Trang giới thiệu ${introPage}`}
-      className="absolute top-0 left-0 max-w-none w-auto h-auto object-contain transition-opacity duration-200 ease-in-out"
-      style={{
-        transformOrigin: "center center", // ✅ Đảm bảo zoom từ giữa ảnh
-      }}
+      className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-200 ease-in-out"
     />
 
     {/* Nút điều hướng */}
