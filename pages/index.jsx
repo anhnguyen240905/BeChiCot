@@ -435,30 +435,26 @@ return (
 {/* STEP 0: INTRO + COVER */}
 {step === "intro" && (
   <div
-    className="relative w-screen h-screen flex flex-col items-center justify-end overflow-hidden"
+    className="relative w-screen h-screen flex flex-col items-center justify-start overflow-auto md:overflow-hidden"
     style={{
-      touchAction: "pan-y pinch-zoom", // ✅ Cho phép zoom bằng tay
-      overflow: "auto",                // ✅ Cho phép cuộn / phóng to
+      touchAction: "pan-y pinch-zoom", // ✅ Cho phép pinch zoom trên mobile
     }}
   >
     {/* Ảnh nền toàn màn hình (cover + 6 intro) */}
-    <img
-      src={
-        introPage === 0 ? "/Cover.png"
-        : introPage === 1 ? "/1.png"
-        : introPage === 2 ? "/2.png"
-        : introPage === 3 ? "/3.png"
-        : introPage === 4 ? "/4.png"
-        : introPage === 5 ? "/5.png"
-        : "/6.png"
-      }
-      alt={`Trang giới thiệu ${introPage}`}
-      className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-200 ease-in-out"
-    />
+    {[ "/Cover.png", "/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png" ].map((src, idx) => (
+      <img
+        key={idx}
+        src={src}
+        alt={`Trang giới thiệu ${idx}`}
+        className={`w-full md:w-full ${
+          idx === introPage ? "block" : "hidden"
+        } object-contain md:object-cover transition-opacity duration-200 ease-in-out`}
+      />
+    ))}
 
     {/* Nút điều hướng */}
     <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 z-10">
-      {introPage < 7 ? (
+      {introPage < 6 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
           className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
@@ -473,18 +469,10 @@ return (
           Bắt đầu
         </button>
       )}
-
-      {/* (tuỳ chọn) nút bỏ qua intro */}
-      {/* <button
-        onClick={() => setStep('chooseRole')}
-        className="mt-4 text-sm text-gray-300 underline"
-      >
-        Bỏ qua
-      </button> */}
     </div>
   </div>
 )}
-
+      
 {/* STEP 1 */}
 {step === "chooseRole" && (
   <div className="flex flex-col items-center justify-center min-h-screen text-center">
