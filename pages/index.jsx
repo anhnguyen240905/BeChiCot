@@ -451,16 +451,18 @@ return (
     ))}
 
     {/* DESKTOP IMAGES */}
-    {[ "Cover", "1", "2", "3", "4", "5", "6" ].map((name, idx) => (
-      <img
-        key={name}
-        src={`/${name}.png`}
-        alt={name}
-        className={`hidden md:block w-full h-screen ${
-          idx === introPage ? "block" : "hidden"
-        } object-cover`}
-      />
-    ))}
+{["Cover", "1", "2", "3", "4", "5", "6"].map((name, idx) => (
+  <img
+    key={name}
+    src={`/${name}.png`}
+    alt={name}
+    className={`
+      hidden md:block 
+      w-full h-screen object-cover
+      ${idx === introPage ? "opacity-100" : "opacity-0 pointer-events-none"}
+    `}
+  />
+))}
 
     {/* BUTTONS */}
     <div className="absolute bottom-[15%] left-1/2 -translate-x-1/2 z-20">
