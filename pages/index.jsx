@@ -435,40 +435,45 @@ return (
 {/* STEP 0: INTRO + COVER */}
 {step === "intro" && (
   <div
-    className="relative w-screen h-screen flex flex-col items-center justify-start overflow-auto md:overflow-hidden"
-    style={{ touchAction: "pan-y pinch-zoom" }} // Cho phép pinch zoom mobile
+    className="relative w-screen h-screen overflow-hidden"
+    style={{ touchAction: "pan-y pinch-zoom" }}
   >
-    {/* MOBILE IMAGES (mob) */}
-    {[ "Covermob", "1mob", "2mob", "3mob", "4mob", "5mob", "6mob" ].map((name, idx) => (
+
+    {/* MOBILE (mob) */}
+    {["Covermob","1mob","2mob","3mob","4mob","5mob","6mob"].map((name, idx) => (
       <img
         key={name}
         src={`/${name}.png`}
         alt={name}
-        className={`block md:hidden w-full ${
-          idx === introPage ? "block" : "hidden"
-        } object-contain`}
+        className={`
+          absolute top-0 left-0 w-full h-full object-contain
+          md:hidden
+          transition-opacity duration-300
+          ${introPage === idx ? "opacity-100" : "opacity-0 pointer-events-none"}
+        `}
       />
     ))}
 
-    {/* DESKTOP IMAGES */}
-{["Cover", "1", "2", "3", "4", "5", "6"].map((name, idx) => (
-  <img
-    key={name}
-    src={`/${name}.png`}
-    alt={name}
-    className={`
-      hidden md:block 
-      w-full h-screen object-cover
-      ${idx === introPage ? "opacity-100" : "opacity-0 pointer-events-none"}
-    `}
-  />
-))}
+    {/* DESKTOP */}
+    {["Cover","1","2","3","4","5","6"].map((name, idx) => (
+      <img
+        key={name}
+        src={`/${name}.png`}
+        alt={name}
+        className={`
+          absolute top-0 left-0 w-full h-full object-cover
+          hidden md:block
+          transition-opacity duration-300
+          ${introPage === idx ? "opacity-100" : "opacity-0 pointer-events-none"}
+        `}
+      />
+    ))}
 
-    {/* BUTTONS */}
+    {/* BUTTON */}
     <div className="absolute bottom-[15%] left-1/2 -translate-x-1/2 z-20">
       {introPage < 6 ? (
         <button
-          onClick={() => setIntroPage(introPage + 1)}
+          onClick={() => setIntroPage(prev => prev + 1)}
           className="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Tiếp tục
