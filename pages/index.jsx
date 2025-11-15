@@ -436,24 +436,34 @@ return (
 {step === "intro" && (
   <div
     className="relative w-screen h-screen flex flex-col items-center justify-start overflow-auto md:overflow-hidden"
-    style={{
-      touchAction: "pan-y pinch-zoom", // ✅ Cho phép pinch zoom trên mobile
-    }}
+    style={{ touchAction: "pan-y pinch-zoom" }} // Cho phép pinch zoom mobile
   >
-    {/* Ảnh nền toàn màn hình (cover + 6 intro) */}
-    {[ "/Cover.png", "/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png" ].map((src, idx) => (
+    {/* MOBILE IMAGES (mob) */}
+    {[ "Covermob", "1mob", "2mob", "3mob", "4mob", "5mob", "6mob" ].map((name, idx) => (
       <img
-        key={idx}
-        src={src}
-        alt={`Trang giới thiệu ${idx}`}
-        className={`w-full md:w-full ${
+        key={name}
+        src={`/${name}.png`}
+        alt={name}
+        className={`block md:hidden w-full ${
           idx === introPage ? "block" : "hidden"
-        } object-contain md:object-cover transition-opacity duration-200 ease-in-out`}
+        } object-contain`}
       />
     ))}
 
-    {/* Nút điều hướng */}
-    <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 z-10">
+    {/* DESKTOP IMAGES */}
+    {[ "Cover", "1", "2", "3", "4", "5", "6" ].map((name, idx) => (
+      <img
+        key={name}
+        src={`/${name}.png`}
+        alt={name}
+        className={`hidden md:block w-full h-screen ${
+          idx === introPage ? "block" : "hidden"
+        } object-cover`}
+      />
+    ))}
+
+    {/* BUTTONS */}
+    <div className="absolute bottom-[15%] left-1/2 -translate-x-1/2 z-20">
       {introPage < 6 ? (
         <button
           onClick={() => setIntroPage(introPage + 1)}
@@ -463,7 +473,7 @@ return (
         </button>
       ) : (
         <button
-          onClick={() => setStep('chooseRole')}
+          onClick={() => setStep("chooseRole")}
           className="px-8 py-3 bg-yellow-600 text-white font-semibold rounded-2xl shadow hover:scale-105 transition-transform duration-300"
         >
           Bắt đầu
